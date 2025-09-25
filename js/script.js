@@ -17,11 +17,11 @@ const projectsData = [
     {
         id: 'friendsgotogether',
         stage: 'Production Platform',
-        title: 'FriendsGoTogether',
+        title: 'CampusCaravan',
         headline: 'Production-deployed rideshare platform serving real users',
         highlights: ['Live at friendsgotogether.com', 'Real user base', 'Enterprise security'],
         summary: 'Full-stack platform with enterprise architecture and real-world impact.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `FriendsGoTogether stands as a comprehensive production-deployed rideshare platform addressing critical transportation challenges affecting millions of university students. Built entirely from scratch and live at friendsgotogether.com, this platform demonstrates enterprise-level software architecture with advanced security implementations and real-time communication systems.`,
         links: [
             { label: 'Live Deployment', url: 'https://friendsgotogether.com', type: 'live' },
@@ -72,11 +72,11 @@ const projectsData = [
     {
         id: 'alaeautomates',
         stage: 'Enterprise Automation',
-        title: 'AlaeAutomates Business Platform Suite',
+        title: 'AlaeAutomates',
         headline: 'Enterprise automation platform serving real business client',
         highlights: ['United Corporate Services', 'Multi-iteration evolution', 'Production deployment'],
         summary: 'Comprehensive business automation for real client with separated architecture.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `AlaeAutomates represents a comprehensive business automation platform developed for United Corporate Services (UCS) through multiple professional iterations. This enterprise-grade solution evolved from initial concept to sophisticated separated architecture, demonstrating practical business automation addressing real-world financial document processing challenges.`,
         links: [
             { label: 'AlaeAutomates 2.0', url: 'https://alaeautomates.up.railway.app/', type: 'live' },
@@ -129,11 +129,11 @@ const projectsData = [
     {
         id: 'laundry',
         stage: 'PWA + NFC Integration',
-        title: 'Smart Laundry Management System',
+        title: 'LaundryStatus',
         headline: 'Innovative NFC integration solving real dormitory problems',
         highlights: ['Cutting-edge NFC technology', 'Real problem solving', 'Dual deployments'],
         summary: 'Revolutionary system addressing genuine university residential challenges.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `The Smart Laundry Management System represents an innovative dual-platform solution born from real-world frustration at Flint Village Apartments, University at Buffalo. This cutting-edge system tackles the daily challenge faced by hundreds of residents sharing limited laundry facilities through advanced web technologies and pioneering NFC integration.`,
         links: [
             { label: 'Production Platform', url: 'https://modernlaundry.onrender.com/', type: 'live' },
@@ -186,11 +186,11 @@ const projectsData = [
     {
         id: 'expensetracker',
         stage: 'Government-Grade Security',
-        title: 'Enterprise Expense Tracking System',
+        title: 'ExpenseTracker',
         headline: 'Government-grade security with real-time financial management',
         highlights: ['AES-256 encryption', 'Invite-only system', 'Real-time WebSocket sync'],
         summary: 'Sophisticated financial tracking system with enterprise-grade reliability.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `The Enterprise Expense Tracking System represents a comprehensive real-time financial management platform designed with government-level security standards and enterprise-grade reliability. Built with invite-only architecture, bulletproof AES-256 encryption, and comprehensive threat detection systems, this platform addresses stringent enterprise requirements for secure financial data management with real-time collaboration capabilities and detailed audit logging.`,
         links: [
             { label: 'Live Production System', url: 'https://expensetracking.up.railway.app/', type: 'live' },
@@ -242,11 +242,11 @@ const projectsData = [
     {
         id: 'webserver',
         stage: 'Systems Engineering',
-        title: 'Custom Web Server Foundation',
+        title: 'No Framework WebApp',
         headline: 'Zero-framework HTTP and WebSocket server from scratch',
         highlights: ['Pure Python sockets', 'RFC 6455 compliant', 'Protocol mastery'],
         summary: 'Complete web server demonstrating mastery of network fundamentals.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `Custom Web Server Foundation represents a comprehensive study in network fundamentals, delivering HTTP routing, WebSocket chat, and authenticated sessions without relying on web frameworks. This implementation handles the entire request pipeline from TCP handshake through persistence, demonstrating deep understanding of protocol-level web server architecture and real-time communication systems.`,
         links: [],
         sections: [
@@ -295,11 +295,11 @@ const projectsData = [
     {
         id: 'distributed',
         stage: 'Graduate Research',
-        title: 'Distributed Systems Protocol Suite',
+        title: 'Distributed Systems Protocol',
         headline: 'Advanced distributed computing algorithms with MIT 6.824 compliance',
         highlights: ['Go concurrency mastery', 'MIT 6.824 compliance', 'Byzantine fault tolerance'],
         summary: 'Graduate-level distributed system design patterns and consensus algorithms.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `The Distributed Systems Protocol Suite represents a comprehensive implementation of fundamental distributed computing algorithms developed for advanced coursework (CSE 486/586). This Go-based project series demonstrates mastery of complex distributed computing concepts including parallel processing, fault tolerance, consensus algorithms, and distributed snapshots at the protocol level.`,
         links: [],
         sections: [
@@ -348,11 +348,11 @@ const projectsData = [
     {
         id: 'fabulous',
         stage: 'React Social Platform',
-        title: 'Fabulous Nature Social',
+        title: 'Naturrest',
         headline: 'Professional Agile-developed React social media platform',
         highlights: ['60+ React components', '15k+ lines of code', 'Semester-long Agile project'],
         summary: 'Advanced React ecosystem mastery and collaborative software engineering.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `Fabulous Nature Social represents a comprehensive social media platform engineered specifically for nature photography enthusiasts through rigorous Agile/Scrum methodology. Developed by a five-member team over an entire academic semester for CSE370 Human-Computer Interaction, this production-deployed platform demonstrates professional-grade development workflows and collaborative software engineering practices.`,
         links: [
             { label: 'Live University Deployment', url: 'https://webdev.cse.buffalo.edu/hci/teams/fabulous/welcome', type: 'live' },
@@ -404,11 +404,11 @@ const projectsData = [
     {
         id: 'budget-db',
         stage: 'Database Systems',
-        title: 'Federal Budget Analysis Database System',
+        title: 'Federal Budget Database',
         headline: 'PostgreSQL database with real U.S. Treasury datasets',
         highlights: ['31,225+ records per table', '5-year Treasury datasets', '90%+ query optimization'],
         summary: 'Advanced PostgreSQL implementation with government spending analysis.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `The Federal Budget Analysis Database System represents a sophisticated relational database solution designed for analyzing government spending patterns and promoting federal budget transparency. Built as a collaborative academic project for CSE 4/560 Database Systems, this system implements a rigorous 9-table schema handling extensive real-world data while demonstrating advanced database engineering principles and query optimization.`,
         links: [],
         sections: [
@@ -457,11 +457,11 @@ const projectsData = [
     {
         id: 'docfiller',
         stage: 'Desktop Automation',
-        title: 'Diplomatic Document Filler',
+        title: 'DocFiller',
         headline: 'Cross-platform desktop automation for diplomatic workflows',
         highlights: ['Kivy cross-platform GUI', 'MS Word automation', 'Diplomatic workflow optimization'],
         summary: 'Professional desktop application streamlining diplomatic documentation.',
-        image: '', // Add image path here
+        image: 'images/project-placeholder.svg',
         overview: `The Diplomatic Document Filler represents a specialized desktop automation tool designed specifically for diplomatic and consular document processing workflows. Built using Python with Kivy framework for professional cross-platform GUI, the application automates the complex process of filling diplomatic shipping documents with dynamic table generation, intelligent placeholder replacement, and comprehensive document validation.`,
         links: [
             { label: 'GitHub Repository', url: 'https://github.com/LaazAlae/doc-filler', type: 'repo' }
@@ -566,10 +566,31 @@ const sectionIcons = {
 };
 
 // DOM Elements
-const timelineContainer = document.getElementById('timeline-container');
 const dialogOverlay = document.getElementById('project-dialog-overlay');
 const dialogContent = document.getElementById('dialog-content');
 const dialogCloseBtn = document.getElementById('dialog-close-btn');
+
+// INDUSTRY-LEVEL Timeline System
+let timelineTrack;
+let timelineContainer;
+let scrollTimeout;
+let isUserScrolling = false;
+
+// TRULY INFINITE SCROLL SYSTEM - INDUSTRY DEBUGGING
+let cardWidth = 350;
+let cardGap = 128; // 8rem in pixels
+let visibleCards = new Map(); // Track only visible cards
+let cardPool = []; // Reusable card elements
+let virtualPosition = 0; // Current scroll position in pixels
+let viewportBuffer = 2; // Cards to load outside viewport (optimized)
+let maxVisibleCards = 12; // Memory optimization (reduced for better performance)
+
+// DECOUPLED SYSTEM - Position vs Content
+let globalCardIndex = 0; // Tracks card positions (infinite)
+let projectContentIndex = 0; // Tracks which project content to show
+let cardSpacing = cardWidth + cardGap; // Total space per card
+
+// PRODUCTION OPTIMIZED - NO DEBUGGING
 
 // Create project lookup for easy access
 const projectLookup = {};
@@ -577,38 +598,520 @@ projectsData.forEach(project => {
     projectLookup[project.id] = project;
 });
 
-// Render timeline items
+// PRODUCTION INFINITE TIMELINE
 function renderTimeline() {
-    projectsData.forEach((project, index) => {
-        const timelineItem = document.createElement('div');
-        timelineItem.className = 'timeline-item';
+    timelineContainer = document.getElementById('timeline-container');
 
-        // Add side class for alternating layout (right, left, right, left...)
-        const side = index % 2 === 0 ? 'right' : 'left';
-        timelineItem.classList.add(`timeline-${side}`);
+    if (!timelineContainer) return;
 
-        timelineItem.innerHTML = `
-            <div class="project-card" data-project="${project.id}">
-                ${project.image ? `<div class="project-image"><img src="${project.image}" alt="${project.title}"></div>` : ''}
-                <div class="project-content">
-                    <span class="project-stage">${project.stage}</span>
-                    <h3 class="project-title">${project.title}</h3>
-                    <p class="project-headline">${project.headline}</p>
-                    <div class="project-highlights">
-                        ${project.highlights.map(highlight =>
-                            `<span class="highlight-tag">${highlight}</span>`
-                        ).join('')}
-                    </div>
-                </div>
-            </div>
-        `;
+    // Create VIEWPORT-FIXED timeline line
+    createFixedTimelineLine();
 
-        timelineContainer.appendChild(timelineItem);
+    // Create infinite timeline track
+    timelineTrack = document.createElement('div');
+    timelineTrack.className = 'timeline-track';
 
-        // Add click listener for dialog
-        const projectCard = timelineItem.querySelector('.project-card');
-        projectCard.addEventListener('click', () => openProjectDialog(project.id));
+    // Initialize virtualized card system
+    loadInitialCards();
+
+    timelineContainer.appendChild(timelineTrack);
+    setupInfiniteScroll();
+    setupScrollControls();
+}
+
+// Create Fixed Timeline Line - INDUSTRY SOLUTION
+function createFixedTimelineLine() {
+    // Remove any existing fixed line
+    const existingLine = document.querySelector('.timeline-line-fixed');
+    if (existingLine) existingLine.remove();
+
+    // Create viewport-fixed line
+    const fixedLine = document.createElement('div');
+    fixedLine.className = 'timeline-line-fixed';
+
+    // Calculate exact position relative to timeline container
+    const updateLinePosition = () => {
+        const containerRect = timelineContainer.getBoundingClientRect();
+        const containerCenterY = containerRect.top + (containerRect.height / 2);
+
+        fixedLine.style.top = `${containerCenterY}px`;
+
+    };
+
+    // Position line initially
+    updateLinePosition();
+
+    // Update position on scroll and resize
+    window.addEventListener('scroll', updateLinePosition, { passive: true });
+    window.addEventListener('resize', updateLinePosition, { passive: true });
+
+    // Add to document body (not container)
+    document.body.appendChild(fixedLine);
+
+}
+
+// INFINITE CARD SYSTEM - PRODUCTION OPTIMIZED
+function loadInitialCards() {
+    const viewportWidth = window.innerWidth;
+    const cardsInView = Math.ceil(viewportWidth / cardSpacing);
+    const initialCards = cardsInView + (viewportBuffer * 2);
+
+    // Calculate starting position to center first cards
+    const startPosition = Math.floor(-initialCards / 2);
+
+    // Create initial visible cards at calculated positions
+    for (let i = 0; i < initialCards; i++) {
+        const cardPosition = startPosition + i;
+        renderCardAtPosition(cardPosition);
+    }
+}
+
+// INFINITE Card Rendering - PRODUCTION OPTIMIZED
+function renderCardAtPosition(cardPosition) {
+    // Get or create card element from pool
+    let cardElement = getCardFromPool();
+    if (!cardElement) {
+        cardElement = createCardElement();
+    }
+
+    // DETERMINE ALTERNATING PATTERN - MATHEMATICALLY PERFECT
+    const isAbove = cardPosition % 2 === 0; // Even = above, odd = below
+
+    // GET PROJECT CONTENT - CYCLES INFINITELY
+    const projectIndex = Math.abs(cardPosition) % projectsData.length;
+    const project = projectsData[projectIndex];
+
+    // Update card content and position
+    updateCardContent(cardElement, project, cardPosition, isAbove);
+    positionCard(cardElement, cardPosition);
+
+    // Track this card
+    visibleCards.set(cardPosition, {
+        element: cardElement,
+        project: project,
+        position: cardPosition,
+        isAbove: isAbove
     });
+
+    return cardElement;
+}
+
+// Create Reusable Card Element
+function createCardElement() {
+    const timelineItem = document.createElement('div');
+    timelineItem.className = 'timeline-item';
+    timelineItem.style.position = 'absolute';
+    timelineItem.style.transform = 'translateZ(0)';
+    timelineItem.style.willChange = 'transform';
+
+    timelineItem.innerHTML = `
+        <div class="timeline-dot"></div>
+        <div class="project-card">
+            <div class="project-image"><img loading="lazy"></div>
+            <div class="project-content">
+                <span class="project-stage"></span>
+                <h3 class="project-title"></h3>
+                <p class="project-headline"></p>
+                <div class="project-highlights"></div>
+            </div>
+        </div>
+    `;
+
+    // Add click handler
+    const projectCard = timelineItem.querySelector('.project-card');
+    projectCard.addEventListener('click', (e) => {
+        const projectId = e.currentTarget.dataset.project;
+        if (projectId) openProjectDialog(projectId);
+    }, { passive: true });
+
+    timelineTrack.appendChild(timelineItem);
+    return timelineItem;
+}
+
+// Update Card Content - PRODUCTION OPTIMIZED
+function updateCardContent(cardElement, project, cardPosition, isAbove) {
+    const positionType = isAbove ? 'ABOVE' : 'BELOW';
+
+    // Update card data attributes
+    const projectCard = cardElement.querySelector('.project-card');
+    projectCard.dataset.project = project.id;
+    projectCard.dataset.positionType = positionType;
+    cardElement.dataset.position = cardPosition;
+    cardElement.dataset.isAbove = isAbove;
+
+    // Apply positioning class based on alternating pattern
+    cardElement.className = 'timeline-item';
+    cardElement.classList.add(isAbove ? 'card-above' : 'card-below');
+
+    // Update content efficiently
+    const img = cardElement.querySelector('.project-image img');
+    const stage = cardElement.querySelector('.project-stage');
+    const title = cardElement.querySelector('.project-title');
+    const headline = cardElement.querySelector('.project-headline');
+    const highlights = cardElement.querySelector('.project-highlights');
+
+    // Update image
+    if (project.image) {
+        img.src = project.image;
+        img.alt = project.title;
+        img.parentElement.style.display = 'block';
+    } else {
+        img.parentElement.style.display = 'none';
+    }
+
+    // Update text content
+    stage.textContent = project.stage;
+    title.textContent = project.title;
+    headline.textContent = project.headline;
+    highlights.style.display = 'none'; // Hide highlights section completely
+}
+
+// Position Card in Virtual Space - PRODUCTION OPTIMIZED
+function positionCard(cardElement, cardPosition) {
+    const x = cardPosition * cardSpacing;
+    cardElement.style.left = `${x}px`;
+    cardElement.style.width = `${cardWidth}px`;
+    cardElement.style.display = 'flex';
+}
+
+// Get Card From Pool - MEMORY OPTIMIZATION
+function getCardFromPool() {
+    return cardPool.pop();
+}
+
+// Return Card To Pool
+function returnCardToPool(cardElement) {
+    cardElement.style.display = 'none';
+    cardPool.push(cardElement);
+}
+
+// INFINITE VIEWPORT MANAGEMENT - HANDLES NEGATIVE POSITIONS
+function updateVisibleCards() {
+    const currentScrollLeft = timelineContainer.scrollLeft || 0;
+    const viewportWidth = timelineContainer.clientWidth || window.innerWidth;
+
+
+    // Calculate visible card range (can be negative!)
+    const centerPosition = currentScrollLeft / cardSpacing;
+    const cardsInView = Math.ceil(viewportWidth / cardSpacing);
+    const startPosition = Math.floor(centerPosition - cardsInView/2 - viewportBuffer);
+    const endPosition = Math.ceil(centerPosition + cardsInView/2 + viewportBuffer);
+
+
+    // Remove cards outside viewport
+    const cardsToRemove = [];
+    visibleCards.forEach((cardData, position) => {
+        if (position < startPosition || position > endPosition) {
+            cardsToRemove.push(position);
+        }
+    });
+
+    cardsToRemove.forEach(position => {
+        const cardData = visibleCards.get(position);
+        returnCardToPool(cardData.element);
+        visibleCards.delete(position);
+    });
+
+    // Add cards entering viewport (INCLUDING NEGATIVE POSITIONS!)
+    for (let position = startPosition; position <= endPosition; position++) {
+        if (!visibleCards.has(position)) {
+            renderCardAtPosition(position);
+        }
+    }
+
+    // Memory optimization: limit total visible cards
+    if (visibleCards.size > maxVisibleCards) {
+        const sortedPositions = Array.from(visibleCards.keys()).sort((a, b) => Math.abs(centerPosition - a) - Math.abs(centerPosition - b));
+        const excess = sortedPositions.slice(maxVisibleCards);
+
+        excess.forEach(position => {
+            const cardData = visibleCards.get(position);
+            returnCardToPool(cardData.element);
+            visibleCards.delete(position);
+        });
+    }
+
+
+}
+
+// TRUE INFINITE SCROLL - HANDLES NEGATIVE POSITIONS
+function setupInfiniteScroll() {
+
+    // Set up timeline track for infinite scrolling
+    timelineTrack.style.position = 'relative';
+    timelineTrack.style.height = '100%';
+    timelineTrack.style.width = '100%';
+
+    // Enable horizontal scrolling
+    timelineContainer.style.overflowX = 'auto';
+    timelineContainer.style.overflowY = 'hidden';
+    timelineContainer.style.scrollBehavior = 'smooth';
+
+    // Set up infinite scroll container (optimized for memory)
+    const maxCards = 500; // Reduced virtual limit for better performance
+    const totalVirtualWidth = maxCards * cardSpacing * 2; // Double for negative positions
+    const centerOffset = totalVirtualWidth / 2; // Offset to allow negative positions
+
+    timelineTrack.style.width = `${totalVirtualWidth}px`;
+
+    // Start scrolled to center (allows scrolling left and right)
+    timelineContainer.scrollLeft = centerOffset;
+
+    // MOMENTUM-TRACKING SCROLL SYSTEM
+    let rafId;
+    let lastScrollUpdate = 0;
+    const handleScroll = () => {
+        if (rafId) cancelAnimationFrame(rafId);
+
+        rafId = requestAnimationFrame(() => {
+            const now = Date.now();
+            if (now - lastScrollUpdate < 16) return; // 60fps for smooth momentum tracking
+            lastScrollUpdate = now;
+
+            // Track momentum during manual scroll
+            if (isUserScrolling) {
+                trackScrollMomentum();
+            }
+
+            updateVisibleCards();
+        });
+    };
+
+    timelineContainer.addEventListener('scroll', handleScroll, { passive: true });
+
+
+}
+
+// INFINITE Auto-Scroll - SMOOTH AND RESPONSIVE
+function updateAutoScroll() {
+    // SIMPLIFIED: Only pause if user is actively scrolling AND we're not transitioning
+    if (isUserScrolling && !isDecelerating && !isAccelerating) {
+        // Don't spam the console - user is in control
+        autoScrollAnimationId = requestAnimationFrame(updateAutoScroll);
+        return;
+    }
+
+    // SIMPLIFIED SPEED TRANSITIONS
+    const currentTime = Date.now();
+
+    if (isAccelerating) {
+        // Smooth acceleration when resuming
+        const elapsedTime = currentTime - accelerationStartTime;
+        const progress = Math.min(elapsedTime / accelerationDuration, 1);
+        const easedProgress = easeOutCubic(progress);
+
+        currentScrollSpeed = targetScrollSpeed * easedProgress;
+
+        if (progress >= 1) {
+            isAccelerating = false;
+            currentScrollSpeed = targetScrollSpeed;
+        }
+    } else {
+        // Maintain target speed during normal operation
+        currentScrollSpeed = targetScrollSpeed;
+    }
+
+    const deltaTime = 16; // 60fps
+    const scrollDelta = (currentScrollSpeed * deltaTime) / 1000;
+
+    // Move scroll position smoothly
+    if (scrollDelta > 0) {
+        timelineContainer.scrollLeft += scrollDelta;
+    }
+
+    // Check for boundary reset (infinite loop)
+    const maxScroll = timelineContainer.scrollWidth - timelineContainer.clientWidth;
+    const centerOffset = timelineContainer.scrollWidth / 2;
+
+    // If we're getting close to the end, reset to center seamlessly
+    if (timelineContainer.scrollLeft > maxScroll * 0.8) {
+        timelineContainer.scrollLeft = centerOffset;
+    } else if (timelineContainer.scrollLeft < maxScroll * 0.2) {
+        timelineContainer.scrollLeft = centerOffset;
+    }
+
+    autoScrollAnimationId = requestAnimationFrame(updateAutoScroll);
+}
+
+
+// INFINITE SCROLL Control System - INDUSTRY PERFORMANCE
+let autoScrollAnimationId;
+let currentScrollSpeed = 0; // Current speed for smooth acceleration
+let targetScrollSpeed = 360; // Target speed (tripled as requested)
+
+// MOMENTUM PHYSICS SYSTEM
+let lastScrollTime = 0;
+let lastScrollPosition = 0;
+let scrollVelocity = 0;
+let isMomentumScrolling = false;
+let momentumAnimationId = null;
+
+// PRODUCTION OPTIMIZED - NO DEBUGGING
+let accelerationStartTime = 0; // Start time for acceleration
+let accelerationDuration = 1500; // 1.5 seconds to reach full speed
+let decelerationStartTime = 0; // Start time for deceleration
+let decelerationDuration = 300; // 0.3 seconds for immediate smooth response
+let isAccelerating = false; // Track acceleration state
+let isDecelerating = false; // Track deceleration state
+
+// INDUSTRY-LEVEL EASING FUNCTIONS
+function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3); // Smooth cubic easing
+}
+
+function easeInCubic(t) {
+    return t * t * t; // Smooth cubic deceleration
+}
+
+function easeOutQuart(t) {
+    return 1 - Math.pow(1 - t, 4); // Even smoother deceleration
+}
+
+// MOMENTUM PHYSICS - INDUSTRY STANDARD
+function trackScrollMomentum() {
+    const currentTime = Date.now();
+    const currentPosition = timelineContainer.scrollLeft;
+
+    if (lastScrollTime > 0) {
+        const deltaTime = currentTime - lastScrollTime;
+        const deltaPosition = currentPosition - lastScrollPosition;
+
+        if (deltaTime > 0) {
+            // Calculate velocity in pixels per millisecond
+            const newVelocity = deltaPosition / deltaTime;
+
+
+            scrollVelocity = newVelocity;
+        }
+    }
+
+    lastScrollTime = currentTime;
+    lastScrollPosition = currentPosition;
+}
+
+function startMomentumScroll() {
+
+    if (Math.abs(scrollVelocity) < 0.1) {
+        resetScrollTimeout();
+        return;
+    }
+
+    isMomentumScrolling = true;
+
+    const friction = 0.95; // Momentum decay factor
+    const minVelocity = 0.1; // Stop when too slow
+
+    const animateMomentum = () => {
+        if (Math.abs(scrollVelocity) < minVelocity) {
+            isMomentumScrolling = false;
+            momentumAnimationId = null;
+            resetScrollTimeout();
+            return;
+        }
+
+        // Apply momentum
+        timelineContainer.scrollLeft += scrollVelocity * 16; // 16ms frame
+        scrollVelocity *= friction; // Apply friction
+
+
+        momentumAnimationId = requestAnimationFrame(animateMomentum);
+    };
+
+    animateMomentum();
+}
+
+function stopMomentumScroll() {
+    if (momentumAnimationId) {
+        cancelAnimationFrame(momentumAnimationId);
+        momentumAnimationId = null;
+        isMomentumScrolling = false;
+    }
+}
+
+function setupScrollControls() {
+
+    // User interaction detection
+    ['mousedown', 'touchstart', 'wheel', 'keydown'].forEach(event => {
+        timelineContainer.addEventListener(event, startManualScroll, { passive: event !== 'wheel' });
+    });
+
+    // Start auto-scroll
+    startAutoScroll();
+}
+
+function startManualScroll(e) {
+    // Prevent zoom on pinch
+    if (e.type === 'wheel' && e.ctrlKey) {
+        e.preventDefault();
+    }
+
+    if (!isUserScrolling && !isMomentumScrolling) {
+        isUserScrolling = true;
+
+        // Stop any auto-scroll immediately for responsive feel
+        stopAutoScroll();
+        stopMomentumScroll();
+
+        // Initialize momentum tracking
+        lastScrollTime = Date.now();
+        lastScrollPosition = timelineContainer.scrollLeft;
+        scrollVelocity = 0;
+    }
+
+    // Reset the timeout while user is actively scrolling
+    clearTimeout(scrollTimeout);
+
+    // Set a short timer to detect when user stops scrolling
+    scrollTimeout = setTimeout(() => {
+        if (isUserScrolling) {
+            isUserScrolling = false;
+            // Start momentum scroll with the calculated velocity
+            startMomentumScroll();
+        }
+    }, 150); // 150ms delay to detect scroll end
+}
+
+function resetScrollTimeout() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(resumeAutoScroll, 800); // 800ms pause before auto-scroll resumes
+}
+
+function startAutoScroll() {
+    if (autoScrollAnimationId) {
+        return;
+    }
+
+
+    // Initialize professional acceleration system
+    currentScrollSpeed = 0;
+    isAccelerating = true;
+    accelerationStartTime = Date.now();
+
+    updateAutoScroll();
+}
+
+function stopAutoScroll() {
+    if (autoScrollAnimationId) {
+        cancelAnimationFrame(autoScrollAnimationId);
+        autoScrollAnimationId = null;
+    }
+
+    // Reset all animation states when stopping
+    isAccelerating = false;
+    isDecelerating = false;
+    currentScrollSpeed = 0;
+}
+
+function resumeAutoScroll() {
+
+    isUserScrolling = false;
+
+    // Reset all states to ensure clean restart
+    isAccelerating = false;
+    isDecelerating = false;
+
+    startAutoScroll();
+
 }
 
 // Build navigation links HTML
@@ -681,27 +1184,6 @@ function closeProjectDialog() {
     document.body.style.overflow = 'auto';
 }
 
-// Timeline intersection observer for animations
-function setupTimelineAnimations() {
-    const timelineItems = document.querySelectorAll('.timeline-item');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
-    });
-
-    timelineItems.forEach(item => {
-        observer.observe(item);
-    });
-}
-
 // Event listeners
 dialogCloseBtn.addEventListener('click', closeProjectDialog);
 
@@ -717,8 +1199,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Initialize
+// Initialize Clean Timeline System
 document.addEventListener('DOMContentLoaded', () => {
     renderTimeline();
-    setupTimelineAnimations();
 });
