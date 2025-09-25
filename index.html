@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alae Laaziri - Software Developer & Full Stack Engineer. Expert in distributed systems, enterprise automation, and production-grade web applications.">
+    <meta name="theme-color" content="#00d4ff">
+    <title>Portfolio - Alae Laaziri</title>
+
+    <!-- Performance Optimizations -->
+    <meta name="color-scheme" content="dark">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">Portfolio</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#background" class="nav-link">Background</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Alae Laaziri</h1>
+            <p class="hero-subtitle">Software Developer | Full Stack Engineer</p>
+            <a href="#about" class="cta-button">Learn More</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I'm a passionate software developer with expertise in building scalable web applications. With a strong foundation in both front-end and back-end technologies, I enjoy creating elegant solutions to complex problems.</p>
+                <p>My journey in tech started when I discovered the power of code to transform ideas into reality. Since then, I've been continuously learning and growing, working on diverse projects that have shaped my skills and perspective.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <h3>Software Engineer (Business Systems)</h3>
+                    <h4>United Corporate Services</h4>
+                    <p class="experience-date">2024 - Present</p>
+                    <ul>
+                        <li>Automated the entry of Credit Card and Check information into the company's database</li>
+                        <li>Automated the sorting of invoices that needed to be mailed separately</li>
+                        <li>Developed excel macros to reduce manual processing time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <p class="projects-intro">A curated timeline of shipped products, research-grade systems, and enterprise automation platforms. Each project links directly to live deployments, repositories, and detailed case studies.</p>
+
+            <div class="timeline-container" id="timeline-container">
+                <!-- Projects will be dynamically rendered here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="background" class="section">
+        <div class="container">
+            <h2 class="section-title">Background</h2>
+            <div class="background-grid">
+                <div class="background-section">
+                    <h3>Education</h3>
+                    <div class="background-item">
+                        <h4>Master of Computer Science</h4>
+                        <p>University Name, 2020</p>
+                    </div>
+                    <div class="background-item">
+                        <h4>Bachelor of Software Engineering</h4>
+                        <p>University Name, 2018</p>
+                    </div>
+                </div>
+                <div class="background-section">
+                    <h3>Languages</h3>
+                    <ul class="languages-list">
+                        <li>Arabic (Native)</li>
+                        <li>French (Native)</li>
+                        <li>English (Fluent)</li>
+                        <li>Spanish (Intermediate)</li>
+                    </ul>
+                </div>
+                <div class="background-section">
+                    <h3>Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Frontend</h4>
+                            <ul>
+                                <li>React</li>
+                                <li>Javascript</li>
+                                <li>CSS</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Backend</h4>
+                            <ul>
+                                <li>Node.js</li>
+                                <li>Python</li>
+                                <li>PostgreSQL</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>DevOps</h4>
+                            <ul>
+                                <li>Docker</li>
+                                <li>AWS</li>
+                                <li>CI/CD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Detail Dialog -->
+    <div class="project-dialog-overlay" id="project-dialog-overlay">
+        <div class="project-dialog">
+            <button class="dialog-close-btn" id="dialog-close-btn" aria-label="Close dialog">&times;</button>
+            <div class="dialog-content" id="dialog-content">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
