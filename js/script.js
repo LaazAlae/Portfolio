@@ -1077,12 +1077,12 @@ function trackScrollMomentum() {
         const deltaTime = currentTime - lastScrollTime;
         const deltaPosition = currentPosition - lastScrollPosition;
 
-        if (deltaTime > 0) {
+        if (deltaTime > 0 && deltaTime < 100) { // Ignore large time gaps
             // Calculate velocity in pixels per millisecond
             const newVelocity = deltaPosition / deltaTime;
 
-
-            scrollVelocity = newVelocity;
+            // Smooth velocity with exponential moving average for stability
+            scrollVelocity = (scrollVelocity * 0.3) + (newVelocity * 0.7);
         }
     }
 
@@ -1091,16 +1091,18 @@ function trackScrollMomentum() {
 }
 
 function startMomentumScroll() {
+    // More lenient velocity threshold - always try some momentum
+    const absoluteVelocity = Math.abs(scrollVelocity);
 
-    if (Math.abs(scrollVelocity) < 0.1) {
-        resetScrollTimeout();
-        return;
+    if (absoluteVelocity < 0.05) {
+        // Even tiny movements get a small momentum boost
+        scrollVelocity = scrollVelocity > 0 ? 0.2 : -0.2;
     }
 
     isMomentumScrolling = true;
 
-    const friction = 0.95; // Momentum decay factor
-    const minVelocity = 0.1; // Stop when too slow
+    const friction = 0.92; // Slightly less friction for longer momentum
+    const minVelocity = 0.02; // Lower threshold for smoother stops
 
     const animateMomentum = () => {
         if (Math.abs(scrollVelocity) < minVelocity) {
@@ -1110,15 +1112,16 @@ function startMomentumScroll() {
             return;
         }
 
-        // Apply momentum
-        timelineContainer.scrollLeft += scrollVelocity * 16; // 16ms frame
+        // Apply momentum with smoother calculation
+        const deltaTime = 16.67; // Target 60fps
+        timelineContainer.scrollLeft += scrollVelocity * deltaTime;
         scrollVelocity *= friction; // Apply friction
-
 
         momentumAnimationId = requestAnimationFrame(animateMomentum);
     };
 
-    animateMomentum();
+    // Start momentum immediately
+    momentumAnimationId = requestAnimationFrame(animateMomentum);
 }
 
 function stopMomentumScroll() {
@@ -1130,11 +1133,22 @@ function stopMomentumScroll() {
 }
 
 function setupScrollControls() {
-
-    // User interaction detection
+    // Enhanced user interaction detection
     ['mousedown', 'touchstart', 'wheel', 'keydown'].forEach(event => {
         timelineContainer.addEventListener(event, startManualScroll, { passive: event !== 'wheel' });
     });
+
+    // Additional momentum-friendly events
+    timelineContainer.addEventListener('touchmove', trackScrollMomentum, { passive: true });
+    timelineContainer.addEventListener('mousemove', (e) => {
+        if (e.buttons > 0) { // Mouse is being dragged
+            trackScrollMomentum();
+        }
+    }, { passive: true });
+
+    // Enhanced end detection
+    timelineContainer.addEventListener('mouseup', handleScrollEnd, { passive: true });
+    timelineContainer.addEventListener('touchend', handleScrollEnd, { passive: true });
 
     // Start auto-scroll
     startAutoScroll();
@@ -1153,23 +1167,35 @@ function startManualScroll(e) {
         stopAutoScroll();
         stopMomentumScroll();
 
-        // Initialize momentum tracking
+        // Initialize momentum tracking with current state
         lastScrollTime = Date.now();
         lastScrollPosition = timelineContainer.scrollLeft;
         scrollVelocity = 0;
     }
 
+    // Keep tracking momentum during interaction
+    trackScrollMomentum();
+
     // Reset the timeout while user is actively scrolling
     clearTimeout(scrollTimeout);
 
-    // Set a short timer to detect when user stops scrolling
+    // Shorter delay for more responsive momentum detection
     scrollTimeout = setTimeout(() => {
         if (isUserScrolling) {
-            isUserScrolling = false;
-            // Start momentum scroll with the calculated velocity
-            startMomentumScroll();
+            handleScrollEnd();
         }
-    }, 150); // 150ms delay to detect scroll end
+    }, 100); // Reduced from 150ms to 100ms for better responsiveness
+}
+
+function handleScrollEnd() {
+    if (!isUserScrolling) return;
+
+    isUserScrolling = false;
+
+    // Always try momentum scroll - let the function decide if velocity is sufficient
+    requestAnimationFrame(() => {
+        startMomentumScroll();
+    });
 }
 
 function resetScrollTimeout() {
