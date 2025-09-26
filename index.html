@@ -42,8 +42,45 @@
             <h1 class="hero-title">Alae Laaziri</h1>
             <p class="hero-subtitle">Software Developer | Full Stack Engineer</p>
             <a href="#about" class="cta-button">Learn More</a>
+
+            <!-- Intelligent Skill Search -->
+            <div class="skill-search-container">
+                <p class="skill-search-prompt">or ask:</p>
+                <div class="skill-search-input-wrapper">
+                    <input type="text"
+                           class="skill-search-input"
+                           id="skillSearchInput"
+                           placeholder=""
+                           autocomplete="off"
+                           spellcheck="false">
+                    <button class="skill-search-submit" id="skillSearchSubmit" type="button">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- Skill Search Results Modal -->
+    <div class="skill-search-modal" id="skillSearchModal">
+        <div class="skill-search-modal-content">
+            <div class="skill-search-modal-header">
+                <h3 class="skill-search-modal-title">Search Results</h3>
+                <button class="skill-search-modal-close" id="skillSearchClose">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="skill-search-modal-body" id="skillSearchResults">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </div>
 
     <section id="about" class="section">
         <div class="container">
@@ -151,6 +188,8 @@
         </div>
     </div>
 
+    <script src="js/skillDatabase.js"></script>
+    <script src="js/skillSearch.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
