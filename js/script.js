@@ -577,13 +577,15 @@ let scrollTimeout;
 let isUserScrolling = false;
 
 // TRULY INFINITE SCROLL SYSTEM - INDUSTRY DEBUGGING
-let cardWidth = 350;
+let cardWidth = 280;
 let cardGap = 128; // 8rem in pixels
 let visibleCards = new Map(); // Track only visible cards
 let cardPool = []; // Reusable card elements
 let virtualPosition = 0; // Current scroll position in pixels
 let viewportBuffer = 2; // Cards to load outside viewport (optimized)
 let maxVisibleCards = 12; // Memory optimization (reduced for better performance)
+
+let branchRefreshScheduled = false;
 
 // DECOUPLED SYSTEM - Position vs Content
 let globalCardIndex = 0; // Tracks card positions (infinite)
@@ -617,6 +619,7 @@ function renderTimeline() {
     timelineContainer.appendChild(timelineTrack);
     setupInfiniteScroll();
     setupScrollControls();
+    scheduleBranchRefresh();
 }
 
 // Create Fixed Timeline Line - INDUSTRY SOLUTION
@@ -684,6 +687,7 @@ function renderCardAtPosition(cardPosition) {
     // Update card content and position
     updateCardContent(cardElement, project, cardPosition, isAbove);
     positionCard(cardElement, cardPosition);
+    updateTimelineBranch(cardElement, isAbove);
 
     // Track this card
     visibleCards.set(cardPosition, {
@@ -705,7 +709,9 @@ function createCardElement() {
     timelineItem.style.willChange = 'transform';
 
     timelineItem.innerHTML = `
-        <div class="timeline-dot"></div>
+        <svg class="timeline-branch" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="timeline-branch-path"></path>
+        </svg>
         <div class="project-card">
             <div class="project-image"><img loading="lazy"></div>
             <div class="project-content">
@@ -772,6 +778,68 @@ function positionCard(cardElement, cardPosition) {
     cardElement.style.left = `${x}px`;
     cardElement.style.width = `${cardWidth}px`;
     cardElement.style.display = 'flex';
+}
+
+function updateTimelineBranch(cardElement, isAbove) {
+    const branchSvg = cardElement.querySelector('.timeline-branch');
+    const branchPath = branchSvg ? branchSvg.querySelector('.timeline-branch-path') : null;
+    const card = cardElement.querySelector('.project-card');
+    const timelineLine = document.querySelector('.timeline-line-fixed');
+
+    if (!branchSvg || !branchPath || !card) {
+        return;
+    }
+
+    if (!timelineLine) {
+        scheduleBranchRefresh();
+        return;
+    }
+
+    const itemRect = cardElement.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const lineRect = timelineLine.getBoundingClientRect();
+
+    const svgHeight = itemRect.height || timelineContainer.clientHeight || 500;
+    const elbowOffset = Math.max(24, Math.min(60, cardRect.width * 0.25));
+    const svgWidth = Math.max(cardRect.width + (elbowOffset * 2), 160);
+
+    branchSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
+    branchSvg.style.width = `${svgWidth}px`;
+    branchSvg.style.height = `${svgHeight}px`;
+
+    // Align SVG horizontally to card center
+    const centerX = (cardRect.left + (cardRect.width / 2)) - itemRect.left;
+    branchSvg.style.left = `${centerX - (svgWidth / 2)}px`;
+
+    const lineY = (lineRect.top + (lineRect.height / 2)) - itemRect.top;
+    const gap = 16;
+    const endY = isAbove
+        ? Math.min(lineY - gap, (cardRect.bottom - itemRect.top) + gap)
+        : Math.max(lineY + gap, (cardRect.top - itemRect.top) - gap);
+
+    const directionSeed = parseInt(cardElement.dataset.position || '0', 10) || 0;
+    const horizontalDirection = (directionSeed % 4 < 2) ? -1 : 1;
+    const controlX = centerX + (horizontalDirection * elbowOffset);
+    const midY = (lineY + endY) / 2;
+
+    const pathData = `M ${centerX} ${lineY} Q ${controlX} ${midY} ${centerX} ${endY}`;
+    branchPath.setAttribute('d', pathData);
+}
+
+function refreshTimelineBranches() {
+    if (!visibleCards.size) return;
+    visibleCards.forEach(cardData => {
+        updateTimelineBranch(cardData.element, cardData.isAbove);
+    });
+}
+
+function scheduleBranchRefresh() {
+    if (branchRefreshScheduled) return;
+    branchRefreshScheduled = true;
+    requestAnimationFrame(() => {
+        branchRefreshScheduled = false;
+        refreshTimelineBranches();
+    });
 }
 
 // Get Card From Pool - MEMORY OPTIMIZATION
@@ -1198,6 +1266,9 @@ document.addEventListener('keydown', (e) => {
         closeProjectDialog();
     }
 });
+
+window.addEventListener('resize', scheduleBranchRefresh, { passive: true });
+window.addEventListener('scroll', scheduleBranchRefresh, { passive: true });
 
 // Initialize Clean Timeline System
 document.addEventListener('DOMContentLoaded', () => {
