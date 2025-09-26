@@ -185,9 +185,9 @@ const projectsData = [
     },
     {
         id: 'expensetracker',
-        stage: 'Government-Grade Security',
+        stage: 'Finances PWA',
         title: 'ExpenseTracker',
-        headline: 'Government-grade security with real-time financial management',
+        headline: 'Secure finances PWA with real-time financial management',
         highlights: ['AES-256 encryption', 'Invite-only system', 'Real-time WebSocket sync'],
         summary: 'Sophisticated financial tracking system with enterprise-grade reliability.',
         image: 'images/project-placeholder.svg',
@@ -709,8 +709,16 @@ function createCardElement() {
     timelineItem.style.willChange = 'transform';
 
     timelineItem.innerHTML = `
-        <svg class="timeline-branch" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <svg class="timeline-branch" viewBox="0 0 400 600" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="branchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#ff6b6b;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
+                </linearGradient>
+            </defs>
             <path class="timeline-branch-path"></path>
+            <circle class="timeline-branch-endpoint" r="6" fill="#00d4ff"></circle>
         </svg>
         <div class="project-card">
             <div class="project-image"><img loading="lazy"></div>
@@ -783,10 +791,11 @@ function positionCard(cardElement, cardPosition) {
 function updateTimelineBranch(cardElement, isAbove) {
     const branchSvg = cardElement.querySelector('.timeline-branch');
     const branchPath = branchSvg ? branchSvg.querySelector('.timeline-branch-path') : null;
+    const branchEndpoint = branchSvg ? branchSvg.querySelector('.timeline-branch-endpoint') : null;
     const card = cardElement.querySelector('.project-card');
     const timelineLine = document.querySelector('.timeline-line-fixed');
 
-    if (!branchSvg || !branchPath || !card) {
+    if (!branchSvg || !branchPath || !branchEndpoint || !card) {
         return;
     }
 
@@ -799,31 +808,55 @@ function updateTimelineBranch(cardElement, isAbove) {
     const cardRect = card.getBoundingClientRect();
     const lineRect = timelineLine.getBoundingClientRect();
 
-    const svgHeight = itemRect.height || timelineContainer.clientHeight || 500;
-    const elbowOffset = Math.max(24, Math.min(60, cardRect.width * 0.25));
-    const svgWidth = Math.max(cardRect.width + (elbowOffset * 2), 160);
+    const svgHeight = itemRect.height || 600;
+    const svgWidth = 400;
 
     branchSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
     branchSvg.style.width = `${svgWidth}px`;
     branchSvg.style.height = `${svgHeight}px`;
+    branchSvg.style.position = 'absolute';
+    branchSvg.style.top = '0';
+    branchSvg.style.left = '50%';
+    branchSvg.style.transform = 'translateX(-50%)';
+    branchSvg.style.pointerEvents = 'none';
+    branchSvg.style.zIndex = '1';
 
-    // Align SVG horizontally to card center
-    const centerX = (cardRect.left + (cardRect.width / 2)) - itemRect.left;
-    branchSvg.style.left = `${centerX - (svgWidth / 2)}px`;
-
+    // Calculate positions within SVG coordinate system
     const lineY = (lineRect.top + (lineRect.height / 2)) - itemRect.top;
-    const gap = 16;
-    const endY = isAbove
-        ? Math.min(lineY - gap, (cardRect.bottom - itemRect.top) + gap)
-        : Math.max(lineY + gap, (cardRect.top - itemRect.top) - gap);
+    const cardY = isAbove
+        ? (cardRect.bottom - itemRect.top) + 25  // Stop 25px below card for above items
+        : (cardRect.top - itemRect.top) - 25;    // Stop 25px above card for below items
 
-    const directionSeed = parseInt(cardElement.dataset.position || '0', 10) || 0;
-    const horizontalDirection = (directionSeed % 4 < 2) ? -1 : 1;
-    const controlX = centerX + (horizontalDirection * elbowOffset);
-    const midY = (lineY + endY) / 2;
+    const startX = svgWidth / 2;
+    const endX = svgWidth / 2;
 
-    const pathData = `M ${centerX} ${lineY} Q ${controlX} ${midY} ${centerX} ${endY}`;
+    // Create mostly straight line with small curve only at timeline connection
+    const curveDistance = 20; // Small curve distance from timeline
+    const curveDirection = 15; // How far right the curve extends
+
+    // Create path: small curve at timeline, then straight VERTICAL line to card
+    const curveEndX = startX + curveDirection;
+    const curveEndY = lineY + (isAbove ? -curveDistance : curveDistance);
+
+    // Path: start at timeline, small curve to the right, then straight VERTICAL line to card
+    // The straight line goes directly vertical from curve end to card center (same X position)
+    const pathData = `M ${startX},${lineY} Q ${startX + curveDirection},${lineY} ${curveEndX},${curveEndY} L ${curveEndX},${cardY}`;
+
+    // Set up the path
     branchPath.setAttribute('d', pathData);
+    branchPath.setAttribute('stroke', '#87ceeb');
+    branchPath.setAttribute('stroke-width', '3');
+    branchPath.setAttribute('stroke-linecap', 'round');
+    branchPath.setAttribute('fill', 'none');
+    branchPath.setAttribute('opacity', '0.9');
+
+    // Position the endpoint circle at the end of the vertical line
+    branchEndpoint.setAttribute('cx', curveEndX);
+    branchEndpoint.setAttribute('cy', cardY);
+    branchEndpoint.setAttribute('r', '6');
+    branchEndpoint.setAttribute('fill', '#87ceeb');
+    branchEndpoint.setAttribute('stroke', '#0a0b0f');
+    branchEndpoint.setAttribute('stroke-width', '2');
 }
 
 function refreshTimelineBranches() {
