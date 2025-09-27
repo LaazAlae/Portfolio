@@ -43,7 +43,7 @@
             <p class="hero-subtitle">Software Developer | Full Stack Engineer</p>
             <a href="#about" class="cta-button">Learn More</a>
 
-            <!-- Intelligent Skill Search -->
+            <!-- Beautiful Search Input -->
             <div class="skill-search-container">
                 <p class="skill-search-prompt">or ask:</p>
                 <div class="skill-search-input-wrapper">
@@ -64,20 +64,33 @@
         </div>
     </section>
 
-    <!-- Skill Search Results Modal -->
-    <div class="skill-search-modal" id="skillSearchModal">
-        <div class="skill-search-modal-content">
-            <div class="skill-search-modal-header">
-                <h3 class="skill-search-modal-title">Search Results</h3>
-                <button class="skill-search-modal-close" id="skillSearchClose">
+    <!-- Chat Modal -->
+    <div class="chat-modal-overlay" id="chatModalOverlay">
+        <div class="chat-modal">
+            <div class="chat-modal-header">
+                <h3>Chat with Alae</h3>
+                <button class="chat-modal-close" id="chatModalClose">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
-            <div class="skill-search-modal-body" id="skillSearchResults">
-                <!-- Results will be populated here -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input-container">
+                <input type="text"
+                       class="chat-input"
+                       id="chatInput"
+                       placeholder="Ask me anything..."
+                       autocomplete="off">
+                <button class="chat-send" id="chatSend">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
@@ -97,13 +110,16 @@
             <h2 class="section-title">Work Experience</h2>
             <div class="experience-timeline">
                 <div class="experience-item">
-                    <h3>Software Engineer (Business Systems)</h3>
-                    <h4>United Corporate Services</h4>
-                    <p class="experience-date">2024 - Present</p>
+                    <h3>Cash Application Specialist & Process Automation Developer</h3>
+                    <h4>United Corporate Services Inc.</h4>
+                    <p class="experience-date">Summer 2024, June 2025 – Present</p>
+                    <p class="experience-location">Yonkers, NY</p>
                     <ul>
-                        <li>Automated the entry of Credit Card and Check information into the company's database</li>
-                        <li>Automated the sorting of invoices that needed to be mailed separately</li>
-                        <li>Developed excel macros to reduce manual processing time</li>
+                        <li>Developed comprehensive automation solutions using JavaScript, HTML, and Excel VBA that streamlined batch creation workflows for credit card and check payment processing across the organization</li>
+                        <li>Built AlaeAutomates web platform using Python and Flask featuring a statement processor that automatically categorizes 1000+ page PDFs and an invoice separator tool for intelligent document splitting by invoice number</li>
+                        <li>Created end-to-end payment automation tools that handle form filling, posting, and application processes while maintaining data accuracy and eliminating manual data entry errors</li>
+                        <li>Designed interactive employee training website prototype with quiz-based modules at executive request to address company-wide onboarding challenges, reducing reliance on manual training processes</li>
+                        <li>Implemented Excel macros and automated workflows that transformed multi-day manual document processing tasks into automated processes completed in seconds</li>
                     </ul>
                 </div>
             </div>
@@ -128,48 +144,64 @@
                 <div class="background-section">
                     <h3>Education</h3>
                     <div class="background-item">
-                        <h4>Master of Computer Science</h4>
-                        <p>University Name, 2020</p>
+                        <h4>Bachelor of Science in Computer Science</h4>
+                        <p>University at Buffalo–SUNY</p>
+                        <span class="date">Aug 2021 – May 2025</span>
                     </div>
-                    <div class="background-item">
-                        <h4>Bachelor of Software Engineering</h4>
-                        <p>University Name, 2018</p>
+                    <div class="coursework">
+                        <h5>Relevant Coursework</h5>
+                        <div class="course-tags">
+                            <span class="course-tag">Machine Learning</span>
+                            <span class="course-tag">Systems Programming</span>
+                            <span class="course-tag">Distributed Systems</span>
+                            <span class="course-tag">Web Development</span>
+                            <span class="course-tag">Software Security</span>
+                            <span class="course-tag">Data Models & SQL</span>
+                        </div>
                     </div>
                 </div>
                 <div class="background-section">
                     <h3>Languages</h3>
                     <ul class="languages-list">
-                        <li>Arabic (Native)</li>
-                        <li>French (Native)</li>
-                        <li>English (Fluent)</li>
-                        <li>Spanish (Intermediate)</li>
+                        <li>Arabic <span class="proficiency">(Native)</span></li>
+                        <li>French <span class="proficiency">(Native)</span></li>
+                        <li>English <span class="proficiency">(Fluent)</span></li>
+                        <li>Moroccan Darija <span class="proficiency">(Native)</span></li>
                     </ul>
                 </div>
                 <div class="background-section">
-                    <h3>Skills</h3>
+                    <h3>Technical Skills</h3>
                     <div class="skills-grid">
                         <div class="skill-category">
-                            <h4>Frontend</h4>
+                            <h4>Languages</h4>
                             <ul>
-                                <li>React</li>
-                                <li>Javascript</li>
-                                <li>CSS</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Backend</h4>
-                            <ul>
-                                <li>Node.js</li>
                                 <li>Python</li>
-                                <li>PostgreSQL</li>
+                                <li>JavaScript</li>
+                                <li>Java</li>
+                                <li>C</li>
+                                <li>Golang</li>
+                                <li>Scala</li>
                             </ul>
                         </div>
                         <div class="skill-category">
-                            <h4>DevOps</h4>
+                            <h4>Technologies</h4>
                             <ul>
+                                <li>Flask</li>
+                                <li>React</li>
+                                <li>WebSockets</li>
+                                <li>WebRTC</li>
+                                <li>PyTorch</li>
+                                <li>OAuth 2.0</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Tools</h4>
+                            <ul>
+                                <li>VS Code</li>
+                                <li>Git</li>
                                 <li>Docker</li>
-                                <li>AWS</li>
-                                <li>CI/CD</li>
+                                <li>MongoDB</li>
+                                <li>REST APIs</li>
                             </ul>
                         </div>
                     </div>
@@ -188,8 +220,9 @@
         </div>
     </div>
 
-    <script src="js/skillDatabase.js"></script>
-    <script src="js/skillSearch.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/memory.js"></script>
+    <script src="js/alaeChat.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
