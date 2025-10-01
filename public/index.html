@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Portfolio - Software Developer & Full Stack Engineer">
+    <meta name="theme-color" content="#2d5016">
+    <title>Professional Portfolio</title>
+
+    <!-- Performance Optimizations -->
+    <meta name="color-scheme" content="dark">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="nav-name" id="navName">Portfolio</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Work</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#background" class="nav-link">Background</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroName">Your Name</h1>
+            <p class="hero-subtitle" id="heroTitle">Your Title</p>
+            <p class="hero-education" id="heroEducation">Your Education</p>
+            <a href="#about" class="cta-button">Learn More</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p id="aboutDescription">Loading...</p>
+                <p id="aboutSecondary">Loading...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="experience-timeline" id="experienceContainer">
+                <!-- Experience items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <p class="projects-intro">Professional work in progress</p>
+        </div>
+
+        <div class="floating-dots-container">
+            <div class="floating-dots-track">
+                <!-- Floating dots animation -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Background Section -->
+    <section id="background" class="section background-section">
+        <div class="container">
+            <h2 class="section-title">Professional Background</h2>
+
+            <!-- Education -->
+            <div class="background-card education-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                    <h3>Education</h3>
+                </div>
+                <div class="education-content">
+                    <h4 id="educationDegree">Degree</h4>
+                    <p class="institution" id="educationInstitution">Institution</p>
+                    <p class="graduation-date" id="educationPeriod">Period • Location</p>
+                </div>
+            </div>
+
+            <!-- Core Skills Grid -->
+            <div class="skills-section">
+                <h3 class="skills-title">Core Technical Expertise</h3>
+                <div class="skills-grid" id="skillsGrid">
+                    <!-- Skills will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="background-card languages-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                    <h3>Languages</h3>
+                </div>
+                <div class="languages-grid" id="languagesGrid">
+                    <!-- Languages will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/portfolio.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "personal": {
+    "name": "Alae Laaziri",
+    "title": "Software Developer | Full Stack Engineer",
+    "education": "Computer Science Graduate • University at Buffalo 2025",
+    "location": "Yonkers, NY",
+    "email": "laazalae5@gmail.com",
+    "phone": "646-251-8065",
+    "linkedin": "linkedin.com/in/alae-laaziri/",
+    "github": "github.com/LaazAlae"
+  },
+  "about": {
+    "description": "I'm a passionate software developer with expertise in building scalable web applications. With a strong foundation in both front-end and back-end technologies, I enjoy creating elegant solutions to complex problems.",
+    "secondary": "My journey in tech started when I discovered the power of code to transform ideas into reality. Since then, I've been continuously learning and growing, working on diverse projects that have shaped my skills and perspective."
+  },
+  "education": {
+    "degree": "Bachelor of Science in Computer Science",
+    "institution": "University at Buffalo–SUNY",
+    "period": "Aug. 2021 – May 2025",
+    "location": "Buffalo, NY"
+  },
+  "experience": [
+    {
+      "title": "Cash Application Specialist & Process Automation Developer",
+      "company": "United Corporate Services Inc.",
+      "period": "Summer 2024, June 2025 – Present",
+      "location": "Yonkers, NY",
+      "responsibilities": [
+        "Developed comprehensive automation solutions using JavaScript, HTML, and Excel VBA that streamlined batch creation workflows for credit card and check payment processing across the organization",
+        "Built AlaeAutomates web platform using Python and Flask featuring a statement processor that automatically categorizes 1000+ page PDFs and an invoice separator tool for intelligent document splitting by invoice number",
+        "Created end-to-end payment automation tools that handle form filling, posting, and application processes while maintaining data accuracy and eliminating manual data entry errors",
+        "Designed interactive employee training website prototype with quiz-based modules at executive request to address company-wide onboarding challenges, reducing reliance on manual training processes",
+        "Implemented Excel macros and automated workflows that transformed multi-day manual document processing tasks into automated processes completed in seconds"
+      ]
+    }
+  ],
+  "skills": {
+    "programming_languages": [
+      { "name": "Python", "primary": true },
+      { "name": "JavaScript", "primary": true },
+      { "name": "TypeScript", "primary": true },
+      { "name": "Go", "primary": false },
+      { "name": "C", "primary": false },
+      { "name": "Scala", "primary": false },
+      { "name": "MIPS Assembly", "primary": false },
+      { "name": "SQL", "primary": false },
+      { "name": "HTML5", "primary": false },
+      { "name": "CSS3", "primary": false }
+    ],
+    "web_development": [
+      { "name": "React", "primary": true },
+      { "name": "Flask", "primary": true },
+      { "name": "Node.js", "primary": true },
+      { "name": "Express.js", "primary": false },
+      { "name": "Socket.IO", "primary": false },
+      { "name": "RESTful APIs", "primary": false }
+    ],
+    "databases_cloud": [
+      { "name": "MongoDB", "primary": true },
+      { "name": "PostgreSQL", "primary": true },
+      { "name": "Digital Ocean", "primary": false },
+      { "name": "Docker", "primary": false },
+      { "name": "Firebase", "primary": false },
+      { "name": "Railway", "primary": false }
+    ],
+    "specialized": [
+      { "name": "Distributed Systems", "primary": true },
+      { "name": "Security", "primary": true },
+      { "name": "Process Automation", "primary": false },
+      { "name": "Real-time Communication", "primary": false },
+      { "name": "DevOps", "primary": false },
+      { "name": "Performance Optimization", "primary": false }
+    ]
+  },
+  "languages": [
+    { "name": "Arabic", "level": "Native" },
+    { "name": "French", "level": "Native" },
+    { "name": "English", "level": "Fluent" },
+    { "name": "Darija", "level": "Native" }
+  ],
+  "projects": []
+}
