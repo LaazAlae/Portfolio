@@ -358,7 +358,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     height: 200px;
-    width: 4000px;
+    width: 6000px;
     animation: svgFloat 60s linear infinite;
     will-change: transform;
 }
@@ -368,7 +368,7 @@ body {
         transform: translateY(-50%) translateX(0);
     }
     to {
-        transform: translateY(-50%) translateX(-2000px);
+        transform: translateY(-50%) translateX(-3000px);
     }
 }
 
@@ -382,7 +382,7 @@ body {
 }
 
 .svg-dot:hover {
-    fill: #222 !important;
+    fill: #5c310d !important;
     opacity: 1 !important;
 }
 
