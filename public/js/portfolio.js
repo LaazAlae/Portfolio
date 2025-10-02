@@ -218,50 +218,72 @@ class PortfolioApp {
     }
 
     setupFloatingDots() {
-        const container = document.querySelector('.floating-dots-track');
+        const container = document.querySelector('.floating-dots-container');
         if (!container) return;
 
-        // Sample project data
-        const projects = [
-            { title: 'Project', type: 'Web' },
-            { title: 'Project', type: 'App' },
-            { title: 'Project', type: 'API' },
-            { title: 'Project', type: 'Web' },
-            { title: 'Project', type: 'App' },
-            { title: 'Project', type: 'API' },
-            { title: 'Project', type: 'Web' },
-            { title: 'Project', type: 'App' }
-        ];
-
-        // Project container approach
-        const projectSpacing = 100; // Spacing between dots
-        const screenWidth = window.innerWidth;
-        const projectsNeeded = Math.ceil((screenWidth * 4) / projectSpacing) + 20;
-
-        // Clear and create project containers
+        // Clear existing content
         container.innerHTML = '';
 
-        for (let i = 0; i < projectsNeeded; i++) {
-            const project = projects[i % projects.length];
-            const projectContainer = this.createProjectContainer(project, i);
-            container.appendChild(projectContainer);
-        }
-
-        // Set width and animation
-        const trackWidth = projectsNeeded * projectSpacing;
-        container.style.width = `${trackWidth}px`;
-
-        container.style.animation = 'none';
-        container.offsetHeight;
-        container.style.animation = 'dotsFloat 60s linear infinite';
+        // Create the SVG element
+        const svg = this.createFloatingDotsSVG();
+        container.appendChild(svg);
     }
 
-    createProjectContainer(project, index) {
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        dot.style.marginRight = '100px';
+    createFloatingDotsSVG() {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('class', 'floating-dots-svg');
+        svg.setAttribute('width', '4000');
+        svg.setAttribute('height', '200');
+        svg.setAttribute('viewBox', '0 0 4000 200');
 
-        return dot;
+        // Create main horizontal line
+        const mainLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        mainLine.setAttribute('x1', '0');
+        mainLine.setAttribute('y1', '100');
+        mainLine.setAttribute('x2', '4000');
+        mainLine.setAttribute('y2', '100');
+        mainLine.setAttribute('stroke', '#666');
+        mainLine.setAttribute('stroke-width', '2');
+        mainLine.setAttribute('opacity', '0.6');
+        svg.appendChild(mainLine);
+
+        // Create dots and connecting lines
+        const dotSpacing = 100;
+        const numDots = 40; // Fixed number for consistent appearance
+
+        for (let i = 0; i < numDots; i++) {
+            const x = i * dotSpacing + 50;
+            const isOdd = i % 2 === 0;
+            const dotY = isOdd ? 40 : 160;
+            const lineEndY = isOdd ? 100 : 100;
+
+            // Create connecting line
+            const connectLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            if (isOdd) {
+                // Line going down and to the left
+                connectLine.setAttribute('d', `M ${x} ${dotY + 15} L ${x} ${dotY + 30} Q ${x} ${dotY + 38} ${x - 8} ${dotY + 38} L ${x - 80} ${dotY + 38} Q ${x - 88} ${dotY + 38} ${x - 88} ${dotY + 46} L ${x - 88} ${lineEndY - 8} Q ${x - 88} ${lineEndY} ${x - 80} ${lineEndY} L ${x - 1} ${lineEndY}`);
+            } else {
+                // Line going up and to the left
+                connectLine.setAttribute('d', `M ${x} ${dotY - 15} L ${x} ${dotY - 30} Q ${x} ${dotY - 38} ${x - 8} ${dotY - 38} L ${x - 80} ${dotY - 38} Q ${x - 88} ${dotY - 38} ${x - 88} ${dotY - 46} L ${x - 88} ${lineEndY + 8} Q ${x - 88} ${lineEndY} ${x - 80} ${lineEndY} L ${x - 1} ${lineEndY}`);
+            }
+            connectLine.setAttribute('stroke', '#666');
+            connectLine.setAttribute('stroke-width', '2');
+            connectLine.setAttribute('fill', 'none');
+            connectLine.setAttribute('opacity', '0.6');
+            svg.appendChild(connectLine);
+
+            // Create dot
+            const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            dot.setAttribute('cx', x);
+            dot.setAttribute('cy', dotY);
+            dot.setAttribute('r', '7.5');
+            dot.setAttribute('fill', '#333');
+            dot.setAttribute('opacity', '0.8');
+            dot.setAttribute('class', 'svg-dot');
+            svg.appendChild(dot);
+        }
+
+        return svg;
     }
 
     showError(message) {
