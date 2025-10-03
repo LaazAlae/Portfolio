@@ -12,7 +12,7 @@ class PortfolioApp {
     async init() {
         try {
             await this.loadPortfolioData();
-            this.renderContent();
+            await this.renderContent();
             this.setupEventListeners();
             this.setupNavigation();
         } catch (error) {
@@ -23,21 +23,15 @@ class PortfolioApp {
 
     async loadPortfolioData() {
         try {
-            const response = await fetch('/api/portfolio');
-            const result = await response.json();
-
-            if (result.success) {
-                this.portfolioData = result.data;
-            } else {
-                throw new Error(result.error || 'Failed to load data');
-            }
+            const response = await fetch('/personal-info.json');
+            this.portfolioData = await response.json();
         } catch (error) {
             console.error('Error loading portfolio data:', error);
             throw error;
         }
     }
 
-    renderContent() {
+    async renderContent() {
         if (!this.portfolioData) return;
 
         this.renderPersonalInfo();
@@ -46,14 +40,14 @@ class PortfolioApp {
         this.renderEducation();
         this.renderSkills();
         this.renderLanguages();
-        this.setupFloatingDots();
+        await this.renderProjects();
 
         // Handle window resize with debouncing for performance
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                this.setupFloatingDots();
+                // Projects rendering will be rebuilt
             }, 150);
         });
     }
@@ -132,14 +126,14 @@ class PortfolioApp {
             { title: 'Web Development', skills: skills.web_development },
             { title: 'Databases & Cloud', skills: skills.databases_cloud },
             { title: 'Specialized Skills', skills: skills.specialized }
-        ];
+        ].filter(category => category.skills && category.skills.length > 0);
 
         container.innerHTML = skillCategories.map(category => `
-            <div class="skill-category">
-                <h4>${this.escapeHtml(category.title)}</h4>
+            <div class="skill-category" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
+                <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
                 <div class="skill-tags">
                     ${category.skills.map(skill =>
-                        `<span class="skill-tag ${skill.primary ? 'primary' : ''}">${this.escapeHtml(skill.name)}</span>`
+                        `<span class="skill-tag ${skill.primary ? 'primary' : ''}" data-skill="${this.escapeHtml(skill.name)}">${this.escapeHtml(skill.name)}</span>`
                     ).join('')}
                 </div>
             </div>
@@ -181,6 +175,7 @@ class PortfolioApp {
             });
         });
 
+        // Skill filtering will be rebuilt
     }
 
     setupNavigation() {
@@ -217,74 +212,268 @@ class PortfolioApp {
         return div.innerHTML;
     }
 
-    setupFloatingDots() {
-        const container = document.querySelector('.floating-dots-container');
-        if (!container) return;
 
-        // Clear existing content
-        container.innerHTML = '';
+    async renderProjects() {
+        const container = document.getElementById('projectsContainer');
 
-        // Create the SVG element
-        const svg = this.createFloatingDotsSVG();
-        container.appendChild(svg);
+        if (!container || !this.portfolioData || !this.portfolioData.projects) return;
+
+        container.innerHTML = this.portfolioData.projects.map((project, index) => `
+            <div class="project-card" data-project-index="${index}">
+                <div class="project-card-header">
+                    <h3 class="project-card-title">${this.escapeHtml(project.title)}</h3>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-card-description">${this.escapeHtml(project.shortDescription)}</p>
+                </div>
+                <div class="project-card-footer">
+                    <button class="project-card-btn" aria-label="View ${project.title} details">
+                        View Details
+                        <svg class="project-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+
+        this.attachProjectCardListeners(this.portfolioData.projects);
     }
 
-    createFloatingDotsSVG() {
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('class', 'floating-dots-svg');
-        svg.setAttribute('width', '6000');
-        svg.setAttribute('height', '200');
-        svg.setAttribute('viewBox', '0 0 6000 200');
+    attachProjectCardListeners(projects) {
+        const cards = document.querySelectorAll('.project-card');
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                const projectIndex = parseInt(card.dataset.projectIndex);
+                const project = projects[projectIndex];
+                this.openProjectModal(project);
+            });
+        });
+    }
 
-        // Create main horizontal line
-        const mainLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        mainLine.setAttribute('x1', '0');
-        mainLine.setAttribute('y1', '100');
-        mainLine.setAttribute('x2', '6000');
-        mainLine.setAttribute('y2', '100');
-        mainLine.setAttribute('stroke', '#824613');
-        mainLine.setAttribute('stroke-width', '2');
-        mainLine.setAttribute('opacity', '1');
-        svg.appendChild(mainLine);
+    openProjectModal(project) {
+        const modal = this.createModal(project);
+        document.body.appendChild(modal);
 
-        // Create dots and connecting lines
-        const dotSpacing = 150; // Increased spacing for more distance between branches
-        const numDots = 40; // Fixed number for consistent appearance
+        document.body.style.overflow = 'hidden';
 
-        for (let i = 0; i < numDots; i++) {
-            const x = i * dotSpacing + 50;
-            const isOdd = i % 2 === 0;
-            const dotY = isOdd ? 40 : 160;
-            const lineEndY = isOdd ? 100 : 100;
+        setTimeout(() => {
+            modal.classList.add('active');
+        }, 10);
 
-            // Create connecting line
-            const connectLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            if (isOdd) {
-                // Line going down and to the left
-                connectLine.setAttribute('d', `M ${x} ${dotY + 15} L ${x} ${dotY + 30} Q ${x} ${dotY + 38} ${x - 8} ${dotY + 38} L ${x - 120} ${dotY + 38} Q ${x - 128} ${dotY + 38} ${x - 128} ${dotY + 46} L ${x - 128} ${lineEndY - 8} Q ${x - 128} ${lineEndY} ${x - 120} ${lineEndY} L ${x - 1} ${lineEndY}`);
-            } else {
-                // Line going up and to the left
-                connectLine.setAttribute('d', `M ${x} ${dotY - 15} L ${x} ${dotY - 30} Q ${x} ${dotY - 38} ${x - 8} ${dotY - 38} L ${x - 120} ${dotY - 38} Q ${x - 128} ${dotY - 38} ${x - 128} ${dotY - 46} L ${x - 128} ${lineEndY + 8} Q ${x - 128} ${lineEndY} ${x - 120} ${lineEndY} L ${x - 1} ${lineEndY}`);
-            }
-            connectLine.setAttribute('stroke', '#824613');
-            connectLine.setAttribute('stroke-width', '2');
-            connectLine.setAttribute('fill', 'none');
-            connectLine.setAttribute('opacity', '1');
-            svg.appendChild(connectLine);
+        this.setupModalListeners(modal);
+    }
 
-            // Create dot
-            const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            dot.setAttribute('cx', x);
-            dot.setAttribute('cy', dotY);
-            dot.setAttribute('r', '7.5');
-            dot.setAttribute('fill', '#824613');
-            dot.setAttribute('opacity', '1');
-            dot.setAttribute('class', 'svg-dot');
-            svg.appendChild(dot);
+    createModal(project) {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal';
+
+        const header = this.createModalHeader(project);
+        const body = this.createModalBody(project);
+
+        modalContent.appendChild(header);
+        modalContent.appendChild(body);
+        modal.appendChild(modalContent);
+
+        return modal;
+    }
+
+    createModalHeader(project) {
+        const header = document.createElement('div');
+        header.className = 'modal-header';
+
+        const title = document.createElement('h2');
+        title.className = 'modal-title';
+        title.textContent = project.title;
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'modal-close';
+        closeBtn.setAttribute('aria-label', 'Close');
+        closeBtn.textContent = '×';
+
+        header.appendChild(title);
+        header.appendChild(closeBtn);
+
+        return header;
+    }
+
+    createModalBody(project) {
+        const body = document.createElement('div');
+        body.className = 'modal-body';
+
+        const linksSection = this.createModalLinksDOM(project);
+        const skillsSection = this.createModalSkillsDOM(project);
+        const descSection = this.createModalDescriptionDOM(project);
+
+        if (linksSection) body.appendChild(linksSection);
+        if (skillsSection) body.appendChild(skillsSection);
+        if (descSection) body.appendChild(descSection);
+
+        return body;
+    }
+
+    createModalLinksDOM(project) {
+        const links = [];
+
+        if (project.githubUrl) {
+            const githubLink = document.createElement('a');
+            githubLink.href = project.githubUrl;
+            githubLink.target = '_blank';
+            githubLink.rel = 'noopener';
+            githubLink.className = 'modal-link';
+
+            const githubIcon = this.createSVGIcon('github');
+            githubLink.appendChild(githubIcon);
+            githubLink.appendChild(document.createTextNode('GitHub'));
+
+            links.push(githubLink);
         }
 
+        if (project.deploymentUrl) {
+            const demoLink = document.createElement('a');
+            demoLink.href = project.deploymentUrl;
+            demoLink.target = '_blank';
+            demoLink.rel = 'noopener';
+            demoLink.className = 'modal-link';
+
+            const demoIcon = this.createSVGIcon('external');
+            demoLink.appendChild(demoIcon);
+            demoLink.appendChild(document.createTextNode('Live Demo'));
+
+            links.push(demoLink);
+        }
+
+        if (links.length === 0) return null;
+
+        const section = document.createElement('div');
+        section.className = 'modal-section';
+
+        const title = document.createElement('h3');
+        title.className = 'modal-section-title';
+        title.textContent = 'Links';
+
+        const linksContainer = document.createElement('div');
+        linksContainer.className = 'modal-links';
+
+        links.forEach(link => linksContainer.appendChild(link));
+
+        section.appendChild(title);
+        section.appendChild(linksContainer);
+
+        return section;
+    }
+
+    createModalSkillsDOM(project) {
+        if (!project.skills || project.skills.length === 0) return null;
+
+        const section = document.createElement('div');
+        section.className = 'modal-section';
+
+        const title = document.createElement('h3');
+        title.className = 'modal-section-title';
+        title.textContent = 'Technologies';
+
+        const skillsContainer = document.createElement('div');
+        skillsContainer.className = 'modal-skills';
+
+        project.skills.forEach(skillName => {
+            const skill = document.createElement('span');
+            skill.className = 'modal-skill';
+            skill.textContent = skillName;
+            skillsContainer.appendChild(skill);
+        });
+
+        section.appendChild(title);
+        section.appendChild(skillsContainer);
+
+        return section;
+    }
+
+    createModalDescriptionDOM(project) {
+        if (!project.detailedDescription) return null;
+
+        const section = document.createElement('div');
+        section.className = 'modal-section';
+
+        const title = document.createElement('h3');
+        title.className = 'modal-section-title';
+        title.textContent = 'Description';
+
+        const descContainer = document.createElement('div');
+        descContainer.className = 'modal-description';
+
+        const paragraphs = project.detailedDescription.split('\n\n');
+        paragraphs.forEach(paragraphText => {
+            const p = document.createElement('p');
+            p.textContent = paragraphText.trim();
+            descContainer.appendChild(p);
+        });
+
+        section.appendChild(title);
+        section.appendChild(descContainer);
+
+        return section;
+    }
+
+    createSVGIcon(type) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', type === 'github' ? 'currentColor' : 'none');
+        if (type !== 'github') {
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '2');
+        }
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+        if (type === 'github') {
+            path.setAttribute('d', 'M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z');
+        } else {
+            path.setAttribute('d', 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6');
+            const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path2.setAttribute('d', 'M15 3h6v6');
+            const path3 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path3.setAttribute('d', 'M10 14L21 3');
+            svg.appendChild(path2);
+            svg.appendChild(path3);
+        }
+
+        svg.appendChild(path);
         return svg;
     }
+
+    setupModalListeners(modal) {
+        const closeBtn = modal.querySelector('.modal-close');
+        closeBtn.addEventListener('click', () => this.closeModal(modal));
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.closeModal(modal);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeModal(modal);
+            }
+        }, { once: true });
+    }
+
+    closeModal(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
+        }, 200);
+    }
+
 
     showError(message) {
         console.error(message);
