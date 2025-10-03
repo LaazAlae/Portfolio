@@ -40,35 +40,39 @@
       { "name": "JavaScript", "primary": true },
       { "name": "TypeScript", "primary": true },
       { "name": "Go", "primary": false },
-      { "name": "C", "primary": false },
-      { "name": "Scala", "primary": false },
-      { "name": "MIPS Assembly", "primary": false },
-      { "name": "SQL", "primary": false },
-      { "name": "HTML5", "primary": false },
-      { "name": "CSS3", "primary": false }
+      { "name": "SQL", "primary": false }
     ],
     "web_development": [
       { "name": "React", "primary": true },
-      { "name": "Flask", "primary": true },
       { "name": "Node.js", "primary": true },
+      { "name": "Flask", "primary": true },
       { "name": "Express.js", "primary": false },
       { "name": "Socket.IO", "primary": false },
-      { "name": "RESTful APIs", "primary": false }
+      { "name": "Material-UI", "primary": false },
+      { "name": "WebSocket", "primary": false }
     ],
     "databases_cloud": [
       { "name": "MongoDB", "primary": true },
       { "name": "PostgreSQL", "primary": true },
-      { "name": "Digital Ocean", "primary": false },
-      { "name": "Docker", "primary": false },
+      { "name": "Docker", "primary": true },
       { "name": "Firebase", "primary": false },
+      { "name": "Digital Ocean", "primary": false },
       { "name": "Railway", "primary": false }
+    ],
+    "security": [
+      { "name": "JWT", "primary": true },
+      { "name": "AES-256", "primary": true },
+      { "name": "bcrypt", "primary": false },
+      { "name": "SSL", "primary": false },
+      { "name": "CSRF", "primary": false },
+      { "name": "XSS", "primary": false }
     ],
     "specialized": [
       { "name": "Distributed Systems", "primary": true },
-      { "name": "Security", "primary": true },
-      { "name": "Process Automation", "primary": false },
-      { "name": "Real-time Communication", "primary": false },
-      { "name": "DevOps", "primary": false },
+      { "name": "Business Automation", "primary": true },
+      { "name": "NFC", "primary": false },
+      { "name": "PWA", "primary": false },
+      { "name": "PDF Processing", "primary": false },
       { "name": "Performance Optimization", "primary": false }
     ]
   },

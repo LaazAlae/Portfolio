@@ -149,23 +149,27 @@ class PortfolioApp {
             { title: 'Programming Languages', skills: skills.programming_languages || [] },
             { title: 'Web Development', skills: skills.web_development || [] },
             { title: 'Databases & Cloud', skills: skills.databases_cloud || [] },
-            { title: 'Specialized Skills', skills: skills.specialized || [] }
+            { title: 'Security', skills: skills.security || [] },
+            { title: 'Specialized', skills: skills.specialized || [] }
         ];
 
         // Show all categories, even if empty
         container.innerHTML = skillCategories.map(category => `
-            <div class="skill-category" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
+            <div class="skill-category clickable" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
                 <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
                 <div class="skill-tags">
                     ${category.skills.length > 0
                         ? category.skills.map(skill =>
-                            `<span class="skill-tag ${skill.primary ? 'primary' : ''}" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
+                            `<span class="skill-tag clickable ${skill.primary ? 'primary' : ''}" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
                         ).join('')
                         : '<span class="skill-tag">Add skills to JSON</span>'
                     }
                 </div>
             </div>
         `).join('');
+
+        // Add click listeners for skill filtering
+        this.setupSkillFilterListeners();
     }
 
     renderLanguages() {
@@ -585,6 +589,187 @@ class PortfolioApp {
         }, 200);
     }
 
+
+    setupSkillFilterListeners() {
+        // Add click listeners for skill categories
+        document.querySelectorAll('.skill-category.clickable').forEach(category => {
+            category.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const categoryName = category.dataset.category;
+                this.openSkillModal(categoryName, 'category');
+            });
+        });
+
+        // Add click listeners for individual skill tags
+        document.querySelectorAll('.skill-tag.clickable').forEach(skillTag => {
+            skillTag.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const skillName = skillTag.dataset.skill;
+                this.openSkillModal(skillName, 'skill');
+            });
+        });
+    }
+
+    openSkillModal(filterValue, filterType) {
+        const filteredProjects = this.getProjectsBySkill(filterValue, filterType);
+        const modal = this.createSkillModal(filterValue, filterType, filteredProjects);
+        document.body.appendChild(modal);
+
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            modal.classList.add('active');
+        }, 10);
+
+        this.setupModalListeners(modal);
+    }
+
+    getProjectsBySkill(filterValue, filterType) {
+        if (!this.portfolioData || !this.portfolioData.projects) return [];
+
+        return this.portfolioData.projects.filter(project => {
+            if (!project.skills || project.skills.length === 0) return false;
+
+            if (filterType === 'category') {
+                // Get all skills in this category
+                const categorySkills = this.getSkillsInCategory(filterValue);
+                return project.skills.some(skill => categorySkills.includes(skill));
+            } else {
+                // Individual skill filter
+                return project.skills.includes(filterValue);
+            }
+        });
+    }
+
+    getSkillsInCategory(categoryKey) {
+        if (!this.portfolioData || !this.portfolioData.skills) return [];
+
+        const category = this.portfolioData.skills[categoryKey];
+        if (!category || !Array.isArray(category)) return [];
+
+        return category.map(skill => skill.name);
+    }
+
+    createSkillModal(filterValue, filterType, projects) {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal skill-modal';
+
+        const header = this.createSkillModalHeader(filterValue, filterType);
+        const body = this.createSkillModalBody(projects);
+
+        modalContent.appendChild(header);
+        modalContent.appendChild(body);
+        modal.appendChild(modalContent);
+
+        return modal;
+    }
+
+    createSkillModalHeader(filterValue, filterType) {
+        const header = document.createElement('div');
+        header.className = 'modal-header';
+
+        const title = document.createElement('h2');
+        title.className = 'modal-title';
+
+        const displayName = filterType === 'category'
+            ? this.formatCategoryName(filterValue)
+            : filterValue;
+
+        title.textContent = `Projects using ${displayName}`;
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'modal-close';
+        closeBtn.setAttribute('aria-label', 'Close');
+        closeBtn.textContent = '×';
+
+        header.appendChild(title);
+        header.appendChild(closeBtn);
+
+        return header;
+    }
+
+    formatCategoryName(categoryKey) {
+        return categoryKey.split('_').map(word =>
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+    }
+
+    createSkillModalBody(projects) {
+        const body = document.createElement('div');
+        body.className = 'modal-body skill-modal-body';
+
+        if (projects.length === 0) {
+            const noProjects = document.createElement('p');
+            noProjects.className = 'no-projects';
+            noProjects.textContent = 'No projects found using this skill or category.';
+            body.appendChild(noProjects);
+            return body;
+        }
+
+        const projectsGrid = document.createElement('div');
+        projectsGrid.className = 'skill-projects-grid';
+
+        projects.forEach((project) => {
+            const projectCard = this.createSkillProjectCard(project);
+            projectsGrid.appendChild(projectCard);
+        });
+
+        body.appendChild(projectsGrid);
+        return body;
+    }
+
+    createSkillProjectCard(project) {
+        const card = document.createElement('div');
+        card.className = 'skill-project-card';
+
+        const title = document.createElement('h3');
+        title.className = 'skill-project-title';
+        title.textContent = project.title;
+
+        const description = document.createElement('p');
+        description.className = 'skill-project-description';
+        description.textContent = project.shortDescription;
+
+        const skillsContainer = document.createElement('div');
+        skillsContainer.className = 'skill-project-skills';
+
+        if (project.skills && project.skills.length > 0) {
+            project.skills.slice(0, 6).forEach(skillName => {
+                const skillPill = document.createElement('span');
+                skillPill.className = 'skill-project-pill';
+                skillPill.textContent = skillName;
+                skillsContainer.appendChild(skillPill);
+            });
+
+            if (project.skills.length > 6) {
+                const morePill = document.createElement('span');
+                morePill.className = 'skill-project-pill more-skills';
+                morePill.textContent = `+${project.skills.length - 6} more`;
+                skillsContainer.appendChild(morePill);
+            }
+        }
+
+        card.appendChild(title);
+        card.appendChild(description);
+        card.appendChild(skillsContainer);
+
+        // Add click handler to open project details
+        card.addEventListener('click', () => {
+            // Close skill modal first
+            const skillModal = card.closest('.modal-overlay');
+            this.closeModal(skillModal);
+
+            // Open project modal
+            setTimeout(() => {
+                this.openProjectModal(project);
+            }, 300);
+        });
+
+        return card;
+    }
 
     showError(message) {
         console.error(message);
