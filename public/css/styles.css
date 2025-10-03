@@ -17,7 +17,6 @@
     --border-color: rgba(45, 80, 22, 0.2);
     --transition: all 0.3s ease;
     --max-width: 1200px;
-    --timeline-card-distance: 100px;
 }
 
 body {
@@ -411,6 +410,7 @@ body {
     flex-grow: 1;
     display: -webkit-box;
     -webkit-line-clamp: 4;
+    line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -937,16 +937,17 @@ body {
         min-height: 160px;
     }
 
-    .project-title {
+    .project-card-title {
         font-size: 1.1rem;
     }
 
-    .project-description {
+    .project-card-description {
         font-size: 0.85rem;
         -webkit-line-clamp: 3;
+        line-clamp: 3;
     }
 
-    .view-project-btn {
+    .project-card-btn {
         padding: 0.5rem 1rem;
         font-size: 0.75rem;
     }
@@ -969,7 +970,7 @@ body {
         font-size: 1.5rem;
     }
 
-    .skill-pill {
+    .modal-skill {
         padding: 0.15rem 0.4rem;
         font-size: 0.8em;
         border-radius: 10px;

@@ -2,10 +2,6 @@
 class PortfolioApp {
     constructor() {
         this.portfolioData = null;
-        this.currentProject = null;
-        this.isScrolling = false;
-        this.scrollTimeout = null;
-
         this.init();
     }
 
@@ -41,15 +37,6 @@ class PortfolioApp {
         this.renderSkills();
         this.renderLanguages();
         await this.renderProjects();
-
-        // Handle window resize with debouncing for performance
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                // Projects rendering will be rebuilt
-            }, 150);
-        });
     }
 
     renderPersonalInfo() {
@@ -182,26 +169,20 @@ class PortfolioApp {
         const navbar = document.querySelector('.navbar');
         const navName = document.querySelector('.nav-name');
 
-        let lastScrollY = window.scrollY;
-
         window.addEventListener('scroll', () => {
-            const currentScrollY = window.scrollY;
+            const scrollY = window.scrollY;
 
-            // Add scrolled class for styling
-            if (currentScrollY > 50) {
+            if (scrollY > 50) {
                 navbar?.classList.add('scrolled');
             } else {
                 navbar?.classList.remove('scrolled');
             }
 
-            // Show/hide nav name based on scroll position
-            if (currentScrollY > 100) {
+            if (scrollY > 100) {
                 navName?.classList.add('visible');
             } else {
                 navName?.classList.remove('visible');
             }
-
-            lastScrollY = currentScrollY;
         });
     }
 
