@@ -1,0 +1,68 @@
+{
+  "personal": {
+    "name": "Your Name",
+    "title": "Your Professional Title",
+    "education": "Your Education • Institution Year",
+    "location": "Your Location",
+    "email": "your.email@example.com",
+    "phone": "000-000-0000",
+    "linkedin": "linkedin.com/in/yourprofile/",
+    "github": "github.com/yourusername"
+  },
+  "about": {
+    "description": "Write a compelling description about yourself, your expertise, and what drives you as a professional. This should be 2-3 sentences that capture your professional identity.",
+    "secondary": "Add a secondary paragraph about your journey, interests, or what makes you unique in your field."
+  },
+  "education": {
+    "degree": "Your Degree Title",
+    "institution": "Your University or Institution",
+    "period": "Start Date – End Date",
+    "location": "City, State"
+  },
+  "experience": [
+    {
+      "title": "Your Job Title",
+      "company": "Company Name",
+      "period": "Start Date – End Date",
+      "location": "City, State",
+      "responsibilities": [
+        "Describe your key achievement or responsibility here",
+        "Add another significant accomplishment or duty",
+        "Include specific technologies, metrics, or impact when possible",
+        "Copy this object to add more experience entries"
+      ]
+    }
+  ],
+  "skills": {
+    "programming_languages": [
+      { "name": "Language 1", "primary": true },
+      { "name": "Language 2", "primary": false }
+    ],
+    "web_development": [
+      { "name": "Framework 1", "primary": true },
+      { "name": "Tool 1", "primary": false }
+    ],
+    "databases_cloud": [
+      { "name": "Database 1", "primary": true },
+      { "name": "Cloud Service", "primary": false }
+    ],
+    "specialized": [
+      { "name": "Specialty 1", "primary": true },
+      { "name": "Specialty 2", "primary": false }
+    ]
+  },
+  "languages": [
+    { "name": "Language 1", "level": "Proficiency Level" },
+    { "name": "Language 2", "level": "Proficiency Level" }
+  ],
+  "projects": [
+    {
+      "title": "Project Name",
+      "shortDescription": "Brief one-sentence description of what this project does and its main value.",
+      "detailedDescription": "Detailed description of your project. Explain the problem it solves, your approach, technologies used (wrap important tech in **asterisks** for highlighting), and the impact or results.\n\nYou can use multiple paragraphs by adding \\n\\n between them. Technologies wrapped in **double asterisks** will be highlighted as skill pills in the modal.\n\nInclude specific achievements, metrics, or notable features that demonstrate your technical skills and problem-solving abilities.",
+      "githubUrl": "https://github.com/yourusername/project-repo",
+      "deploymentUrl": "https://your-project-demo.com",
+      "skills": ["Tech1", "Tech2", "Tech3", "Framework", "Tool"]
+    }
+  ]
+}

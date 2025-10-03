@@ -21,10 +21,37 @@ class PortfolioApp {
         try {
             const response = await fetch('/personal-info.json');
             this.portfolioData = await response.json();
+
+            // Check if data is empty and load template if needed
+            if (this.isEmptyData(this.portfolioData)) {
+                console.log('Loading template data...');
+                const templateResponse = await fetch('/template.json');
+                this.portfolioData = await templateResponse.json();
+            }
         } catch (error) {
             console.error('Error loading portfolio data:', error);
-            throw error;
+            // Fallback to template if main data fails
+            try {
+                const templateResponse = await fetch('/template.json');
+                this.portfolioData = await templateResponse.json();
+            } catch (templateError) {
+                console.error('Error loading template data:', templateError);
+                throw templateError;
+            }
         }
+    }
+
+    isEmptyData(data) {
+        if (!data || !data.personal) return true;
+
+        // Check if essential fields are empty or placeholder-like
+        const name = data.personal.name || '';
+        const title = data.personal.title || '';
+
+        return name.trim() === '' ||
+               title.trim() === '' ||
+               name === 'Your Name' ||
+               title === 'Your Professional Title';
     }
 
     async renderContent() {
@@ -73,16 +100,21 @@ class PortfolioApp {
         const { experience } = this.portfolioData;
         const container = document.getElementById('experienceContainer');
 
-        if (!container || !experience) return;
+        if (!container) return;
+
+        if (!experience || experience.length === 0) {
+            container.innerHTML = '<p class="no-content">Experience information will appear here when added to the JSON file.</p>';
+            return;
+        }
 
         container.innerHTML = experience.map(exp => `
             <div class="experience-item">
-                <h3>${this.escapeHtml(exp.title)}</h3>
-                <h4>${this.escapeHtml(exp.company)}</h4>
-                <p class="experience-date">${this.escapeHtml(exp.period)}</p>
-                <p class="experience-location">${this.escapeHtml(exp.location)}</p>
+                <h3>${this.escapeHtml(exp.title || 'Job Title')}</h3>
+                <h4>${this.escapeHtml(exp.company || 'Company Name')}</h4>
+                <p class="experience-date">${this.escapeHtml(exp.period || 'Period')}</p>
+                <p class="experience-location">${this.escapeHtml(exp.location || 'Location')}</p>
                 <ul>
-                    ${exp.responsibilities.map(resp =>
+                    ${(exp.responsibilities || ['Add job responsibilities to the JSON file']).map(resp =>
                         `<li>${this.escapeHtml(resp)}</li>`
                     ).join('')}
                 </ul>
@@ -106,22 +138,31 @@ class PortfolioApp {
         const { skills } = this.portfolioData;
         const container = document.getElementById('skillsGrid');
 
-        if (!container || !skills) return;
+        if (!container) return;
+
+        if (!skills) {
+            container.innerHTML = '<p class="no-content">Skills will appear here when added to the JSON file.</p>';
+            return;
+        }
 
         const skillCategories = [
-            { title: 'Programming Languages', skills: skills.programming_languages },
-            { title: 'Web Development', skills: skills.web_development },
-            { title: 'Databases & Cloud', skills: skills.databases_cloud },
-            { title: 'Specialized Skills', skills: skills.specialized }
-        ].filter(category => category.skills && category.skills.length > 0);
+            { title: 'Programming Languages', skills: skills.programming_languages || [] },
+            { title: 'Web Development', skills: skills.web_development || [] },
+            { title: 'Databases & Cloud', skills: skills.databases_cloud || [] },
+            { title: 'Specialized Skills', skills: skills.specialized || [] }
+        ];
 
+        // Show all categories, even if empty
         container.innerHTML = skillCategories.map(category => `
             <div class="skill-category" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
                 <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
                 <div class="skill-tags">
-                    ${category.skills.map(skill =>
-                        `<span class="skill-tag ${skill.primary ? 'primary' : ''}" data-skill="${this.escapeHtml(skill.name)}">${this.escapeHtml(skill.name)}</span>`
-                    ).join('')}
+                    ${category.skills.length > 0
+                        ? category.skills.map(skill =>
+                            `<span class="skill-tag ${skill.primary ? 'primary' : ''}" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
+                        ).join('')
+                        : '<span class="skill-tag">Add skills to JSON</span>'
+                    }
                 </div>
             </div>
         `).join('');
@@ -131,13 +172,18 @@ class PortfolioApp {
         const { languages } = this.portfolioData;
         const container = document.getElementById('languagesGrid');
 
-        if (!container || !languages) return;
+        if (!container) return;
+
+        if (!languages || languages.length === 0) {
+            container.innerHTML = '<div class="language-item"><div class="language-info"><span class="language-name">Add languages to JSON</span><span class="language-level">Proficiency level</span></div></div>';
+            return;
+        }
 
         container.innerHTML = languages.map(lang => `
             <div class="language-item">
                 <div class="language-info">
-                    <span class="language-name">${this.escapeHtml(lang.name)}</span>
-                    <span class="language-level">${this.escapeHtml(lang.level)}</span>
+                    <span class="language-name">${this.escapeHtml(lang.name || 'Language')}</span>
+                    <span class="language-level">${this.escapeHtml(lang.level || 'Level')}</span>
                 </div>
             </div>
         `).join('');
@@ -197,18 +243,40 @@ class PortfolioApp {
     async renderProjects() {
         const container = document.getElementById('projectsContainer');
 
-        if (!container || !this.portfolioData || !this.portfolioData.projects) return;
+        if (!container) return;
+
+        if (!this.portfolioData || !this.portfolioData.projects || this.portfolioData.projects.length === 0) {
+            container.innerHTML = `
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">Add Your Projects</h3>
+                    </div>
+                    <div class="project-card-body">
+                        <p class="project-card-description">Copy the project template from template.json to add your projects here. Each project will automatically generate a new card.</p>
+                    </div>
+                    <div class="project-card-footer">
+                        <button class="project-card-btn" disabled>
+                            Template Project
+                            <svg class="project-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            return;
+        }
 
         container.innerHTML = this.portfolioData.projects.map((project, index) => `
             <div class="project-card" data-project-index="${index}">
                 <div class="project-card-header">
-                    <h3 class="project-card-title">${this.escapeHtml(project.title)}</h3>
+                    <h3 class="project-card-title">${this.escapeHtml(project.title || 'Project Title')}</h3>
                 </div>
                 <div class="project-card-body">
-                    <p class="project-card-description">${this.escapeHtml(project.shortDescription)}</p>
+                    <p class="project-card-description">${this.escapeHtml(project.shortDescription || 'Project description will appear here')}</p>
                 </div>
                 <div class="project-card-footer">
-                    <button class="project-card-btn" aria-label="View ${project.title} details">
+                    <button class="project-card-btn" aria-label="View ${project.title || 'project'} details">
                         View Details
                         <svg class="project-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M7 17l9.2-9.2M17 17V7H7"/>
@@ -287,65 +355,54 @@ class PortfolioApp {
         body.className = 'modal-body';
 
         const linksSection = this.createModalLinksDOM(project);
-        const skillsSection = this.createModalSkillsDOM(project);
         const descSection = this.createModalDescriptionDOM(project);
 
-        if (linksSection) body.appendChild(linksSection);
-        if (skillsSection) body.appendChild(skillsSection);
+        body.appendChild(linksSection);
         if (descSection) body.appendChild(descSection);
 
         return body;
     }
 
     createModalLinksDOM(project) {
-        const links = [];
-
-        if (project.githubUrl) {
-            const githubLink = document.createElement('a');
-            githubLink.href = project.githubUrl;
-            githubLink.target = '_blank';
-            githubLink.rel = 'noopener';
-            githubLink.className = 'modal-link';
-
-            const githubIcon = this.createSVGIcon('github');
-            githubLink.appendChild(githubIcon);
-            githubLink.appendChild(document.createTextNode('GitHub'));
-
-            links.push(githubLink);
-        }
-
-        if (project.deploymentUrl) {
-            const demoLink = document.createElement('a');
-            demoLink.href = project.deploymentUrl;
-            demoLink.target = '_blank';
-            demoLink.rel = 'noopener';
-            demoLink.className = 'modal-link';
-
-            const demoIcon = this.createSVGIcon('external');
-            demoLink.appendChild(demoIcon);
-            demoLink.appendChild(document.createTextNode('Live Demo'));
-
-            links.push(demoLink);
-        }
-
-        if (links.length === 0) return null;
-
-        const section = document.createElement('div');
-        section.className = 'modal-section';
-
-        const title = document.createElement('h3');
-        title.className = 'modal-section-title';
-        title.textContent = 'Links';
-
         const linksContainer = document.createElement('div');
         linksContainer.className = 'modal-links';
 
-        links.forEach(link => linksContainer.appendChild(link));
+        // Always create GitHub button
+        const githubLink = document.createElement('a');
+        if (project.githubUrl) {
+            githubLink.href = project.githubUrl;
+            githubLink.target = '_blank';
+            githubLink.rel = 'noopener';
+            githubLink.className = 'modal-link modal-link-github';
+        } else {
+            githubLink.className = 'modal-link modal-link-github disabled';
+            githubLink.setAttribute('aria-disabled', 'true');
+        }
 
-        section.appendChild(title);
-        section.appendChild(linksContainer);
+        const githubIcon = this.createSVGIcon('github');
+        githubLink.appendChild(githubIcon);
+        githubLink.appendChild(document.createTextNode('GitHub'));
 
-        return section;
+        // Always create Deploy button
+        const deployLink = document.createElement('a');
+        if (project.deploymentUrl) {
+            deployLink.href = project.deploymentUrl;
+            deployLink.target = '_blank';
+            deployLink.rel = 'noopener';
+            deployLink.className = 'modal-link modal-link-deploy';
+        } else {
+            deployLink.className = 'modal-link modal-link-deploy disabled';
+            deployLink.setAttribute('aria-disabled', 'true');
+        }
+
+        const deployIcon = this.createSVGIcon('external');
+        deployLink.appendChild(deployIcon);
+        deployLink.appendChild(document.createTextNode('Live Demo'));
+
+        linksContainer.appendChild(githubLink);
+        linksContainer.appendChild(deployLink);
+
+        return linksContainer;
     }
 
     createModalSkillsDOM(project) {
@@ -382,22 +439,95 @@ class PortfolioApp {
 
         const title = document.createElement('h3');
         title.className = 'modal-section-title';
-        title.textContent = 'Description';
+        title.textContent = 'Project Details';
 
         const descContainer = document.createElement('div');
         descContainer.className = 'modal-description';
 
-        const paragraphs = project.detailedDescription.split('\n\n');
-        paragraphs.forEach(paragraphText => {
-            const p = document.createElement('p');
-            p.textContent = paragraphText.trim();
-            descContainer.appendChild(p);
+        // Parse the description into sections
+        const sections = project.detailedDescription.split('\n\n');
+
+        sections.forEach((sectionText) => {
+            const trimmed = sectionText.trim();
+            if (!trimmed) return;
+
+            // Check if this section has bullet points
+            if (trimmed.includes('\n•')) {
+                // Split into header and bullet points
+                const lines = trimmed.split('\n');
+                const header = lines[0];
+                const bullets = lines.slice(1).filter(line => line.trim().startsWith('•'));
+
+                // Create section header
+                if (header && !header.startsWith('•')) {
+                    const h3 = document.createElement('h3');
+                    h3.textContent = header;
+                    descContainer.appendChild(h3);
+                }
+
+                // Create bullet list
+                if (bullets.length > 0) {
+                    const ul = document.createElement('ul');
+                    bullets.forEach(bullet => {
+                        const li = document.createElement('li');
+                        li.innerHTML = this.highlightTechnologies(bullet.replace('•', '').trim(), project.skills);
+                        ul.appendChild(li);
+                    });
+                    descContainer.appendChild(ul);
+                }
+            } else {
+                // Regular paragraph
+                const p = document.createElement('p');
+                p.innerHTML = this.highlightTechnologies(trimmed, project.skills);
+                descContainer.appendChild(p);
+            }
         });
 
         section.appendChild(title);
         section.appendChild(descContainer);
 
         return section;
+    }
+
+    highlightTechnologies(text, projectSkills = []) {
+        // First convert **text** to highlighted technology spans
+        let result = text.replace(/\*\*(.*?)\*\*/g, '<span class="tech-highlight">$1</span>');
+
+        // If we have project skills, also highlight them contextually when mentioned
+        if (projectSkills && projectSkills.length > 0) {
+            // Sort skills by length (longest first) to avoid partial matches
+            const sortedSkills = projectSkills.slice().sort((a, b) => b.length - a.length);
+
+            sortedSkills.forEach(skill => {
+                // Skip if skill is too generic or already manually highlighted
+                if (result.includes(`<span class="tech-highlight">${skill}</span>`)) {
+                    return;
+                }
+
+                // Create regex to match the skill name (case insensitive, word boundaries)
+                const escapedSkill = skill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`\\b(${escapedSkill})\\b`, 'gi');
+
+                // Only replace if not already inside a tech-highlight span
+                result = result.replace(regex, (match, p1, offset) => {
+                    // Check if this match is already inside a tech-highlight span
+                    const beforeMatch = result.substring(0, offset);
+
+                    // Count unclosed tech-highlight spans before this position
+                    const openSpans = (beforeMatch.match(/<span class="tech-highlight">/g) || []).length;
+                    const closedSpans = (beforeMatch.match(/<\/span>/g) || []).length;
+
+                    // If we're inside a span, don't highlight
+                    if (openSpans > closedSpans) {
+                        return match;
+                    }
+
+                    return `<span class="tech-highlight">${p1}</span>`;
+                });
+            });
+        }
+
+        return result;
     }
 
     createSVGIcon(type) {
