@@ -359,9 +359,11 @@ class PortfolioApp {
         body.className = 'modal-body';
 
         const linksSection = this.createModalLinksDOM(project);
+        const skillsSection = this.createModalSkillsDOM(project);
         const descSection = this.createModalDescriptionDOM(project);
 
         body.appendChild(linksSection);
+        if (skillsSection) body.appendChild(skillsSection);
         if (descSection) body.appendChild(descSection);
 
         return body;
@@ -644,7 +646,18 @@ class PortfolioApp {
     getSkillsInCategory(categoryKey) {
         if (!this.portfolioData || !this.portfolioData.skills) return [];
 
-        const category = this.portfolioData.skills[categoryKey];
+        // Map display category names to JSON keys
+        const categoryMap = {
+            'programming_languages': 'programming_languages',
+            'web_development': 'web_development',
+            'databases___cloud': 'databases_cloud', // "Databases & Cloud" becomes "databases___cloud"
+            'security': 'security',
+            'specialized': 'specialized'
+        };
+
+        const actualCategoryKey = categoryMap[categoryKey] || categoryKey;
+        const category = this.portfolioData.skills[actualCategoryKey];
+
         if (!category || !Array.isArray(category)) return [];
 
         return category.map(skill => skill.name);
