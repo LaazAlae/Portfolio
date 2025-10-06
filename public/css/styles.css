@@ -6,15 +6,21 @@
 }
 
 :root {
-    /* Desert Natural Color Palette */
-    --bg-color: #f5f1ea;
-    --text-color: #3c2415;
-    --primary-color: #2d5016;
-    --secondary-color: #8b4513;
-    --accent-color: #9caf88;
-    --card-bg: #ddd2bd;
+    /* Professional Desert-Inspired Color Palette with British Racing Green */
+    --bg-color: #faf8f3;
+    --text-color: #2a1810;
+    --primary-color: #1e4d2b;
+    --secondary-color: #3a5f47;
+    --accent-color: #2d5016;
+    --tertiary-color: #a0522d;
+    --card-bg: #f0ebe1;
     --muted-color: #6b5b4f;
-    --border-color: rgba(45, 80, 22, 0.2);
+    --border-color: rgba(30, 77, 43, 0.2);
+    --shadow-light: rgba(30, 77, 43, 0.08);
+    --shadow-medium: rgba(30, 77, 43, 0.15);
+    --shadow-heavy: rgba(30, 77, 43, 0.25);
+    --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, var(--tertiary-color) 100%);
     --transition: all 0.3s ease;
     --max-width: 1200px;
 }
@@ -83,11 +89,117 @@ body {
     white-space: nowrap;
 }
 
-.nav-menu {
+/* Social Icons Container */
+.nav-social {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+.social-link {
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    background: rgba(30, 77, 43, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-accent);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.social-link:hover::before {
+    left: 0;
+}
+
+.social-link:hover {
+    color: var(--bg-color);
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 8px 25px var(--shadow-medium);
+}
+
+.social-link svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover svg {
+    transform: scale(1.1);
+}
+
+/* Transparent Sub-Navigation */
+.sub-navbar {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(180deg,
+        rgba(30, 77, 43, 0.02) 0%,
+        rgba(30, 77, 43, 0.08) 100%);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(30, 77, 43, 0.1);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar.scrolled .sub-navbar {
+    opacity: 1;
+    max-height: 80px;
+}
+
+.sub-nav-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 3rem);
+}
+
+.sub-nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 2.5rem;
     align-items: center;
+    justify-content: center;
+    padding: 0.8rem 0;
+    margin: 0;
+}
+
+.sub-nav-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    background: transparent;
+}
+
+.sub-nav-link:hover {
+    color: var(--accent-color);
+    background: rgba(30, 77, 43, 0.1);
+}
+
+.sub-nav-link.active {
+    color: var(--accent-color);
+    background: rgba(30, 77, 43, 0.15);
+    font-weight: 600;
 }
 
 .nav-link {
@@ -127,7 +239,29 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: radial-gradient(ellipse at center, rgba(156, 175, 136, 0.15) 0%, var(--bg-color) 70%);
+    background: radial-gradient(ellipse at center, rgba(30, 77, 43, 0.12) 0%, var(--bg-color) 70%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(30, 77, 43, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(30, 77, 43, 0.02) 0%, transparent 50%);
+    animation: subtleFloat 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes subtleFloat {
+    0%, 100% { opacity: 0.3; transform: translateY(0px); }
+    50% { opacity: 0.1; transform: translateY(-10px); }
 }
 
 .hero-content {
@@ -139,11 +273,39 @@ body {
     font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 700;
     margin-bottom: clamp(0.5rem, 2vw, 1rem);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(45deg,
+        var(--primary-color) 0%,
+        #a0522d 20%,
+        var(--secondary-color) 40%,
+        var(--accent-color) 60%,
+        var(--tertiary-color) 80%,
+        var(--primary-color) 100%);
+    background-size: 400% 400%;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 1.1;
+    animation: nameGradient 4s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes nameGradient {
+    0%, 100% {
+        background-position: 0% 50%;
+        filter: brightness(1.2) contrast(1.3);
+    }
+    25% {
+        background-position: 100% 50%;
+        filter: brightness(1.4) contrast(1.5);
+    }
+    50% {
+        background-position: 100% 100%;
+        filter: brightness(1.3) contrast(1.4);
+    }
+    75% {
+        background-position: 0% 100%;
+        filter: brightness(1.4) contrast(1.5);
+    }
 }
 
 .hero-subtitle {
@@ -154,7 +316,7 @@ body {
 
 .hero-education {
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    color: var(--secondary-color);
+    color: #a0522d;
     margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 500;
 }
@@ -162,21 +324,21 @@ body {
 .cta-button {
     display: inline-block;
     padding: clamp(0.8rem, 2.5vw, 1rem) clamp(2rem, 5vw, 2.5rem);
-    background: var(--accent-color);
-    color: var(--text-color);
+    background: var(--primary-color);
+    color: var(--bg-color);
     text-decoration: none;
     border-radius: 50px;
     font-weight: 600;
     transition: var(--transition);
     font-size: clamp(0.9rem, 2.2vw, 1rem);
-    box-shadow: 0 4px 16px rgba(156, 175, 136, 0.3);
+    box-shadow: 0 4px 16px var(--shadow-medium);
 }
 
 .cta-button:hover {
-    background: var(--primary-color);
+    background: var(--secondary-color);
     color: var(--bg-color);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(45, 80, 22, 0.4);
+    box-shadow: 0 6px 20px var(--shadow-heavy);
 }
 
 /* Sections */
@@ -279,7 +441,7 @@ body {
 }
 
 .experience-item h4 {
-    color: var(--secondary-color);
+    color: #a0522d;
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
 }
@@ -439,9 +601,9 @@ body {
 }
 
 .project-card-btn {
-    background: var(--accent-color);
-    color: var(--primary-color);
-    border: 1px solid transparent;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: 2px solid var(--primary-color);
     border-radius: 12px;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
@@ -455,10 +617,11 @@ body {
 }
 
 .project-card-btn:hover {
-    background: var(--primary-color);
+    background: var(--secondary-color);
     color: var(--bg-color);
+    border-color: var(--secondary-color);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(45, 80, 22, 0.25);
+    box-shadow: 0 8px 20px var(--shadow-heavy);
 }
 
 .project-card-icon {
@@ -585,14 +748,15 @@ body {
 }
 
 .modal-link-deploy {
-    background: var(--accent-color);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: 2px solid var(--primary-color);
 }
 
 .modal-link-deploy:hover {
-    background: var(--primary-color);
+    background: var(--secondary-color);
     color: var(--bg-color);
+    border-color: var(--secondary-color);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
 }
@@ -723,97 +887,57 @@ body {
     margin-top: clamp(0.5rem, 1.2vw, 0.8rem);
 }
 
-/* Professional Modal Skills Pills */
-.modal-skill {
-    background: linear-gradient(135deg,
-        var(--accent-color) 0%,
-        rgba(156, 175, 136, 0.9) 100%);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: clamp(14px, 2.5vw, 18px);
+/* UNIFIED PILL DESIGN - ALL PILLS USE THIS */
+.modal-skill,
+.tech-highlight,
+.smart-pill,
+.skill-project-pill {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
 
-    /* Dynamic responsive padding */
+    /* Consistent padding */
     padding: clamp(0.3rem, 0.8vw, 0.4rem) clamp(0.6rem, 1.5vw, 1rem);
 
-    /* Perfect typography */
-    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    /* Unified typography */
+    font-size: clamp(0.65rem, 1.6vw, 0.9rem);
     font-weight: 600;
     line-height: 1.1;
     white-space: nowrap;
     letter-spacing: -0.01em;
 
-    /* Professional interactions */
+    /* Standard interactions */
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     user-select: none;
 
-    /* Subtle shadow */
-    box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
+    /* Unified shadow */
+    box-shadow: 0 2px 8px rgba(45, 80, 22, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+    /* Display properties */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
 }
 
-.modal-skill:hover {
-    background: var(--primary-color);
+.modal-skill:hover,
+.tech-highlight:hover,
+.smart-pill:hover,
+.skill-project-pill:hover {
+    background: var(--secondary-color);
     color: var(--bg-color);
+    border-color: var(--secondary-color);
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2);
+    box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Technology highlighting in descriptions */
-.tech-highlight {
-    background: linear-gradient(135deg,
-        var(--accent-color) 0%,
-        rgba(156, 175, 136, 0.9) 100%);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: clamp(12px, 2vw, 16px);
+/* Technology highlighting inherits unified design */
 
-    /* Responsive padding */
-    padding: clamp(0.2rem, 0.5vw, 0.3rem) clamp(0.5rem, 1.2vw, 0.8rem);
-
-    /* Typography */
-    font-weight: 600;
-    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-    line-height: 1.1;
-    white-space: nowrap;
-    letter-spacing: -0.01em;
-
-    /* Smooth interactions */
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: pointer;
-
-    /* Professional shadow */
-    box-shadow: 0 2px 6px rgba(45, 80, 22, 0.08);
-    display: inline-block;
-    margin: 0 0.1rem;
-}
-
-.tech-highlight:hover {
-    background: var(--primary-color);
-    color: var(--bg-color);
-    transform: translateY(-1px) scale(1.03);
-    box-shadow: 0 3px 10px rgba(45, 80, 22, 0.2);
-}
-
-/* Mobile optimization for modal skills */
-@media (max-width: 768px) {
-    .modal-skills {
-        gap: 0.4rem;
-        justify-content: center;
-    }
-
-    .modal-skill {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.6rem;
-        border-radius: 12px;
-    }
-
-    .tech-highlight {
-        font-size: 0.8rem;
-        padding: 0.2rem 0.5rem;
-        border-radius: 10px;
-    }
-}
+/* Mobile optimization handled by unified pill design */
 
 /* Placeholder content styling */
 .no-content {
@@ -842,29 +966,48 @@ body {
    PROFESSIONAL SKILL FILTERING MODALS
    ======================================== */
 
-/* Beautiful Lightweight Modal */
+/* Beautiful Professional Modal */
 .skill-modal {
     max-width: min(1200px, 95vw);
     max-height: min(85vh, 800px);
     width: 100%;
 
-    /* Clean professional design */
-    background: rgba(255, 255, 255, 0.98);
-    border: 1px solid rgba(45, 80, 22, 0.15);
+    /* Professional desert-inspired design */
+    background: linear-gradient(135deg,
+        rgba(250, 248, 243, 0.98) 0%,
+        rgba(240, 235, 225, 0.95) 100%);
+    border: 2px solid var(--accent-color);
     border-radius: 20px;
 
-    /* Lightweight shadows */
-    box-shadow: 0 12px 40px rgba(45, 80, 22, 0.12);
+    /* Enhanced professional shadows */
+    box-shadow:
+        0 20px 60px var(--shadow-heavy),
+        0 8px 30px var(--shadow-medium),
+        inset 0 1px 0 rgba(30, 77, 43, 0.3);
 
-    /* Fast transitions */
+    /* Smooth transitions */
     transition: all 0.3s ease;
     overflow: hidden;
+    position: relative;
 }
 
-/* Clean Modal Header */
+.skill-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-accent);
+    z-index: 1;
+}
+
+/* Professional Modal Header */
 .skill-modal .modal-header {
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid rgba(45, 80, 22, 0.1);
+    background: linear-gradient(135deg,
+        rgba(250, 248, 243, 0.98) 0%,
+        rgba(240, 235, 225, 0.95) 100%);
+    border-bottom: 2px solid var(--accent-color);
     padding: 2rem;
     position: relative;
 }
@@ -872,11 +1015,12 @@ body {
 .skill-modal .modal-header::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     right: 0;
-    height: 2px;
-    background: var(--accent-color);
+    height: 3px;
+    background: var(--gradient-primary);
+    z-index: 1;
 }
 
 /* Beautiful Modal Title */
@@ -888,10 +1032,12 @@ body {
     line-height: 1.3;
 }
 
-/* Simple Modal Body */
+/* Professional Modal Body */
 .skill-modal-body {
     padding: 0;
-    background: transparent;
+    background: linear-gradient(180deg,
+        rgba(250, 248, 243, 0.7) 0%,
+        rgba(240, 235, 225, 0.8) 100%);
     overflow-y: auto;
     max-height: calc(85vh - 140px);
 }
@@ -997,39 +1143,7 @@ body {
     margin-top: auto;
 }
 
-/* Professional Skills Pills */
-.skill-project-pill {
-    background: linear-gradient(135deg,
-        var(--accent-color) 0%,
-        rgba(156, 175, 136, 0.9) 100%);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: clamp(12px, 2vw, 16px);
-
-    /* Dynamic padding */
-    padding: clamp(0.2rem, 0.6vw, 0.3rem) clamp(0.5rem, 1.2vw, 0.8rem);
-
-    /* Perfect typography */
-    font-size: clamp(0.7rem, 1.4vw, 0.85rem);
-    font-weight: 600;
-    line-height: 1.1;
-    white-space: nowrap;
-    text-align: center;
-
-    /* Smooth interactions */
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: pointer;
-
-    /* Subtle shadow */
-    box-shadow: 0 2px 6px rgba(45, 80, 22, 0.08);
-}
-
-.skill-project-pill:hover {
-    background: var(--primary-color);
-    color: var(--bg-color);
-    transform: translateY(-1px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(45, 80, 22, 0.2);
-}
+/* Skill project pills inherit unified design */
 
 /* Special more-skills pill */
 .skill-project-pill.more-skills {
@@ -1102,10 +1216,7 @@ body {
         line-clamp: 2;
     }
 
-    .skill-project-pill {
-        font-size: 0.75rem;
-        padding: 0.2rem 0.5rem;
-    }
+    /* Unified pills handle mobile responsively */
 }
 
 /* Loading and Animation States */
@@ -1219,7 +1330,7 @@ body {
 }
 
 .institution {
-    color: var(--secondary-color);
+    color: #a0522d;
     font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     font-weight: 500;
     margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
@@ -1395,63 +1506,15 @@ body {
 
 /* OBSOLETE - REMOVED SECONDARY CONTAINER */
 
-/* SMART PILLS - TRUE PILL SHAPE & EDGE DETECTION */
+/* Smart pills inherit unified design */
 .smart-pill {
-    background: linear-gradient(135deg,
-        var(--accent-color) 0%,
-        rgba(156, 175, 136, 0.9) 100%);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-
-    /* TRUE PILL SHAPE - perfect capsule */
-    border-radius: 50px;
+    /* Override specific properties for skills grid */
     height: clamp(1.2rem, 3.2cqw, 2.4rem);
-
-    /* SMART PADDING - proportional to height */
-    padding: 0 clamp(0.6rem, 2.2cqw, 1.4rem);
-
-    /* EDGE-AWARE FONT SIZING - bigger on desktop */
-    font-size: clamp(0.55rem, 2cqw, 0.95rem);
-    font-weight: 600;
-    line-height: 1;
-    white-space: nowrap;
-    letter-spacing: -0.01em;
-
-    /* SMART DISPLAY PROPERTIES */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    /* EDGE DETECTION & SPACE USAGE */
+    margin: clamp(0.05rem, 0.25cqw, 0.15rem);
     flex-shrink: 1;
     flex-grow: 0;
     min-width: fit-content;
     max-width: 100%;
-
-    /* SMOOTH INTERACTIONS */
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: pointer;
-    user-select: none;
-
-    /* 3D PILL EFFECT */
-    box-shadow:
-        0 2px 8px rgba(45, 80, 22, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-
-    /* POSITION FOR SMART ARRANGEMENT */
-    position: relative;
-    margin: clamp(0.05rem, 0.25cqw, 0.15rem);
-}
-
-/* SMART PILL HOVER - INTELLIGENT EXPANSION */
-.smart-pill:hover {
-    background: var(--primary-color);
-    color: var(--bg-color);
-    transform: scale(1.05) translateY(-1px);
-    box-shadow:
-        0 4px 16px rgba(45, 80, 22, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    z-index: 10;
 }
 
 /* NO BREAKPOINTS - CONTAINER SCALING ONLY */
@@ -1463,20 +1526,12 @@ body {
     box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2);
 }
 
-/* SMART PILLS - PRIMARY VARIANT */
+/* Primary pills - enhanced version of unified design */
 .smart-pill.primary {
     background: linear-gradient(135deg,
         var(--accent-color) 0%,
-        rgba(156, 175, 136, 0.95) 100%);
+        var(--primary-color) 100%);
     font-weight: 700;
-
-    /* ENHANCED 3D EFFECT FOR PRIMARY */
-    box-shadow:
-        0 3px 12px rgba(45, 80, 22, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        0 1px 3px rgba(45, 80, 22, 0.08);
-
-    /* SLIGHTLY LARGER FOR IMPORTANCE - desktop optimized */
     height: clamp(1.3rem, 3.4cqw, 2.5rem);
     font-size: clamp(0.6rem, 2.1cqw, 1rem);
 }
@@ -1549,9 +1604,16 @@ body {
 }
 
 .languages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 15vw, 12rem), 1fr));
-    gap: clamp(0.8rem, 2vw, 1.5rem);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: clamp(1rem, 3vw, 2rem);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 0.5rem;
 }
 
 /* Language Items - Using Unified System */
@@ -1583,8 +1645,28 @@ body {
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
-    .nav-menu {
+    .nav-social {
+        gap: 0.8rem;
+    }
+
+    .social-link {
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+
+    .social-link svg {
+        width: 0.9rem;
+        height: 0.9rem;
+    }
+
+    .sub-nav-menu {
         gap: 1.5rem;
+        padding: 0.6rem 0;
+    }
+
+    .sub-nav-link {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
     }
 
     .projects-grid {
@@ -1632,8 +1714,9 @@ body {
     /* UNIFIED PILLS - NO BREAKPOINT OVERRIDES */
 
     .languages-grid {
-        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: nowrap;
         gap: 1rem;
+        justify-content: center;
     }
 
     /* REMOVED HARDCODED BACKGROUND CARD SIZING */
@@ -1688,11 +1771,7 @@ body {
         font-size: 1.5rem;
     }
 
-    .modal-skill {
-        padding: 0.15rem 0.4rem;
-        font-size: 0.8em;
-        border-radius: 10px;
-    }
+    /* Unified pills handle mobile responsively */
 
     /* UNIFIED PILLS - NO BREAKPOINT OVERRIDES */
 }

@@ -73,6 +73,9 @@ class PortfolioApp {
         const navName = document.getElementById('navName');
         if (navName) navName.textContent = personal.name;
 
+        // Update navigation social links
+        this.updateNavigationLinks(personal);
+
         // Update hero section
         const heroName = document.getElementById('heroName');
         const heroTitle = document.getElementById('heroTitle');
@@ -84,6 +87,26 @@ class PortfolioApp {
 
         // Update page title
         document.title = `${personal.name} - Portfolio`;
+    }
+
+    updateNavigationLinks(personal) {
+        // Update email link
+        const emailLink = document.querySelector('.nav-social a[href^="mailto:"]');
+        if (emailLink && personal.email) {
+            emailLink.href = `mailto:${personal.email}`;
+        }
+
+        // Update GitHub link
+        const githubLink = document.querySelector('.nav-social a[aria-label="GitHub"]');
+        if (githubLink && personal.github) {
+            githubLink.href = `https://${personal.github}`;
+        }
+
+        // Update LinkedIn link
+        const linkedinLink = document.querySelector('.nav-social a[aria-label="LinkedIn"]');
+        if (linkedinLink && personal.linkedin) {
+            linkedinLink.href = `https://${personal.linkedin}`;
+        }
     }
 
     renderAbout() {
