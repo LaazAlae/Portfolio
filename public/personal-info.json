@@ -35,45 +35,41 @@
     }
   ],
   "skills": {
-    "programming_languages": [
+    "core_programming": [
       { "name": "Python", "primary": true },
       { "name": "JavaScript", "primary": true },
       { "name": "TypeScript", "primary": true },
       { "name": "Go", "primary": false },
-      { "name": "SQL", "primary": false }
+      { "name": "SQL", "primary": false },
+      { "name": "Socket.IO", "primary": false }
     ],
-    "web_development": [
+    "web_frameworks": [
       { "name": "React", "primary": true },
       { "name": "Node.js", "primary": true },
       { "name": "Flask", "primary": true },
       { "name": "Express.js", "primary": false },
-      { "name": "Socket.IO", "primary": false },
       { "name": "Material-UI", "primary": false },
-      { "name": "WebSocket", "primary": false }
+      { "name": "WebSocket", "primary": false },
+      { "name": "PWA", "primary": false }
     ],
-    "databases_cloud": [
+    "infrastructure_data": [
       { "name": "MongoDB", "primary": true },
       { "name": "PostgreSQL", "primary": true },
       { "name": "Docker", "primary": true },
       { "name": "Firebase", "primary": false },
       { "name": "Digital Ocean", "primary": false },
-      { "name": "Railway", "primary": false }
+      { "name": "Railway", "primary": false },
+      { "name": "NFC", "primary": false }
     ],
-    "security": [
+    "security_systems": [
       { "name": "JWT", "primary": true },
       { "name": "AES-256", "primary": true },
       { "name": "bcrypt", "primary": false },
       { "name": "SSL", "primary": false },
       { "name": "CSRF", "primary": false },
-      { "name": "XSS", "primary": false }
-    ],
-    "specialized": [
+      { "name": "XSS", "primary": false },
       { "name": "Distributed Systems", "primary": true },
-      { "name": "Business Automation", "primary": true },
-      { "name": "NFC", "primary": false },
-      { "name": "PWA", "primary": false },
-      { "name": "PDF Processing", "primary": false },
-      { "name": "Performance Optimization", "primary": false }
+      { "name": "Business Automation", "primary": true }
     ]
   },
   "languages": [

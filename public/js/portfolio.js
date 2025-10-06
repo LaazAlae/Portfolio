@@ -146,27 +146,40 @@ class PortfolioApp {
         }
 
         const skillCategories = [
-            { title: 'Programming Languages', skills: skills.programming_languages || [] },
-            { title: 'Web Development', skills: skills.web_development || [] },
-            { title: 'Databases & Cloud', skills: skills.databases_cloud || [] },
-            { title: 'Security', skills: skills.security || [] },
-            { title: 'Specialized', skills: skills.specialized || [] }
+            { title: 'Core Programming', skills: skills.core_programming || [] },
+            { title: 'Web Frameworks', skills: skills.web_frameworks || [] },
+            { title: 'Infrastructure & Data', skills: skills.infrastructure_data || [] },
+            { title: 'Security & Systems', skills: skills.security_systems || [] }
         ];
 
-        // Show all categories, even if empty
-        container.innerHTML = skillCategories.map(category => `
-            <div class="skill-category clickable" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
-                <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
-                <div class="skill-tags">
-                    ${category.skills.length > 0
-                        ? category.skills.map(skill =>
-                            `<span class="skill-tag clickable ${skill.primary ? 'primary' : ''}" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
-                        ).join('')
-                        : '<span class="skill-tag">Add skills to JSON</span>'
-                    }
+        // Show all categories with beautiful structure
+        container.innerHTML = skillCategories.map(category => {
+            const primarySkills = category.skills.filter(skill => skill.primary);
+            const secondarySkills = category.skills.filter(skill => !skill.primary);
+
+            return `
+                <div class="skill-category clickable" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
+                    <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
+                    <div class="skill-tags">
+                        ${primarySkills.length > 0 ? `
+                            <div class="primary-skills">
+                                ${primarySkills.map(skill =>
+                                    `<span class="skill-tag primary clickable" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+                        ${secondarySkills.length > 0 ? `
+                            <div class="secondary-skills">
+                                ${secondarySkills.map(skill =>
+                                    `<span class="skill-tag clickable" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+                        ${category.skills.length === 0 ? '<span class="skill-tag">Add skills to JSON</span>' : ''}
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         // Add click listeners for skill filtering
         this.setupSkillFilterListeners();
@@ -648,11 +661,10 @@ class PortfolioApp {
 
         // Map display category names to JSON keys
         const categoryMap = {
-            'programming_languages': 'programming_languages',
-            'web_development': 'web_development',
-            'databases___cloud': 'databases_cloud', // "Databases & Cloud" becomes "databases___cloud"
-            'security': 'security',
-            'specialized': 'specialized'
+            'core_programming': 'core_programming',
+            'web_frameworks': 'web_frameworks',
+            'infrastructure___data': 'infrastructure_data', // "Infrastructure & Data" becomes "infrastructure___data"
+            'security___systems': 'security_systems' // "Security & Systems" becomes "security___systems"
         };
 
         const actualCategoryKey = categoryMap[categoryKey] || categoryKey;
