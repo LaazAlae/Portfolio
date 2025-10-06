@@ -1282,21 +1282,25 @@ body {
 /* NO BREAKPOINTS - PROPORTIONAL SCALING ONLY */
 /* Everything scales down proportionally as screen gets smaller */
 
-/* INDUSTRY-LEVEL Card Scaling - Container Query Based */
+/* APPLE WATCH STYLE Card Layout */
 .skill-category {
     width: 100%;
-    aspect-ratio: 0.85 !important; /* Slightly wider than tall for better pill layout */
+    aspect-ratio: 0.9 !important; /* Optimized for maximum content */
 
-    /* SMALLER padding for more compact cards */
-    padding: clamp(0.5rem, 2cqw, 1rem);
+    /* APPLE WATCH padding - minimal but elegant */
+    padding: clamp(0.4rem, 1.5cqw, 0.8rem);
 
-    /* Card layout */
+    /* Card layout - SPACE EFFICIENT */
     display: flex;
     flex-direction: column;
-    gap: clamp(0.3rem, 1cqw, 0.6rem);
+    gap: clamp(0.15rem, 0.6cqw, 0.3rem);
 
     /* Enable container queries within each card */
     container-type: inline-size;
+
+    /* APPLE WATCH PRINCIPLES */
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* ELIMINATED ALL BREAKPOINTS - CONTAINER QUERY SCALING ONLY */
@@ -1326,65 +1330,90 @@ body {
     border-radius: 1px;
 }
 
-/* Container-Aware Pills Layout - SMART SPACE USAGE */
-.skill-tags {
+/* SMART PILL ZONE - SINGLE UNIFIED GROUP */
+.smart-pill-zone {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    gap: clamp(0.2rem, 0.8cqw, 0.4rem);
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     width: 100%;
+    height: 100%;
     flex: 1;
-    min-height: 0;
+    padding: clamp(0.15rem, 0.8cqw, 0.3rem);
+
+    /* EDGE DETECTION FOR ENTIRE ZONE */
+    container-type: inline-size;
     overflow: hidden;
-    padding: clamp(0.2rem, 1cqw, 0.4rem) 0;
+
+    /* SMART SPACING BETWEEN ALL PILLS */
+    gap: clamp(0.1rem, 0.4cqw, 0.2rem);
+
+    /* CIRCULAR FLOW OPTIMIZATION */
+    border-radius: clamp(0.5rem, 2cqw, 1rem);
 }
 
-/* Primary Skills - OPTIMIZED SPACING */
-.skill-tags .primary-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: clamp(0.15rem, 0.6cqw, 0.3rem);
-    justify-content: center;
-    align-items: center;
-    margin-bottom: clamp(0.1rem, 0.4cqw, 0.2rem);
-}
+/* OBSOLETE - REMOVED PRIMARY CONTAINER */
 
-/* Secondary Skills - OPTIMIZED SPACING */
-.skill-tags .secondary-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: clamp(0.1rem, 0.5cqw, 0.25rem);
-    justify-content: center;
-    align-items: center;
-}
+/* OBSOLETE - REMOVED SECONDARY CONTAINER */
 
-/* Container-Aware Pills - Perfect Scaling */
-.skill-tag {
+/* SMART PILLS - TRUE PILL SHAPE & EDGE DETECTION */
+.smart-pill {
     background: linear-gradient(135deg,
         var(--accent-color) 0%,
         rgba(156, 175, 136, 0.9) 100%);
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
-    border-radius: clamp(4px, 1cqw, 8px);
 
-    /* SMALLER padding - less crowded */
-    padding: clamp(0.15rem, 0.5cqw, 0.3rem) clamp(0.3rem, 1cqw, 0.6rem);
+    /* TRUE PILL SHAPE - perfect capsule */
+    border-radius: 50px;
+    height: clamp(1.2rem, 3cqw, 2rem);
 
-    /* SMALLER font - more pills fit */
-    font-size: clamp(0.6rem, 1.8cqw, 0.75rem);
+    /* SMART PADDING - proportional to height */
+    padding: 0 clamp(0.6rem, 2cqw, 1.2rem);
+
+    /* EDGE-AWARE FONT SIZING */
+    font-size: clamp(0.55rem, 1.8cqw, 0.8rem);
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1;
     white-space: nowrap;
     letter-spacing: -0.01em;
 
-    /* Professional interactions */
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* SMART DISPLAY PROPERTIES */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* EDGE DETECTION & SPACE USAGE */
+    flex-shrink: 1;
+    flex-grow: 0;
+    min-width: fit-content;
+    max-width: 100%;
+
+    /* SMOOTH INTERACTIONS */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     user-select: none;
 
-    /* Subtle shadow */
-    box-shadow: 0 2px 6px rgba(45, 80, 22, 0.08);
+    /* 3D PILL EFFECT */
+    box-shadow:
+        0 2px 8px rgba(45, 80, 22, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+    /* POSITION FOR SMART ARRANGEMENT */
     position: relative;
+    margin: clamp(0.05rem, 0.2cqw, 0.1rem);
+}
+
+/* SMART PILL HOVER - INTELLIGENT EXPANSION */
+.smart-pill:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    transform: scale(1.05) translateY(-1px);
+    box-shadow:
+        0 4px 16px rgba(45, 80, 22, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    z-index: 10;
 }
 
 /* NO BREAKPOINTS - CONTAINER SCALING ONLY */
@@ -1396,20 +1425,22 @@ body {
     box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2);
 }
 
-/* Primary Skills - UNIFIED Container Scaling */
-.skill-tag.primary {
+/* SMART PILLS - PRIMARY VARIANT */
+.smart-pill.primary {
     background: linear-gradient(135deg,
         var(--accent-color) 0%,
         rgba(156, 175, 136, 0.95) 100%);
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
     font-weight: 700;
-    font-size: clamp(0.6rem, 1.8cqw, 0.75rem); /* SAME as regular pills */
 
-    /* Enhanced styling for primary skills */
+    /* ENHANCED 3D EFFECT FOR PRIMARY */
     box-shadow:
-        0 4px 12px rgba(45, 80, 22, 0.12),
-        0 2px 6px rgba(45, 80, 22, 0.08);
+        0 3px 12px rgba(45, 80, 22, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 1px 3px rgba(45, 80, 22, 0.08);
+
+    /* SLIGHTLY LARGER FOR IMPORTANCE */
+    height: clamp(1.3rem, 3.2cqw, 2.1rem);
+    font-size: clamp(0.6rem, 1.9cqw, 0.85rem);
 }
 
 .skill-tag.primary:hover {

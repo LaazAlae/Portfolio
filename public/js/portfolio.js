@@ -154,28 +154,16 @@ class PortfolioApp {
 
         // Show all categories with beautiful structure
         container.innerHTML = skillCategories.map(category => {
-            const primarySkills = category.skills.filter(skill => skill.primary);
-            const secondarySkills = category.skills.filter(skill => !skill.primary);
 
             return `
                 <div class="skill-category clickable unified-card" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
                     <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
-                    <div class="skill-tags">
-                        ${primarySkills.length > 0 ? `
-                            <div class="primary-skills">
-                                ${primarySkills.map(skill =>
-                                    `<span class="skill-tag primary clickable" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
-                                ).join('')}
-                            </div>
-                        ` : ''}
-                        ${secondarySkills.length > 0 ? `
-                            <div class="secondary-skills">
-                                ${secondarySkills.map(skill =>
-                                    `<span class="skill-tag clickable" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
-                                ).join('')}
-                            </div>
-                        ` : ''}
-                        ${category.skills.length === 0 ? '<span class="skill-tag">Add skills to JSON</span>' : ''}
+                    <div class="smart-pill-zone">
+                        ${category.skills.length > 0 ? `
+                            ${category.skills.map(skill =>
+                                `<span class="smart-pill ${skill.primary ? 'primary' : ''} clickable" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
+                            ).join('')}
+                        ` : '<span class="smart-pill">Add skills to JSON</span>'}
                     </div>
                 </div>
             `;
