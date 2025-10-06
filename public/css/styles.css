@@ -1169,30 +1169,18 @@ body {
     margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-/* SKILLS CARD - PERFECT CENTERING ALWAYS */
+/* SKILLS CARD - FLEXBOX CENTERING */
 .background-card.skills-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    width: 100%;
-    position: relative;
 }
 
-/* BULLETPROOF GRID CENTERING - ALWAYS PERFECT */
+/* SIMPLE GRID CENTERING */
 .skills-card .skills-grid {
-    /* FORCE ABSOLUTE CENTERING */
-    margin: 0 auto !important;
+    /* No margin auto needed with flexbox parent */
     display: grid !important;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-
-    /* Remove any inherited alignment */
-    text-align: initial !important;
-    align-self: center !important;
-    justify-self: center !important;
 }
 
 /* ENSURE card-header doesn't affect grid alignment */
@@ -1288,11 +1276,7 @@ body {
         max-width: 500px;
     }
 
-    /* ENSURE centering is maintained on mobile */
-    .skills-card .skills-grid {
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-    }
+    /* MOBILE: Keep same flexbox centering */
 }
 
 /* NO BREAKPOINTS - PROPORTIONAL SCALING ONLY */
