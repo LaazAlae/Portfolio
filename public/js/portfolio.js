@@ -108,7 +108,7 @@ class PortfolioApp {
         }
 
         container.innerHTML = experience.map(exp => `
-            <div class="experience-item">
+            <div class="experience-item unified-card">
                 <h3>${this.escapeHtml(exp.title || 'Job Title')}</h3>
                 <h4>${this.escapeHtml(exp.company || 'Company Name')}</h4>
                 <p class="experience-date">${this.escapeHtml(exp.period || 'Period')}</p>
@@ -158,7 +158,7 @@ class PortfolioApp {
             const secondarySkills = category.skills.filter(skill => !skill.primary);
 
             return `
-                <div class="skill-category clickable" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
+                <div class="skill-category clickable unified-card" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
                     <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
                     <div class="skill-tags">
                         ${primarySkills.length > 0 ? `
@@ -192,12 +192,12 @@ class PortfolioApp {
         if (!container) return;
 
         if (!languages || languages.length === 0) {
-            container.innerHTML = '<div class="language-item"><div class="language-info"><span class="language-name">Add languages to JSON</span><span class="language-level">Proficiency level</span></div></div>';
+            container.innerHTML = '<div class="language-item unified-card"><div class="language-info"><span class="language-name">Add languages to JSON</span><span class="language-level">Proficiency level</span></div></div>';
             return;
         }
 
         container.innerHTML = languages.map(lang => `
-            <div class="language-item">
+            <div class="language-item unified-card">
                 <div class="language-info">
                     <span class="language-name">${this.escapeHtml(lang.name || 'Language')}</span>
                     <span class="language-level">${this.escapeHtml(lang.level || 'Level')}</span>
@@ -264,7 +264,7 @@ class PortfolioApp {
 
         if (!this.portfolioData || !this.portfolioData.projects || this.portfolioData.projects.length === 0) {
             container.innerHTML = `
-                <div class="project-card">
+                <div class="project-card unified-card">
                     <div class="project-card-header">
                         <h3 class="project-card-title">Add Your Projects</h3>
                     </div>
@@ -285,7 +285,7 @@ class PortfolioApp {
         }
 
         container.innerHTML = this.portfolioData.projects.map((project, index) => `
-            <div class="project-card" data-project-index="${index}">
+            <div class="project-card unified-card" data-project-index="${index}">
                 <div class="project-card-header">
                     <h3 class="project-card-title">${this.escapeHtml(project.title || 'Project Title')}</h3>
                 </div>
@@ -748,7 +748,7 @@ class PortfolioApp {
 
     createSkillProjectCard(project) {
         const card = document.createElement('div');
-        card.className = 'skill-project-card';
+        card.className = 'skill-project-card unified-card';
 
         const title = document.createElement('h3');
         title.className = 'skill-project-title';

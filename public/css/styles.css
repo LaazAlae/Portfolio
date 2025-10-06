@@ -40,17 +40,17 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(245, 241, 234, 0.95);
+    background: rgba(234, 226, 212, 0.95);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(45, 80, 22, 0.08);
+    border-bottom: 1px solid rgba(45, 80, 22, 0.2);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
 }
 
 .navbar.scrolled {
-    background: rgba(245, 241, 234, 0.98);
-    border-bottom: 1px solid rgba(45, 80, 22, 0.12);
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+    background: rgba(219, 210, 191, 0.98);
+    border-bottom: 1px solid rgba(45, 80, 22, 0.25);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.12);
 }
 
 .nav-container {
@@ -232,27 +232,11 @@ body {
     border-radius: 2px;
 }
 
-/* About Section */
+/* About Section - Using Unified Design */
 .about-content {
     max-width: 900px;
     margin: 0 auto;
-    background: var(--card-bg);
     padding: clamp(2.5rem, 6vw, 3.5rem);
-    border-radius: 20px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 8px 32px rgba(60, 36, 21, 0.1);
-    position: relative;
-}
-
-.about-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
-    border-radius: 20px 20px 0 0;
 }
 
 .about-content p {
@@ -282,11 +266,9 @@ body {
     margin: 0 auto;
 }
 
+/* Experience Items - Using Unified System */
 .experience-item {
-    background: var(--card-bg);
     padding: clamp(2rem, 5vw, 3rem);
-    border-radius: clamp(12px, 2vw, 20px);
-    border: 1px solid var(--border-color);
     margin-bottom: clamp(1.5rem, 4vw, 2rem);
 }
 
@@ -343,44 +325,78 @@ body {
     max-width: var(--max-width);
 }
 
-/* Modern Project Cards */
-.project-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 0;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(60, 36, 21, 0.06);
+/* ========================================
+   UNIFIED CARD SYSTEM
+   ======================================== */
+
+/* Base Card Design - Rich Dark Beige for Strong Contrast */
+.unified-card {
+    /* Rich darker beige tones for beautiful contrast */
+    background: linear-gradient(135deg,
+        rgba(231, 220, 199, 0.95) 0%,
+        rgba(236, 223, 199, 0.98) 50%,
+        rgba(235, 225, 205, 0.95) 100%);
+
+    border: 1px solid rgba(45, 80, 22, 0.3);
+    border-radius: clamp(12px, 1.5vw, 20px);
+
+    /* Professional shadows */
+    box-shadow:
+        0 8px 32px rgba(45, 80, 22, 0.06),
+        0 4px 16px rgba(45, 80, 22, 0.04);
+
+    /* Smooth interactions */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    position: relative;
+    /* CRITICAL: Hide overflow to contain accent bar */
+    overflow: hidden;
+}
+
+/* Unified hover effects */
+.unified-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 16px 48px rgba(45, 80, 22, 0.12),
+        0 8px 24px rgba(45, 80, 22, 0.08);
+    border-color: rgba(45, 80, 22, 0.2);
+}
+
+/* PROFESSIONAL FIX: Accent bar fully contained */
+.unified-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+        var(--primary-color) 0%,
+        var(--accent-color) 50%,
+        var(--primary-color) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Match parent's top border radius only */
+    border-top-left-radius: clamp(12px, 1.5vw, 20px);
+    border-top-right-radius: clamp(12px, 1.5vw, 20px);
+}
+
+.unified-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Modern Project Cards - Now Using Unified System */
+.project-card {
+    /* Extend unified card */
+    padding: 0;
     height: auto;
     min-height: 280px;
     display: flex;
     flex-direction: column;
 }
 
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    border-radius: 16px 16px 0 0;
-    transition: height 0.3s ease;
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(45, 80, 22, 0.12);
-    border-color: var(--accent-color);
-}
-
-.project-card:hover::before {
-    height: 4px;
-}
+/* Project cards inherit unified styling */
 
 .project-card-header {
     padding: 1.75rem 1.75rem 0 1.75rem;
@@ -923,72 +939,20 @@ body {
     justify-self: center;
 }
 
-/* Professional Project Cards */
+/* Modal Project Cards - Using Unified System */
 .skill-project-card {
-    /* Perfect glass morphism */
-    background: linear-gradient(145deg,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(245, 241, 234, 0.8) 100%);
-
-    border: 2px solid rgba(45, 80, 22, 0.08);
-    border-radius: clamp(16px, 2.5vw, 20px);
-
     /* Dynamic padding */
     padding: clamp(1.2rem, 3vw, 2rem);
-
-    /* Professional shadows */
-    box-shadow:
-        0 8px 32px rgba(45, 80, 22, 0.08),
-        0 4px 16px rgba(45, 80, 22, 0.04),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
     /* Perfect alignment */
     display: flex;
     flex-direction: column;
     gap: clamp(0.8rem, 2vw, 1.2rem);
 
-    /* Smooth interactions */
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-    overflow: hidden;
-
     /* Consistent sizing */
     width: 100%;
     min-height: 280px;
     justify-self: center;
-}
-
-/* Enhanced hover effects */
-.skill-project-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: rgba(45, 80, 22, 0.2);
-    box-shadow:
-        0 20px 50px rgba(45, 80, 22, 0.15),
-        0 8px 25px rgba(45, 80, 22, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-/* Animated accent border */
-.skill-project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg,
-        var(--primary-color) 0%,
-        var(--accent-color) 50%,
-        var(--primary-color) 100%);
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: clamp(16px, 2.5vw, 20px) clamp(16px, 2.5vw, 20px) 0 0;
-}
-
-.skill-project-card:hover::before {
-    transform: scaleX(1);
 }
 
 /* Project Title */
@@ -1182,9 +1146,9 @@ body {
         rgba(156, 175, 136, 0.08) 0%,
         rgba(221, 210, 189, 0.12) 50%,
         rgba(245, 241, 234, 0.08) 100%);
-    border-top: 2px solid var(--accent-color);
-    margin-top: 4rem;
-    padding: clamp(4rem, 10vh, 6rem) 0;
+    border-top: clamp(1px, 0.3vw, 3px) solid var(--accent-color);
+    margin-top: clamp(2rem, 6vw, 5rem);
+    padding: clamp(2rem, 8vw, 8rem) 0;
     position: relative;
 }
 
@@ -1194,105 +1158,92 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
+    width: clamp(60%, 80vw, 90%);
+    height: clamp(0.5px, 0.2vw, 2px);
     background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
 }
 
+/* Background Cards - Using Unified System */
 .background-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: clamp(2rem, 5vw, 3rem);
-    margin-bottom: clamp(2rem, 5vw, 3rem);
-    box-shadow: 0 8px 32px rgba(60, 36, 21, 0.08);
-    transition: all 0.3s ease;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* SKILLS CARD - PERFECT CENTERING ALWAYS */
+.background-card.skills-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
     position: relative;
-    overflow: hidden;
 }
 
-.background-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    border-radius: 20px 20px 0 0;
+/* BULLETPROOF GRID CENTERING - ALWAYS PERFECT */
+.skills-card .skills-grid {
+    /* FORCE ABSOLUTE CENTERING */
+    margin: 0 auto !important;
+    display: grid !important;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Remove any inherited alignment */
+    text-align: initial !important;
+    align-self: center !important;
+    justify-self: center !important;
 }
 
-.background-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(45, 80, 22, 0.15);
-    border-color: var(--accent-color);
+/* ENSURE card-header doesn't affect grid alignment */
+.skills-card .card-header {
+    justify-content: center !important;
+    text-align: center !important;
+    margin-bottom: clamp(1rem, 3vw, 3rem);
 }
 
 .card-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    gap: clamp(0.8rem, 1.5vw, 1.2rem);
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 
 .card-icon {
-    width: clamp(28px, 6vw, 36px);
-    height: clamp(28px, 6vw, 36px);
+    width: clamp(1.5rem, 3vw, 2rem);
+    height: clamp(1.5rem, 3vw, 2rem);
     color: var(--primary-color);
     flex-shrink: 0;
 }
 
 .card-header h3 {
     color: var(--primary-color);
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
     font-weight: 700;
     margin: 0;
 }
 
 .education-content h4 {
     color: var(--text-color);
-    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    font-size: clamp(1rem, 2vw, 1.3rem);
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
 }
 
 .institution {
     color: var(--secondary-color);
-    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
 }
 
 .graduation-date {
     color: var(--muted-color);
-    font-size: clamp(0.9rem, 2.2vw, 1rem);
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
     font-style: italic;
 }
 
-.skills-section {
-    margin-bottom: clamp(2rem, 5vw, 3rem);
-}
-
-.skills-title {
-    color: var(--primary-color);
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: clamp(2rem, 5vw, 3rem);
-    position: relative;
-}
-
-.skills-title::after {
-    content: '';
-    position: absolute;
-    bottom: -0.8rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    border-radius: 2px;
-}
+/* Skills card now uses unified card-header styling */
 
 /* ========================================
    BEAUTIFUL CORE TECHNICAL EXPERTISE
@@ -1305,125 +1256,78 @@ body {
     padding: 0 clamp(1.5rem, 4vw, 3rem);
 }
 
-/* ALWAYS 2x2 Grid - No Exceptions */
+/* ========================================
+   INDUSTRY-LEVEL 2x2 GRID SOLUTION
+   NEVER BREAKS - ALWAYS 2x2 - SCALES PERFECTLY
+   ======================================== */
+
+/* RESPONSIVE Grid Container */
 .skills-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr !important;
-    grid-template-rows: 1fr 1fr !important;
-    gap: clamp(0.5rem, 2vw, 1.5rem);
-    margin: 0 auto;
-    padding: clamp(1rem, 4vh, 3rem) 0;
-    max-width: clamp(300px, 80vw, 800px);
-    width: 100%;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: 1fr !important;
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+
+    /* SMALLER cards - better proportions */
+    width: clamp(280px, 85vw, 900px);
+    max-width: 900px;
+
+    /* REDUCED padding */
+    padding: clamp(0.5rem, 2vh, 1.5rem);
+
+    /* Container queries for card-aware scaling */
+    container-type: inline-size;
 }
 
-/* Responsive - FORCE 2x2 Always */
-@media (max-width: 900px) {
+/* MOBILE: 2x2 layout while keeping perfect centering */
+@media (max-width: 768px) {
     .skills-grid {
-        grid-template-columns: 1fr 1fr !important;
-        grid-template-rows: 1fr 1fr !important;
-        max-width: clamp(280px, 75vw, 500px);
-        gap: clamp(0.4rem, 1.8vw, 1.2rem);
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(2, 1fr) !important;
+        width: clamp(280px, 90vw, 500px);
+        max-width: 500px;
+    }
+
+    /* ENSURE centering is maintained on mobile */
+    .skills-card .skills-grid {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
     }
 }
 
-@media (max-width: 600px) {
-    .skills-grid {
-        grid-template-columns: 1fr 1fr !important;
-        grid-template-rows: 1fr 1fr !important;
-        max-width: clamp(250px, 90vw, 400px);
-        gap: clamp(0.3rem, 1.5vw, 1rem);
-    }
-}
+/* NO BREAKPOINTS - PROPORTIONAL SCALING ONLY */
+/* Everything scales down proportionally as screen gets smaller */
 
-@media (max-width: 400px) {
-    .skills-container {
-        padding: 0 0.5rem;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr 1fr !important;
-        grid-template-rows: 1fr 1fr !important;
-        max-width: clamp(220px, 95vw, 320px);
-        gap: clamp(0.2rem, 1vw, 0.8rem);
-    }
-}
-
-/* Beautiful Professional Cards - Much Smaller and Compact */
+/* INDUSTRY-LEVEL Card Scaling - Container Query Based */
 .skill-category {
-    /* Compact content-based dimensions */
     width: 100%;
-    min-height: clamp(180px, 18vw, 220px);
+    aspect-ratio: 0.85 !important; /* Slightly wider than tall for better pill layout */
 
-    /* Beautiful vibrant gradient backgrounds */
-    background: linear-gradient(135deg,
-        rgba(156, 175, 136, 0.3) 0%,
-        rgba(221, 210, 189, 0.4) 50%,
-        rgba(245, 241, 234, 0.8) 100%);
+    /* SMALLER padding for more compact cards */
+    padding: clamp(0.5rem, 2cqw, 1rem);
 
-    border: 1px solid rgba(45, 80, 22, 0.12);
-    border-radius: clamp(12px, 1.5vw, 16px);
-
-    /* Compact content spacing */
-    padding: clamp(1rem, 2vw, 1.5rem);
-
-    /* Compact layout structure */
+    /* Card layout */
     display: flex;
     flex-direction: column;
-    gap: clamp(0.6rem, 1.2vw, 1rem);
+    gap: clamp(0.3rem, 1cqw, 0.6rem);
 
-    /* Professional shadows */
-    box-shadow:
-        0 8px 32px rgba(45, 80, 22, 0.06),
-        0 4px 16px rgba(45, 80, 22, 0.04);
-
-    /* Smooth interactions */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    position: relative;
-    overflow: visible;
+    /* Enable container queries within each card */
+    container-type: inline-size;
 }
 
-/* Beautiful hover effects */
-.skill-category:hover {
-    transform: translateY(-6px);
-    box-shadow:
-        0 16px 48px rgba(45, 80, 22, 0.12),
-        0 8px 24px rgba(45, 80, 22, 0.08);
-    border-color: rgba(45, 80, 22, 0.2);
-}
+/* ELIMINATED ALL BREAKPOINTS - CONTAINER QUERY SCALING ONLY */
 
-/* Elegant accent bar */
-.skill-category::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg,
-        var(--primary-color) 0%,
-        var(--accent-color) 50%,
-        var(--primary-color) 100%);
-    transform: scaleX(0);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: clamp(16px, 2vw, 24px) clamp(16px, 2vw, 24px) 0 0;
-}
-
-.skill-category:hover::before {
-    transform: scaleX(1);
-}
-
-/* Compact typography with icon */
+/* Container-Aware Title Scaling */
 .skill-category-title {
     color: var(--primary-color);
-    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    font-size: clamp(0.8rem, 3cqw, 1.1rem); /* SMALLER to match site */
     font-weight: 700;
     text-align: center;
     line-height: 1.2;
     margin: 0;
     position: relative;
-    padding-bottom: 0.3rem;
+    padding-bottom: clamp(0.2rem, 0.8cqw, 0.5rem);
+    flex-shrink: 0;
 }
 
 .skill-category-title::after {
@@ -1432,54 +1336,58 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 2px;
+    width: clamp(8cqw, 12cqw, 16cqw); /* Scale with card */
+    height: clamp(0.4cqw, 0.6cqw, 0.8cqw);
     background: var(--accent-color);
     border-radius: 1px;
 }
 
-/* Vertically Centered Pills Layout */
+/* Container-Aware Pills Layout - SMART SPACE USAGE */
 .skill-tags {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: clamp(0.5rem, 1vw, 0.8rem);
+    justify-content: space-evenly;
+    gap: clamp(0.2rem, 0.8cqw, 0.4rem);
     width: 100%;
     flex: 1;
     min-height: 0;
+    overflow: hidden;
+    padding: clamp(0.2rem, 1cqw, 0.4rem) 0;
 }
 
-/* Primary Skills Section */
+/* Primary Skills - OPTIMIZED SPACING */
 .skill-tags .primary-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: clamp(0.3rem, 0.7vw, 0.5rem);
+    gap: clamp(0.15rem, 0.6cqw, 0.3rem);
     justify-content: center;
-    margin-bottom: 0.3rem;
+    align-items: center;
+    margin-bottom: clamp(0.1rem, 0.4cqw, 0.2rem);
 }
 
-/* Secondary Skills Section */
+/* Secondary Skills - OPTIMIZED SPACING */
 .skill-tags .secondary-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: clamp(0.25rem, 0.6vw, 0.4rem);
+    gap: clamp(0.1rem, 0.5cqw, 0.25rem);
     justify-content: center;
+    align-items: center;
 }
 
-/* Professional Skills Pills - Same as Modal Pills */
+/* Container-Aware Pills - Perfect Scaling */
 .skill-tag {
     background: linear-gradient(135deg,
         var(--accent-color) 0%,
         rgba(156, 175, 136, 0.9) 100%);
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
-    border-radius: clamp(14px, 2.5vw, 18px);
+    border-radius: clamp(4px, 1cqw, 8px);
 
-    /* Dynamic responsive padding */
-    padding: clamp(0.3rem, 0.8vw, 0.4rem) clamp(0.6rem, 1.5vw, 1rem);
+    /* SMALLER padding - less crowded */
+    padding: clamp(0.15rem, 0.5cqw, 0.3rem) clamp(0.3rem, 1cqw, 0.6rem);
 
-    /* Perfect typography */
-    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    /* SMALLER font - more pills fit */
+    font-size: clamp(0.6rem, 1.8cqw, 0.75rem);
     font-weight: 600;
     line-height: 1.1;
     white-space: nowrap;
@@ -1491,9 +1399,11 @@ body {
     user-select: none;
 
     /* Subtle shadow */
-    box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
+    box-shadow: 0 2px 6px rgba(45, 80, 22, 0.08);
     position: relative;
 }
+
+/* NO BREAKPOINTS - CONTAINER SCALING ONLY */
 
 .skill-tag:hover {
     background: var(--primary-color);
@@ -1502,15 +1412,15 @@ body {
     box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2);
 }
 
-/* Primary Skills - Enhanced Modal Style */
+/* Primary Skills - UNIFIED Container Scaling */
 .skill-tag.primary {
     background: linear-gradient(135deg,
         var(--accent-color) 0%,
         rgba(156, 175, 136, 0.95) 100%);
-    border: 2px solid var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: var(--primary-color);
     font-weight: 700;
-    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    font-size: clamp(0.6rem, 1.8cqw, 0.75rem); /* SAME as regular pills */
 
     /* Enhanced styling for primary skills */
     box-shadow:
@@ -1525,12 +1435,12 @@ body {
     box-shadow: 0 8px 24px rgba(45, 80, 22, 0.25);
 }
 
-/* Focus and Accessibility */
+/* Container-Aware Focus and Accessibility */
 .skill-category:focus-visible,
 .skill-tag:focus-visible {
     outline: 3px solid var(--primary-color);
     outline-offset: 3px;
-    border-radius: clamp(18px, 3.5vw, 28px);
+    border-radius: clamp(4cqw, 6cqw, 8cqw);
 }
 
 /* Loading states and smooth transitions */
@@ -1587,44 +1497,34 @@ body {
 
 .languages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: clamp(1rem, 3vw, 1.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 15vw, 12rem), 1fr));
+    gap: clamp(0.8rem, 2vw, 1.5rem);
 }
 
+/* Language Items - Using Unified System */
 .language-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(0.8rem, 2vw, 1.2rem);
-    background: rgba(245, 241, 234, 0.6);
-    border: 1px solid rgba(45, 80, 22, 0.1);
-    border-radius: clamp(8px, 1.5vw, 12px);
-    transition: all 0.3s ease;
-}
-
-.language-item:hover {
-    background: rgba(156, 175, 136, 0.15);
-    border-color: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(45, 80, 22, 0.1);
+    padding: clamp(0.8rem, 1.5vw, 1.2rem);
 }
 
 .language-info {
     display: flex;
     flex-direction: column;
-    gap: clamp(0.1rem, 0.5vw, 0.3rem);
+    gap: clamp(0.2rem, 0.5vw, 0.4rem);
     text-align: center;
 }
 
 .language-name {
     color: var(--text-color);
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     font-weight: 600;
 }
 
 .language-level {
     color: var(--muted-color);
-    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    font-size: clamp(0.75rem, 1.3vw, 0.9rem);
     font-style: italic;
 }
 
@@ -1674,36 +1574,20 @@ body {
         gap: 1rem;
     }
 
-    .skills-grid {
-        grid-template-columns: 1fr 1fr !important;
-        grid-template-rows: 1fr 1fr !important;
-        gap: clamp(0.3rem, 1vw, 0.8rem);
-    }
+    /* Skills grid handled by smart responsive system above */
 
-    /* Skills pills mobile optimization */
-    .skill-tag {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.6rem;
-        border-radius: 12px;
-    }
+    /* UNIFIED PILLS - NO BREAKPOINT OVERRIDES */
 
     .languages-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
 
-    .background-card {
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
+    /* REMOVED HARDCODED BACKGROUND CARD SIZING */
 
-    .skill-category {
-        padding: clamp(0.8rem, 1.5vw, 1.2rem);
-    }
+    /* REMOVED HARDCODED SKILL CATEGORY SIZING */
 
-    .language-item {
-        padding: clamp(0.6rem, 1.5vw, 1rem);
-    }
+    /* REMOVED HARDCODED LANGUAGE ITEM SIZING */
 }
 
 @media (max-width: 480px) {
@@ -1757,11 +1641,6 @@ body {
         border-radius: 10px;
     }
 
-    /* Skills pills mobile optimization */
-    .skill-tag {
-        padding: 0.15rem 0.4rem;
-        font-size: 0.8rem;
-        border-radius: 10px;
-    }
+    /* UNIFIED PILLS - NO BREAKPOINT OVERRIDES */
 }
 
