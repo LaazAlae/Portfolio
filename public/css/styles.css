@@ -1254,17 +1254,46 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr) !important;
     grid-template-rows: 1fr !important;
-    gap: clamp(0.5rem, 1.5vw, 1rem);
+    gap: clamp(0.5rem, 1.5vw, 1.2rem);
 
-    /* SMALLER cards - better proportions */
-    width: clamp(280px, 85vw, 900px);
-    max-width: 900px;
+    /* CONTAINED within parent */
+    width: clamp(280px, 90vw, 100%);
+    max-width: 100%;
 
-    /* REDUCED padding */
-    padding: clamp(0.5rem, 2vh, 1.5rem);
+    /* OPTIMIZED padding */
+    padding: clamp(0.5rem, 2vh, 1.8rem);
 
     /* Container queries for card-aware scaling */
     container-type: inline-size;
+}
+
+/* DESKTOP OPTIMIZATION: Contained within parent */
+@media (min-width: 1024px) {
+    .skills-grid {
+        width: clamp(600px, 85vw, 1000px);
+        max-width: 100%;
+        gap: clamp(1rem, 1.8vw, 1.5rem);
+        padding: clamp(1rem, 3vh, 2rem);
+    }
+
+    /* DESKTOP: Bigger pills for better visibility */
+    .smart-pill {
+        height: clamp(1.4rem, 3.4cqw, 2.6rem);
+        font-size: clamp(0.65rem, 2.1cqw, 1rem);
+        padding: 0 clamp(0.8rem, 2.4cqw, 1.6rem);
+        margin: clamp(0.08rem, 0.3cqw, 0.18rem);
+    }
+
+    .smart-pill.primary {
+        height: clamp(1.5rem, 3.6cqw, 2.8rem);
+        font-size: clamp(0.7rem, 2.2cqw, 1.1rem);
+    }
+
+    /* DESKTOP: Bigger titles */
+    .skill-category-title {
+        font-size: clamp(1rem, 3.4cqw, 1.4rem);
+        padding-bottom: clamp(0.3rem, 1.2cqw, 0.7rem);
+    }
 }
 
 /* MOBILE: 2x2 layout while keeping perfect centering */
@@ -1287,13 +1316,13 @@ body {
     width: 100%;
     aspect-ratio: 0.9 !important; /* Optimized for maximum content */
 
-    /* APPLE WATCH padding - minimal but elegant */
-    padding: clamp(0.4rem, 1.5cqw, 0.8rem);
+    /* RESPONSIVE padding - bigger on desktop */
+    padding: clamp(0.4rem, 1.8cqw, 1.2rem);
 
     /* Card layout - SPACE EFFICIENT */
     display: flex;
     flex-direction: column;
-    gap: clamp(0.15rem, 0.6cqw, 0.3rem);
+    gap: clamp(0.15rem, 0.8cqw, 0.5rem);
 
     /* Enable container queries within each card */
     container-type: inline-size;
@@ -1303,18 +1332,27 @@ body {
     align-items: center;
 }
 
+/* DESKTOP: Bigger cards for better visibility */
+@media (min-width: 1024px) {
+    .skill-category {
+        padding: clamp(0.8rem, 2.2cqw, 1.5rem);
+        gap: clamp(0.3rem, 1cqw, 0.6rem);
+        aspect-ratio: 0.95 !important; /* Slightly taller on desktop */
+    }
+}
+
 /* ELIMINATED ALL BREAKPOINTS - CONTAINER QUERY SCALING ONLY */
 
 /* Container-Aware Title Scaling */
 .skill-category-title {
     color: var(--primary-color);
-    font-size: clamp(0.8rem, 3cqw, 1.1rem); /* SMALLER to match site */
+    font-size: clamp(0.8rem, 3.2cqw, 1.3rem); /* BIGGER on desktop */
     font-weight: 700;
     text-align: center;
     line-height: 1.2;
     margin: 0;
     position: relative;
-    padding-bottom: clamp(0.2rem, 0.8cqw, 0.5rem);
+    padding-bottom: clamp(0.2rem, 1cqw, 0.6rem);
     flex-shrink: 0;
 }
 
@@ -1367,13 +1405,13 @@ body {
 
     /* TRUE PILL SHAPE - perfect capsule */
     border-radius: 50px;
-    height: clamp(1.2rem, 3cqw, 2rem);
+    height: clamp(1.2rem, 3.2cqw, 2.4rem);
 
     /* SMART PADDING - proportional to height */
-    padding: 0 clamp(0.6rem, 2cqw, 1.2rem);
+    padding: 0 clamp(0.6rem, 2.2cqw, 1.4rem);
 
-    /* EDGE-AWARE FONT SIZING */
-    font-size: clamp(0.55rem, 1.8cqw, 0.8rem);
+    /* EDGE-AWARE FONT SIZING - bigger on desktop */
+    font-size: clamp(0.55rem, 2cqw, 0.95rem);
     font-weight: 600;
     line-height: 1;
     white-space: nowrap;
@@ -1402,7 +1440,7 @@ body {
 
     /* POSITION FOR SMART ARRANGEMENT */
     position: relative;
-    margin: clamp(0.05rem, 0.2cqw, 0.1rem);
+    margin: clamp(0.05rem, 0.25cqw, 0.15rem);
 }
 
 /* SMART PILL HOVER - INTELLIGENT EXPANSION */
@@ -1438,9 +1476,9 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         0 1px 3px rgba(45, 80, 22, 0.08);
 
-    /* SLIGHTLY LARGER FOR IMPORTANCE */
-    height: clamp(1.3rem, 3.2cqw, 2.1rem);
-    font-size: clamp(0.6rem, 1.9cqw, 0.85rem);
+    /* SLIGHTLY LARGER FOR IMPORTANCE - desktop optimized */
+    height: clamp(1.3rem, 3.4cqw, 2.5rem);
+    font-size: clamp(0.6rem, 2.1cqw, 1rem);
 }
 
 .skill-tag.primary:hover {
