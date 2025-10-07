@@ -21,16 +21,17 @@
   },
   "experience": [
     {
-      "title": "Cash Application Specialist & Process Automation Developer",
+      "title": "Software & Automation Engineer",
       "company": "United Corporate Services Inc.",
       "period": "Summer 2024, June 2025 – Present",
       "location": "Yonkers, NY",
       "responsibilities": [
-        "Developed comprehensive automation solutions using JavaScript, HTML, and Excel VBA that streamlined batch creation workflows for credit card and check payment processing across the organization",
-        "Built AlaeAutomates web platform using Python and Flask featuring a statement processor that automatically categorizes 1000+ page PDFs and an invoice separator tool for intelligent document splitting by invoice number",
-        "Created end-to-end payment automation tools that handle form filling, posting, and application processes while maintaining data accuracy and eliminating manual data entry errors",
-        "Designed interactive employee training website prototype with quiz-based modules at executive request to address company-wide onboarding challenges, reducing reliance on manual training processes",
-        "Implemented Excel macros and automated workflows that transformed multi-day manual document processing tasks into automated processes completed in seconds"
+        "Engineered company-wide automation solutions using Python (Flask), JavaScript, HTML, and Excel VBA to streamline credit card and check payment processing workflows, reducing manual data entry and improving operational accuracy",
+        "Developed the AlaeAutomates platform featuring intelligent PDF tools, including a statement processor for automatic classification of 1000+ page documents and an invoice separator that splits files by detected invoice numbers",
+        "Built end-to-end payment automation systems that handle data extraction, form completion, and posting, ensuring data consistency and eliminating repetitive manual work across departments",
+        "Contributed to IT team initiatives by designing and deploying a company-wide SharePoint site to enhance collaboration, document accessibility, and internal communication",
+        "Created an interactive employee training website prototype with quiz-based modules to streamline onboarding and enhance learning retention",
+        "Automated complex Excel-based document workflows, converting multi-day manual processes into automated operations completed within seconds"
       ]
     }
   ],
