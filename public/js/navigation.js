@@ -42,8 +42,10 @@ class NavigationManager {
                 const target = document.getElementById(targetId);
 
                 if (target) {
-                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                    const targetPosition = target.offsetTop - navbarHeight - 20;
+                    const topNavbarHeight = document.querySelector('.top-navbar').offsetHeight;
+                    const subNavbarHeight = document.querySelector('.sub-navbar').offsetHeight;
+                    const totalNavHeight = topNavbarHeight + subNavbarHeight;
+                    const targetPosition = target.offsetTop - totalNavHeight - 40;
 
                     window.scrollTo({
                         top: targetPosition,
@@ -72,11 +74,13 @@ class NavigationManager {
     updateActiveSection() {
         // Set initial active section based on scroll position
         const scrollPosition = window.pageYOffset;
-        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        const topNavbarHeight = document.querySelector('.top-navbar').offsetHeight;
+        const subNavbarHeight = document.querySelector('.sub-navbar').offsetHeight;
+        const totalNavHeight = topNavbarHeight + subNavbarHeight;
 
         for (let i = this.sections.length - 1; i >= 0; i--) {
             const section = document.getElementById(this.sections[i]);
-            if (section && scrollPosition >= section.offsetTop - navbarHeight - 100) {
+            if (section && scrollPosition >= section.offsetTop - totalNavHeight - 120) {
                 this.setActiveSection(this.sections[i]);
                 break;
             }

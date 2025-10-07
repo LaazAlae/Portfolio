@@ -40,12 +40,12 @@ body {
     padding: 0 clamp(1rem, 5vw, 3rem);
 }
 
-/* Navigation */
-.navbar {
+/* SOLID TOP NAVBAR */
+.top-navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1001;
     background: rgba(234, 226, 212, 0.95);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(45, 80, 22, 0.2);
@@ -53,10 +53,26 @@ body {
     box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
 }
 
+/* TRANSPARENT NAVBAR WITH SUBHEADER */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+}
+
 .navbar.scrolled {
-    background: rgba(219, 210, 191, 0.98);
-    border-bottom: 1px solid rgba(45, 80, 22, 0.25);
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.12);
+    background: transparent;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: none;
+    box-shadow: none;
 }
 
 .nav-container {
@@ -142,15 +158,30 @@ body {
     transform: scale(1.1);
 }
 
-/* Transparent Sub-Navigation */
+/* INDUSTRY-LEVEL TRANSPARENT SUB-NAVIGATION */
 .sub-navbar {
     position: relative;
     width: 100%;
+
+    /* SUBTLE GRADIENT FADE */
     background: linear-gradient(180deg,
-        rgba(30, 77, 43, 0.02) 0%,
-        rgba(30, 77, 43, 0.08) 100%);
-    backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(30, 77, 43, 0.1);
+        transparent 0%,
+        rgba(255, 255, 255, 0.02) 80%,
+        rgba(255, 255, 255, 0.05) 100%);
+
+    /* SIMPLE GLASS BLUR */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* SMOOTH GRADIENT FADE BOTTOM */
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* SUBTLE FADE SHADOW */
+    box-shadow:
+        0 8px 16px rgba(0, 0, 0, 0.03),
+        0 1px 3px rgba(0, 0, 0, 0.05);
+
     opacity: 0;
     max-height: 0;
     overflow: hidden;
@@ -181,7 +212,7 @@ body {
 .sub-nav-link {
     color: var(--primary-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.875rem;
     letter-spacing: -0.01em;
     position: relative;
@@ -189,17 +220,40 @@ body {
     padding: 0.4rem 0.8rem;
     border-radius: 20px;
     background: transparent;
+
+    /* PERFECT TEXT CONTRAST - Always readable */
+    text-shadow:
+        0 1px 2px rgba(255, 255, 255, 0.8),
+        0 0 1px rgba(255, 255, 255, 0.3);
 }
 
 .sub-nav-link:hover {
     color: var(--accent-color);
-    background: rgba(30, 77, 43, 0.1);
+    background: rgba(30, 77, 43, 0.12);
+
+    /* ENHANCED CONTRAST ON HOVER */
+    text-shadow:
+        0 1px 3px rgba(255, 255, 255, 0.9),
+        0 0 2px rgba(255, 255, 255, 0.5);
+
+    /* SUBTLE GLOW EFFECT */
+    box-shadow: 0 2px 8px rgba(30, 77, 43, 0.15);
 }
 
 .sub-nav-link.active {
     color: var(--accent-color);
-    background: rgba(30, 77, 43, 0.15);
-    font-weight: 600;
+    background: rgba(30, 77, 43, 0.18);
+    font-weight: 700;
+
+    /* MAXIMUM CONTRAST FOR ACTIVE STATE */
+    text-shadow:
+        0 1px 4px rgba(255, 255, 255, 1),
+        0 0 3px rgba(255, 255, 255, 0.7);
+
+    /* PROFESSIONAL ACTIVE GLOW */
+    box-shadow:
+        0 3px 12px rgba(30, 77, 43, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .nav-link {

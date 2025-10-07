@@ -69,9 +69,11 @@ class PortfolioApp {
     renderPersonalInfo() {
         const { personal } = this.portfolioData;
 
-        // Update navigation name
+        // Update navigation names
         const navName = document.getElementById('navName');
+        const topNavName = document.getElementById('topNavName');
         if (navName) navName.textContent = personal.name;
+        if (topNavName) topNavName.textContent = personal.name;
 
         // Update navigation social links
         this.updateNavigationLinks(personal);
