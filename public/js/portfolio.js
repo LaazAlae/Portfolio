@@ -41,12 +41,14 @@ class PortfolioApp {
     renderPersonalInfo(personal) {
         const elements = {
             navName: document.getElementById('navName'),
+            topNavName: document.getElementById('topNavName'),
             heroName: document.getElementById('heroName'),
             heroTitle: document.getElementById('heroTitle'),
             heroEducation: document.getElementById('heroEducation')
         };
 
         if (elements.navName) elements.navName.textContent = personal.name;
+        if (elements.topNavName) elements.topNavName.textContent = personal.name;
         if (elements.heroName) elements.heroName.textContent = personal.name;
         if (elements.heroTitle) elements.heroTitle.textContent = personal.title;
         if (elements.heroEducation) elements.heroEducation.textContent = personal.education;
