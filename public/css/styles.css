@@ -77,6 +77,10 @@ html {
     box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
 }
 
+body.modal-open .top-navbar {
+    z-index: 999;
+}
+
 /* TRANSPARENT NAVBAR WITH SUBHEADER */
 .navbar {
     position: fixed;

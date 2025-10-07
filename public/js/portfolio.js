@@ -222,6 +222,7 @@ class PortfolioApp {
         const modal = this.createModal(project);
         document.body.appendChild(modal);
         document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-open');
         setTimeout(() => modal.classList.add('active'), 10);
         this.setupModalListeners(modal);
     }
@@ -373,6 +374,7 @@ class PortfolioApp {
     closeModal(modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        document.body.classList.remove('modal-open');
         setTimeout(() => modal.parentNode?.removeChild(modal), 200);
     }
 
