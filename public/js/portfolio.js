@@ -1,4 +1,3 @@
-// Portfolio Application - Main JavaScript
 class PortfolioApp {
     constructor() {
         this.portfolioData = null;
@@ -13,7 +12,6 @@ class PortfolioApp {
             this.setupNavigation();
         } catch (error) {
             console.error('Failed to initialize portfolio:', error);
-            this.showError('Failed to load portfolio data');
         }
     }
 
@@ -21,99 +19,61 @@ class PortfolioApp {
         try {
             const response = await fetch('/personal-info.json');
             this.portfolioData = await response.json();
-
-            // Check if data is empty and load template if needed
-            if (this.isEmptyData(this.portfolioData)) {
-                console.log('Loading template data...');
-                const templateResponse = await fetch('/template.json');
-                this.portfolioData = await templateResponse.json();
-            }
         } catch (error) {
             console.error('Error loading portfolio data:', error);
-            // Fallback to template if main data fails
-            try {
-                const templateResponse = await fetch('/template.json');
-                this.portfolioData = await templateResponse.json();
-            } catch (templateError) {
-                console.error('Error loading template data:', templateError);
-                throw templateError;
-            }
+            throw error;
         }
-    }
-
-    isEmptyData(data) {
-        if (!data || !data.personal) return true;
-
-        // Check if essential fields are empty or placeholder-like
-        const name = data.personal.name || '';
-        const title = data.personal.title || '';
-
-        return name.trim() === '' ||
-               title.trim() === '' ||
-               name === 'Your Name' ||
-               title === 'Your Professional Title';
     }
 
     async renderContent() {
         if (!this.portfolioData) return;
+        const { personal, about, experience, education, skills, languages, projects } = this.portfolioData;
 
-        this.renderPersonalInfo();
-        this.renderAbout();
-        this.renderExperience();
-        this.renderEducation();
-        this.renderSkills();
-        this.renderLanguages();
-        await this.renderProjects();
+        this.renderPersonalInfo(personal);
+        this.renderAbout(about);
+        this.renderExperience(experience);
+        this.renderEducation(education);
+        this.renderSkills(skills);
+        this.renderLanguages(languages);
+        this.renderProjects(projects);
     }
 
-    renderPersonalInfo() {
-        const { personal } = this.portfolioData;
+    renderPersonalInfo(personal) {
+        const elements = {
+            navName: document.getElementById('navName'),
+            heroName: document.getElementById('heroName'),
+            heroTitle: document.getElementById('heroTitle'),
+            heroEducation: document.getElementById('heroEducation')
+        };
 
-        // Update navigation names
-        const navName = document.getElementById('navName');
-        const topNavName = document.getElementById('topNavName');
-        if (navName) navName.textContent = personal.name;
-        if (topNavName) topNavName.textContent = personal.name;
+        if (elements.navName) elements.navName.textContent = personal.name;
+        if (elements.heroName) elements.heroName.textContent = personal.name;
+        if (elements.heroTitle) elements.heroTitle.textContent = personal.title;
+        if (elements.heroEducation) elements.heroEducation.textContent = personal.education;
 
-        // Update navigation social links
-        this.updateNavigationLinks(personal);
-
-        // Update hero section
-        const heroName = document.getElementById('heroName');
-        const heroTitle = document.getElementById('heroTitle');
-        const heroEducation = document.getElementById('heroEducation');
-
-        if (heroName) heroName.textContent = personal.name;
-        if (heroTitle) heroTitle.textContent = personal.title;
-        if (heroEducation) heroEducation.textContent = personal.education;
-
-        // Update page title
         document.title = `${personal.name} - Portfolio`;
+        this.updateNavigationLinks(personal);
     }
 
     updateNavigationLinks(personal) {
-        // Update email link
-        const emailLink = document.querySelector('.nav-social a[href^="mailto:"]');
-        if (emailLink && personal.email) {
-            emailLink.href = `mailto:${personal.email}`;
-        }
+        const links = {
+            email: document.querySelector('.nav-social a[href^="mailto:"]'),
+            github: document.querySelector('.nav-social a[aria-label="GitHub"]'),
+            linkedin: document.querySelector('.nav-social a[aria-label="LinkedIn"]')
+        };
 
-        // Update GitHub link
-        const githubLink = document.querySelector('.nav-social a[aria-label="GitHub"]');
-        if (githubLink && personal.github) {
-            githubLink.href = `https://${personal.github}`;
+        if (links.email && personal.email) {
+            links.email.href = `mailto:${personal.email}`;
+            links.email.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.copyToClipboard(personal.email);
+            });
         }
-
-        // Update LinkedIn link
-        const linkedinLink = document.querySelector('.nav-social a[aria-label="LinkedIn"]');
-        if (linkedinLink && personal.linkedin) {
-            linkedinLink.href = `https://${personal.linkedin}`;
-        }
+        if (links.github && personal.github) links.github.href = `https://${personal.github}`;
+        if (links.linkedin && personal.linkedin) links.linkedin.href = `https://${personal.linkedin}`;
     }
 
-    renderAbout() {
-        const { about } = this.portfolioData;
-
+    renderAbout(about) {
         const descElement = document.getElementById('aboutDescription');
         const secondaryElement = document.getElementById('aboutSecondary');
 
@@ -121,54 +81,38 @@ class PortfolioApp {
         if (secondaryElement) secondaryElement.textContent = about.secondary;
     }
 
-    renderExperience() {
-        const { experience } = this.portfolioData;
+    renderExperience(experience) {
         const container = document.getElementById('experienceContainer');
-
-        if (!container) return;
-
-        if (!experience || experience.length === 0) {
-            container.innerHTML = '<p class="no-content">Experience information will appear here when added to the JSON file.</p>';
-            return;
-        }
+        if (!container || !experience?.length) return;
 
         container.innerHTML = experience.map(exp => `
             <div class="experience-item unified-card">
-                <h3>${this.escapeHtml(exp.title || 'Job Title')}</h3>
-                <h4>${this.escapeHtml(exp.company || 'Company Name')}</h4>
-                <p class="experience-date">${this.escapeHtml(exp.period || 'Period')}</p>
-                <p class="experience-location">${this.escapeHtml(exp.location || 'Location')}</p>
+                <h3>${this.escapeHtml(exp.title)}</h3>
+                <h4>${this.escapeHtml(exp.company)}</h4>
+                <p class="experience-date">${this.escapeHtml(exp.period)}</p>
+                <p class="experience-location">${this.escapeHtml(exp.location)}</p>
                 <ul>
-                    ${(exp.responsibilities || ['Add job responsibilities to the JSON file']).map(resp =>
-                        `<li>${this.escapeHtml(resp)}</li>`
-                    ).join('')}
+                    ${exp.responsibilities.map(resp => `<li>${this.escapeHtml(resp)}</li>`).join('')}
                 </ul>
             </div>
         `).join('');
     }
 
-    renderEducation() {
-        const { education } = this.portfolioData;
+    renderEducation(education) {
+        const elements = {
+            degree: document.getElementById('educationDegree'),
+            institution: document.getElementById('educationInstitution'),
+            period: document.getElementById('educationPeriod')
+        };
 
-        const degreeElement = document.getElementById('educationDegree');
-        const institutionElement = document.getElementById('educationInstitution');
-        const periodElement = document.getElementById('educationPeriod');
-
-        if (degreeElement) degreeElement.textContent = education.degree;
-        if (institutionElement) institutionElement.textContent = education.institution;
-        if (periodElement) periodElement.textContent = `${education.period} • ${education.location}`;
+        if (elements.degree) elements.degree.textContent = education.degree;
+        if (elements.institution) elements.institution.textContent = education.institution;
+        if (elements.period) elements.period.textContent = `${education.period} • ${education.location}`;
     }
 
-    renderSkills() {
-        const { skills } = this.portfolioData;
+    renderSkills(skills) {
         const container = document.getElementById('skillsGrid');
-
-        if (!container) return;
-
-        if (!skills) {
-            container.innerHTML = '<p class="no-content">Skills will appear here when added to the JSON file.</p>';
-            return;
-        }
+        if (!container || !skills) return;
 
         const skillCategories = [
             { title: 'Core Programming', skills: skills.core_programming || [] },
@@ -177,43 +121,29 @@ class PortfolioApp {
             { title: 'Security & Systems', skills: skills.security_systems || [] }
         ];
 
-        // Show all categories with beautiful structure
-        container.innerHTML = skillCategories.map(category => {
-
-            return `
-                <div class="skill-category clickable unified-card" data-category="${this.escapeHtml(category.title.toLowerCase().replace(/[\s&]/g, '_'))}">
-                    <h4 class="skill-category-title">${this.escapeHtml(category.title)}</h4>
-                    <div class="smart-pill-zone">
-                        ${category.skills.length > 0 ? `
-                            ${category.skills.map(skill =>
-                                `<span class="smart-pill ${skill.primary ? 'primary' : ''} clickable" data-skill="${this.escapeHtml(skill.name || 'Skill')}">${this.escapeHtml(skill.name || 'Skill')}</span>`
-                            ).join('')}
-                        ` : '<span class="smart-pill">Add skills to JSON</span>'}
-                    </div>
+        container.innerHTML = skillCategories.map(category => `
+            <div class="skill-category clickable unified-card" data-category="${category.title.toLowerCase().replace(/[\s&]/g, '_')}">
+                <h4 class="skill-category-title">${category.title}</h4>
+                <div class="smart-pill-zone">
+                    ${category.skills.map(skill =>
+                        `<span class="smart-pill ${skill.primary ? 'primary' : ''} clickable" data-skill="${skill.name}">${skill.name}</span>`
+                    ).join('')}
                 </div>
-            `;
-        }).join('');
+            </div>
+        `).join('');
 
-        // Add click listeners for skill filtering
         this.setupSkillFilterListeners();
     }
 
-    renderLanguages() {
-        const { languages } = this.portfolioData;
+    renderLanguages(languages) {
         const container = document.getElementById('languagesGrid');
-
-        if (!container) return;
-
-        if (!languages || languages.length === 0) {
-            container.innerHTML = '<div class="language-item unified-card"><div class="language-info"><span class="language-name">Add languages to JSON</span><span class="language-level">Proficiency level</span></div></div>';
-            return;
-        }
+        if (!container || !languages?.length) return;
 
         container.innerHTML = languages.map(lang => `
             <div class="language-item unified-card">
                 <div class="language-info">
-                    <span class="language-name">${this.escapeHtml(lang.name || 'Language')}</span>
-                    <span class="language-level">${this.escapeHtml(lang.level || 'Level')}</span>
+                    <span class="language-name">${lang.name}</span>
+                    <span class="language-level">${lang.level}</span>
                 </div>
             </div>
         `).join('');
@@ -224,21 +154,13 @@ class PortfolioApp {
 
 
     setupEventListeners() {
-        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 e.preventDefault();
                 const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-
-        // Skill filtering will be rebuilt
     }
 
     setupNavigation() {
@@ -247,66 +169,31 @@ class PortfolioApp {
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-
-            if (scrollY > 50) {
-                navbar?.classList.add('scrolled');
-            } else {
-                navbar?.classList.remove('scrolled');
-            }
-
-            if (scrollY > 100) {
-                navName?.classList.add('visible');
-            } else {
-                navName?.classList.remove('visible');
-            }
+            navbar?.classList.toggle('scrolled', scrollY > 50);
+            navName?.classList.toggle('visible', scrollY > 100);
         });
     }
 
 
     escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+        return text?.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]) || '';
     }
 
 
-    async renderProjects() {
+    renderProjects(projects) {
         const container = document.getElementById('projectsContainer');
+        if (!container || !projects?.length) return;
 
-        if (!container) return;
-
-        if (!this.portfolioData || !this.portfolioData.projects || this.portfolioData.projects.length === 0) {
-            container.innerHTML = `
-                <div class="project-card unified-card">
-                    <div class="project-card-header">
-                        <h3 class="project-card-title">Add Your Projects</h3>
-                    </div>
-                    <div class="project-card-body">
-                        <p class="project-card-description">Copy the project template from template.json to add your projects here. Each project will automatically generate a new card.</p>
-                    </div>
-                    <div class="project-card-footer">
-                        <button class="project-card-btn" disabled>
-                            Template Project
-                            <svg class="project-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            `;
-            return;
-        }
-
-        container.innerHTML = this.portfolioData.projects.map((project, index) => `
+        container.innerHTML = projects.map((project, index) => `
             <div class="project-card unified-card" data-project-index="${index}">
                 <div class="project-card-header">
-                    <h3 class="project-card-title">${this.escapeHtml(project.title || 'Project Title')}</h3>
+                    <h3 class="project-card-title">${this.escapeHtml(project.title)}</h3>
                 </div>
                 <div class="project-card-body">
-                    <p class="project-card-description">${this.escapeHtml(project.shortDescription || 'Project description will appear here')}</p>
+                    <p class="project-card-description">${this.escapeHtml(project.shortDescription)}</p>
                 </div>
                 <div class="project-card-footer">
-                    <button class="project-card-btn" aria-label="View ${project.title || 'project'} details">
+                    <button class="project-card-btn" aria-label="View ${project.title} details">
                         View Details
                         <svg class="project-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M7 17l9.2-9.2M17 17V7H7"/>
@@ -316,7 +203,7 @@ class PortfolioApp {
             </div>
         `).join('');
 
-        this.attachProjectCardListeners(this.portfolioData.projects);
+        this.attachProjectCardListeners(projects);
     }
 
     attachProjectCardListeners(projects) {
@@ -334,132 +221,67 @@ class PortfolioApp {
     openProjectModal(project) {
         const modal = this.createModal(project);
         document.body.appendChild(modal);
-
         document.body.style.overflow = 'hidden';
-
-        setTimeout(() => {
-            modal.classList.add('active');
-        }, 10);
-
+        setTimeout(() => modal.classList.add('active'), 10);
         this.setupModalListeners(modal);
     }
 
     createModal(project) {
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 class="modal-title">${project.title}</h2>
+                    <button class="modal-close" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        `;
 
-        const modalContent = document.createElement('div');
-        modalContent.className = 'modal';
-
-        const header = this.createModalHeader(project);
-        const body = this.createModalBody(project);
-
-        modalContent.appendChild(header);
-        modalContent.appendChild(body);
-        modal.appendChild(modalContent);
+        const body = modal.querySelector('.modal-body');
+        body.appendChild(this.createModalLinksDOM(project));
+        if (project.skills?.length) body.appendChild(this.createModalSkillsDOM(project));
+        if (project.detailedDescription) body.appendChild(this.createModalDescriptionDOM(project));
 
         return modal;
     }
 
-    createModalHeader(project) {
-        const header = document.createElement('div');
-        header.className = 'modal-header';
 
-        const title = document.createElement('h2');
-        title.className = 'modal-title';
-        title.textContent = project.title;
-
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'modal-close';
-        closeBtn.setAttribute('aria-label', 'Close');
-        closeBtn.textContent = '×';
-
-        header.appendChild(title);
-        header.appendChild(closeBtn);
-
-        return header;
-    }
-
-    createModalBody(project) {
-        const body = document.createElement('div');
-        body.className = 'modal-body';
-
-        const linksSection = this.createModalLinksDOM(project);
-        const skillsSection = this.createModalSkillsDOM(project);
-        const descSection = this.createModalDescriptionDOM(project);
-
-        body.appendChild(linksSection);
-        if (skillsSection) body.appendChild(skillsSection);
-        if (descSection) body.appendChild(descSection);
-
-        return body;
-    }
 
     createModalLinksDOM(project) {
-        const linksContainer = document.createElement('div');
-        linksContainer.className = 'modal-links';
+        const container = document.createElement('div');
+        container.className = 'modal-links';
 
-        // Always create GitHub button
-        const githubLink = document.createElement('a');
-        if (project.githubUrl) {
-            githubLink.href = project.githubUrl;
-            githubLink.target = '_blank';
-            githubLink.rel = 'noopener';
-            githubLink.className = 'modal-link modal-link-github';
-        } else {
-            githubLink.className = 'modal-link modal-link-github disabled';
-            githubLink.setAttribute('aria-disabled', 'true');
-        }
+        const createLink = (url, className, text, iconType) => {
+            const link = document.createElement('a');
+            link.className = `modal-link ${className} ${url ? '' : 'disabled'}`;
+            if (url) {
+                link.href = url;
+                link.target = '_blank';
+                link.rel = 'noopener';
+            } else {
+                link.setAttribute('aria-disabled', 'true');
+            }
+            link.appendChild(this.createSVGIcon(iconType));
+            link.appendChild(document.createTextNode(text));
+            return link;
+        };
 
-        const githubIcon = this.createSVGIcon('github');
-        githubLink.appendChild(githubIcon);
-        githubLink.appendChild(document.createTextNode('GitHub'));
-
-        // Always create Deploy button
-        const deployLink = document.createElement('a');
-        if (project.deploymentUrl) {
-            deployLink.href = project.deploymentUrl;
-            deployLink.target = '_blank';
-            deployLink.rel = 'noopener';
-            deployLink.className = 'modal-link modal-link-deploy';
-        } else {
-            deployLink.className = 'modal-link modal-link-deploy disabled';
-            deployLink.setAttribute('aria-disabled', 'true');
-        }
-
-        const deployIcon = this.createSVGIcon('external');
-        deployLink.appendChild(deployIcon);
-        deployLink.appendChild(document.createTextNode('Live Demo'));
-
-        linksContainer.appendChild(githubLink);
-        linksContainer.appendChild(deployLink);
-
-        return linksContainer;
+        container.appendChild(createLink(project.githubUrl, 'modal-link-github', 'GitHub', 'github'));
+        container.appendChild(createLink(project.deploymentUrl, 'modal-link-deploy', 'Live Demo', 'external'));
+        return container;
     }
 
     createModalSkillsDOM(project) {
-        if (!project.skills || project.skills.length === 0) return null;
-
         const section = document.createElement('div');
         section.className = 'modal-section';
-
-        const title = document.createElement('h3');
-        title.className = 'modal-section-title';
-        title.textContent = 'Technologies';
-
-        const skillsContainer = document.createElement('div');
-        skillsContainer.className = 'modal-skills';
-
-        project.skills.forEach(skillName => {
-            const skill = document.createElement('span');
-            skill.className = 'modal-skill-pill';
-            skill.textContent = skillName;
-            skillsContainer.appendChild(skill);
-        });
-
-        section.appendChild(title);
-        section.appendChild(skillsContainer);
-
+        section.innerHTML = `
+            <h3 class="modal-section-title">Technologies</h3>
+            <div class="modal-skills">
+                ${project.skills.map(skill => `<span class="modal-skill-pill">${skill}</span>`).join('')}
+            </div>
+        `;
         return section;
     }
 
@@ -521,100 +343,65 @@ class PortfolioApp {
         return section;
     }
 
-    highlightTechnologies(text, projectSkills = []) {
-        // First convert **text** to highlighted technology spans
-        let result = text.replace(/\*\*(.*?)\*\*/g, '<span class="description-pill">$1</span>');
-
-        // If we have project skills, also highlight them contextually when mentioned
-        if (projectSkills && projectSkills.length > 0) {
-            // Sort skills by length (longest first) to avoid partial matches
-            const sortedSkills = projectSkills.slice().sort((a, b) => b.length - a.length);
-
-            sortedSkills.forEach(skill => {
-                // Skip if skill is too generic or already manually highlighted
-                if (result.includes(`<span class="description-pill">${skill}</span>`)) {
-                    return;
-                }
-
-                // Create regex to match the skill name (case insensitive, word boundaries)
-                const escapedSkill = skill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const regex = new RegExp(`\\b(${escapedSkill})\\b`, 'gi');
-
-                // Only replace if not already inside a description-pill span
-                result = result.replace(regex, (match, p1, offset) => {
-                    // Check if this match is already inside a description-pill span
-                    const beforeMatch = result.substring(0, offset);
-
-                    // Count unclosed description-pill spans before this position
-                    const openSpans = (beforeMatch.match(/<span class="description-pill">/g) || []).length;
-                    const closedSpans = (beforeMatch.match(/<\/span>/g) || []).length;
-
-                    // If we're inside a span, don't highlight
-                    if (openSpans > closedSpans) {
-                        return match;
-                    }
-
-                    return `<span class="description-pill">${p1}</span>`;
-                });
-            });
-        }
-
-        return result;
+    highlightTechnologies(text) {
+        return text.replace(/\*\*(.*?)\*\*/g, '<span class="description-pill">$1</span>');
     }
 
     createSVGIcon(type) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
-        svg.setAttribute('fill', type === 'github' ? 'currentColor' : 'none');
-        if (type !== 'github') {
-            svg.setAttribute('stroke', 'currentColor');
-            svg.setAttribute('stroke-width', '2');
-        }
-
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
         if (type === 'github') {
-            path.setAttribute('d', 'M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z');
+            svg.setAttribute('fill', 'currentColor');
+            svg.innerHTML = '<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>';
         } else {
-            path.setAttribute('d', 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6');
-            const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path2.setAttribute('d', 'M15 3h6v6');
-            const path3 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path3.setAttribute('d', 'M10 14L21 3');
-            svg.appendChild(path2);
-            svg.appendChild(path3);
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '2');
+            svg.innerHTML = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/>';
         }
 
-        svg.appendChild(path);
         return svg;
     }
 
     setupModalListeners(modal) {
-        const closeBtn = modal.querySelector('.modal-close');
-        closeBtn.addEventListener('click', () => this.closeModal(modal));
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                this.closeModal(modal);
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.closeModal(modal);
-            }
-        }, { once: true });
+        modal.querySelector('.modal-close').addEventListener('click', () => this.closeModal(modal));
+        modal.addEventListener('click', (e) => e.target === modal && this.closeModal(modal));
+        document.addEventListener('keydown', (e) => e.key === 'Escape' && this.closeModal(modal), { once: true });
     }
 
     closeModal(modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        setTimeout(() => modal.parentNode?.removeChild(modal), 200);
+    }
 
+    copyToClipboard(email) {
+        navigator.clipboard.writeText(email).then(() => {
+            this.showToast(`Gmail: ${email} copied to clipboard`);
+        }).catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = email;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            this.showToast(`Gmail: ${email} copied to clipboard`);
+        });
+    }
+
+    showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.classList.add('show'), 100);
         setTimeout(() => {
-            if (modal.parentNode) {
-                modal.parentNode.removeChild(modal);
-            }
-        }, 200);
+            toast.classList.remove('show');
+            setTimeout(() => document.body.removeChild(toast), 300);
+        }, 3000);
     }
 
 
@@ -809,10 +596,6 @@ class PortfolioApp {
         return card;
     }
 
-    showError(message) {
-        console.error(message);
-        // Could add user-facing error display here
-    }
 }
 
 // Initialize the application when DOM is loaded

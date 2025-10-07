@@ -34,6 +34,30 @@ body {
     overflow-x: hidden;
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(30, 77, 43, 0.3);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(30, 77, 43, 0.5);
+}
+
+/* Firefox scrollbar */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(30, 77, 43, 0.3) transparent;
+}
+
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -693,7 +717,7 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 2000;
     padding: 1rem;
 }
 
@@ -713,6 +737,7 @@ body {
     transform: scale(0.95);
     opacity: 0;
     transition: all 0.2s ease;
+    z-index: 2001;
 
     /* Perfect centering */
     margin: auto;
@@ -1201,7 +1226,50 @@ body {
 
 /* Technology highlighting inherits unified design */
 
-/* Mobile optimization handled by unified pill design */
+/* Success Toast Notification */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--bg-color);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(30, 77, 43, 0.3);
+    z-index: 3000;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 280px;
+    max-width: 400px;
+    word-wrap: break-word;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast::before {
+    content: '✓';
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+/* Mobile toast */
+@media (max-width: 480px) {
+    .toast {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+        font-size: 0.85rem;
+        padding: 0.8rem 1rem;
+    }
+}
 
 /* Placeholder content styling */
 .no-content {
@@ -1235,6 +1303,7 @@ body {
     max-width: min(1200px, 95vw);
     max-height: min(85vh, 800px);
     width: 100%;
+    z-index: 2001;
 
     /* Professional desert-inspired design */
     background: linear-gradient(135deg,
