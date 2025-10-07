@@ -12,7 +12,7 @@
     --primary-color: #1e4d2b;
     --secondary-color: #3a5f47;
     --accent-color: #2d5016;
-    --tertiary-color: #a0522d;
+    --tertiary-color: #8b4513;
     --card-bg: #f0ebe1;
     --muted-color: #6b5b4f;
     --border-color: rgba(30, 77, 43, 0.2);
@@ -275,7 +275,7 @@ body {
     margin-bottom: clamp(0.5rem, 2vw, 1rem);
     background: linear-gradient(45deg,
         var(--primary-color) 0%,
-        #a0522d 20%,
+        #8b4513 20%,
         var(--secondary-color) 40%,
         var(--accent-color) 60%,
         var(--tertiary-color) 80%,
@@ -285,26 +285,22 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 1.1;
-    animation: nameGradient 4s ease-in-out infinite;
+    animation: nameGradient 8s ease-in-out infinite;
     position: relative;
 }
 
 @keyframes nameGradient {
     0%, 100% {
         background-position: 0% 50%;
-        filter: brightness(1.2) contrast(1.3);
+        filter: brightness(1.1) contrast(1.2);
     }
-    25% {
+    33% {
         background-position: 100% 50%;
-        filter: brightness(1.4) contrast(1.5);
-    }
-    50% {
-        background-position: 100% 100%;
         filter: brightness(1.3) contrast(1.4);
     }
-    75% {
-        background-position: 0% 100%;
-        filter: brightness(1.4) contrast(1.5);
+    66% {
+        background-position: 100% 100%;
+        filter: brightness(1.2) contrast(1.3);
     }
 }
 
@@ -316,7 +312,7 @@ body {
 
 .hero-education {
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    color: #a0522d;
+    color: #8b4513;
     margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 500;
 }
@@ -441,7 +437,7 @@ body {
 }
 
 .experience-item h4 {
-    color: #a0522d;
+    color: #8b4513;
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
 }
@@ -835,6 +831,52 @@ body {
     margin-bottom: 0;
 }
 
+/* DESCRIPTION PILLS - INLINE WITH TEXT */
+.description-pill {
+    /* Military green gradient */
+    background: linear-gradient(135deg,
+        #6B8E5A 0%,
+        #7A9B6B 25%,
+        #8BAD7C 50%,
+        #9BC09D 75%,
+        #7A9B6B 100%);
+    background-size: 300% 300%;
+    color: var(--bg-color);
+    border: 1px solid #6B8E5A;
+    border-radius: 50px;
+
+    /* SMALLER THAN TEXT - INLINE HIGHLIGHT */
+    padding: 0.05rem 0.25rem;
+    font-size: 0.85rem; /* Smaller than description text */
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+
+    /* Inline styling */
+    display: inline;
+    margin: 0 0.1rem;
+    vertical-align: baseline;
+
+    /* Smooth interactions */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+
+    /* Minimal shadow */
+    box-shadow: 0 1px 3px rgba(107, 142, 90, 0.15);
+}
+
+.description-pill:hover {
+    background: linear-gradient(135deg,
+        #5A7A49 0%,
+        #6B8E5A 25%,
+        #7A9B6B 60%,
+        #8BAD7C 100%);
+    border-color: #5A7A49;
+    box-shadow: 0 2px 5px rgba(90, 122, 73, 0.2);
+}
+
 /* Clean bullet point styling */
 .modal-description ul {
     list-style: none;
@@ -877,62 +919,230 @@ body {
    PROJECT MODAL SKILLS SECTION
    ======================================== */
 
-/* Modal Skills Container */
+/* MODAL SKILL PILLS - SEPARATE FROM MAIN PILLS */
 .modal-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: clamp(0.4rem, 1vw, 0.6rem);
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin-top: clamp(0.5rem, 1.2vw, 0.8rem);
+    align-content: center;
+
+    /* Compact spacing for modals */
+    gap: clamp(0.3rem, 1vw, 0.5rem);
+    margin-top: clamp(0.5rem, 1.5vw, 1rem);
+
+    /* Perfect layout */
+    width: 100%;
+    min-height: fit-content;
+    padding: clamp(0.2rem, 0.8vw, 0.4rem);
 }
 
-/* UNIFIED PILL DESIGN - ALL PILLS USE THIS */
+/* MODAL SKILL PILL - CONSISTENT SIZE */
+.modal-skill-pill {
+    /* Military green gradient */
+    background: linear-gradient(135deg,
+        #6B8E5A 0%,
+        #7A9B6B 25%,
+        #8BAD7C 50%,
+        #9BC09D 75%,
+        #7A9B6B 100%);
+    background-size: 300% 300%;
+    color: var(--bg-color);
+    border: 1px solid #6B8E5A;
+    border-radius: 50px;
+
+    /* CONSISTENT SIZE WITH PROJECT PILLS */
+    padding: 0.15rem 0.4rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+
+    /* Simple styling */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.1rem 0.05rem;
+
+    /* Smooth interactions */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+
+    /* Small shadow */
+    box-shadow: 0 1px 4px rgba(107, 142, 90, 0.15);
+}
+
+.modal-skill-pill:hover {
+    background: linear-gradient(135deg,
+        #5A7A49 0%,
+        #6B8E5A 25%,
+        #7A9B6B 60%,
+        #8BAD7C 100%);
+    border-color: #5A7A49;
+    transform: translateY(-1px) scale(1.05);
+    box-shadow: 0 2px 6px rgba(90, 122, 73, 0.2);
+}
+
+/* NO MODAL OVERRIDES - PILLS ARE SELF-AWARE */
+
+/* INDUSTRY-LEVEL RESPONSIVE PILLS - SMALLER BASE SIZES */
 .modal-skill,
 .tech-highlight,
 .smart-pill,
 .skill-project-pill {
-    background: var(--primary-color);
+    /* Beautiful lighter military green gradient with fade */
+    background: linear-gradient(135deg,
+        #6B8E5A 0%,
+        #7A9B6B 25%,
+        #8BAD7C 50%,
+        #9BC09D 75%,
+        #7A9B6B 100%);
+    background-size: 300% 300%;
     color: var(--bg-color);
-    border: 2px solid var(--primary-color);
+    border: 2px solid #6B8E5A;
     border-radius: 50px;
 
-    /* Consistent padding */
-    padding: clamp(0.3rem, 0.8vw, 0.4rem) clamp(0.6rem, 1.5vw, 1rem);
-
-    /* Unified typography */
-    font-size: clamp(0.65rem, 1.6vw, 0.9rem);
+    /* SMALLER BASE SIZING - Prevents huge pills in modals */
+    padding: clamp(0.12rem, 1.4cqw, 0.4rem) clamp(0.25rem, 2.8cqw, 0.8rem);
+    font-size: clamp(0.45rem, 2.4cqw, 0.75rem);
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.2;
     white-space: nowrap;
     letter-spacing: -0.01em;
 
-    /* Standard interactions */
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Beautiful interactions */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     user-select: none;
 
-    /* Unified shadow */
-    box-shadow: 0 2px 8px rgba(45, 80, 22, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    /* SMALLER BASE SHADOWS */
+    box-shadow: 0 clamp(0.5px, 0.6cqw, 2.5px) clamp(2px, 1.2cqw, 6px) rgba(107, 142, 90, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                0 1px clamp(0.5px, 0.4cqw, 2px) rgba(107, 142, 90, 0.08);
+
+    /* SMALLER BASE SPACING */
+    margin: clamp(0.06rem, 0.6cqw, 0.2rem) clamp(0.05rem, 0.5cqw, 0.15rem);
 
     /* Display properties */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    flex: 0 1 auto;
+    min-width: fit-content;
+    max-width: 100%;
+
+    /* Subtle animation */
+    animation: pillGradient 6s ease-in-out infinite;
 }
 
+/* INDUSTRY-LEVEL BREAKPOINT-AWARE SCALING */
+
+/* DESKTOP: Enhanced container scaling for larger screens */
+@media (min-width: 768px) {
+    .modal-skill,
+    .tech-highlight,
+    .smart-pill,
+    .skill-project-pill {
+        /* DESKTOP MULTIPLIER: 1.4x container scaling */
+        padding: clamp(0.2rem, 2.5cqw, 0.7rem) clamp(0.4rem, 4.9cqw, 1.4rem);
+        font-size: clamp(0.65rem, 4.2cqw, 1.2rem);
+
+        /* Enhanced desktop shadows */
+        box-shadow: 0 clamp(1px, 1.1cqw, 4px) clamp(4px, 2.1cqw, 12px) rgba(107, 142, 90, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                    0 1px clamp(2px, 0.7cqw, 4px) rgba(107, 142, 90, 0.08);
+
+        /* Desktop spacing */
+        margin: clamp(0.1rem, 1.1cqw, 0.35rem) clamp(0.08rem, 0.84cqw, 0.25rem);
+    }
+}
+
+/* LARGE DESKTOP: Maximum scaling for large screens */
+@media (min-width: 1200px) {
+    .modal-skill,
+    .tech-highlight,
+    .smart-pill,
+    .skill-project-pill {
+        /* LARGE DESKTOP MULTIPLIER: 1.6x container scaling */
+        padding: clamp(0.25rem, 2.8cqw, 0.8rem) clamp(0.5rem, 5.6cqw, 1.6rem);
+        font-size: clamp(0.75rem, 4.8cqw, 1.35rem);
+
+        /* Maximum desktop shadows */
+        box-shadow: 0 clamp(2px, 1.3cqw, 5px) clamp(5px, 2.4cqw, 15px) rgba(107, 142, 90, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                    0 clamp(1px, 0.8cqw, 4px) clamp(2px, 1cqw, 5px) rgba(107, 142, 90, 0.08);
+
+        /* Large desktop spacing */
+        margin: clamp(0.12rem, 1.3cqw, 0.4rem) clamp(0.1rem, 1cqw, 0.3rem);
+    }
+}
+
+@keyframes pillGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* BREAKPOINT-AWARE HOVER EFFECTS */
 .modal-skill:hover,
 .tech-highlight:hover,
 .smart-pill:hover,
 .skill-project-pill:hover {
-    background: var(--secondary-color);
+    /* Enhanced military green gradient on hover */
+    background: linear-gradient(135deg,
+        #5A7A49 0%,
+        #6B8E5A 25%,
+        #7A9B6B 60%,
+        #8BAD7C 100%);
+    background-size: 400% 400%;
     color: var(--bg-color);
-    border-color: var(--secondary-color);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    border-color: #5A7A49;
+
+    /* BASE HOVER TRANSFORM */
+    transform: translateY(clamp(-1px, -0.4cqw, -2px)) scale(clamp(1.02, 1.04, 1.06));
+
+    /* BASE HOVER SHADOWS */
+    box-shadow: 0 clamp(1px, 1cqw, 4px) clamp(4px, 2cqw, 12px) rgba(90, 122, 73, 0.25),
+                inset 0 clamp(1px, 0.3cqw, 2px) 0 rgba(255, 255, 255, 0.4),
+                0 clamp(1px, 0.4cqw, 2px) clamp(3px, 1.5cqw, 8px) rgba(107, 142, 90, 0.15);
+
+    /* Faster animation */
+    animation-duration: 2s;
+    filter: brightness(1.1) saturate(1.2);
+}
+
+/* DESKTOP HOVER ENHANCEMENT */
+@media (min-width: 768px) {
+    .modal-skill:hover,
+    .tech-highlight:hover,
+    .smart-pill:hover,
+    .skill-project-pill:hover {
+        /* DESKTOP HOVER: 1.3x enhancement */
+        transform: translateY(clamp(-1px, -0.5cqw, -3px)) scale(clamp(1.03, 1.05, 1.08));
+
+        /* Enhanced desktop hover shadows */
+        box-shadow: 0 clamp(2px, 1.3cqw, 6px) clamp(6px, 2.6cqw, 16px) rgba(90, 122, 73, 0.25),
+                    inset 0 clamp(1px, 0.4cqw, 2px) 0 rgba(255, 255, 255, 0.4),
+                    0 clamp(1px, 0.5cqw, 3px) clamp(4px, 2cqw, 12px) rgba(107, 142, 90, 0.15);
+    }
+}
+
+/* LARGE DESKTOP HOVER MAXIMUM */
+@media (min-width: 1200px) {
+    .modal-skill:hover,
+    .tech-highlight:hover,
+    .smart-pill:hover,
+    .skill-project-pill:hover {
+        /* LARGE DESKTOP HOVER: 1.5x enhancement */
+        transform: translateY(clamp(-2px, -0.6cqw, -4px)) scale(clamp(1.04, 1.06, 1.1));
+
+        /* Maximum desktop hover shadows */
+        box-shadow: 0 clamp(3px, 1.5cqw, 8px) clamp(8px, 3cqw, 20px) rgba(90, 122, 73, 0.25),
+                    inset 0 clamp(1px, 0.5cqw, 3px) 0 rgba(255, 255, 255, 0.4),
+                    0 clamp(2px, 0.6cqw, 4px) clamp(6px, 2.5cqw, 15px) rgba(107, 142, 90, 0.15);
+    }
 }
 
 /* Technology highlighting inherits unified design */
@@ -1042,17 +1252,16 @@ body {
     max-height: calc(85vh - 140px);
 }
 
-/* Perfect Modal Grid Centering */
+/* FIXED SIZE MODAL GRID */
 .skill-projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+    gap: 1.2rem;
+    padding: 1.5rem;
 
-    /* Perfect centering for all scenarios */
+    /* Perfect centering */
     justify-content: center;
     justify-items: center;
-    place-items: center;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -1085,19 +1294,19 @@ body {
     justify-self: center;
 }
 
-/* Modal Project Cards - Using Unified System */
+/* FIXED SIZE MODAL PROJECT CARDS */
 .skill-project-card {
-    /* Dynamic padding */
-    padding: clamp(1.2rem, 3vw, 2rem);
+    /* Optimized padding for more content */
+    padding: 1.2rem;
 
     /* Perfect alignment */
     display: flex;
     flex-direction: column;
-    gap: clamp(0.8rem, 2vw, 1.2rem);
+    gap: 0.8rem;
 
-    /* Consistent sizing */
-    width: 100%;
-    min-height: 280px;
+    /* FIXED CONSISTENT SIZE - TALLER FOR MORE CONTENT */
+    width: 280px;
+    height: 380px;
     justify-self: center;
 }
 
@@ -1119,28 +1328,83 @@ body {
 /* Project Description */
 .skill-project-description {
     color: var(--text-color);
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    line-height: 1.6;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    line-height: 1.5;
     margin: 0;
     text-align: center;
-    flex-grow: 1;
+    margin-bottom: 0.5rem;
 
-    /* Smart text truncation */
+    /* MORE CONTENT - Show up to 5 lines */
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* Skills Container */
+/* MODAL PROJECT SKILLS CONTAINER */
 .skill-project-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: clamp(0.3rem, 0.8vw, 0.5rem);
     justify-content: center;
     align-items: center;
-    margin-top: auto;
+    align-content: center;
+
+    /* Compact spacing */
+    gap: 0.25rem;
+
+    /* Perfect layout - MINIMAL PADDING */
+    width: 100%;
+    min-height: fit-content;
+    padding: 0;
+}
+
+/* MODAL PROJECT SKILL PILL - SEPARATE CLASS */
+.modal-project-pill {
+    /* Military green gradient */
+    background: linear-gradient(135deg,
+        #6B8E5A 0%,
+        #7A9B6B 25%,
+        #8BAD7C 50%,
+        #9BC09D 75%,
+        #7A9B6B 100%);
+    background-size: 300% 300%;
+    color: var(--bg-color);
+    border: 1px solid #6B8E5A;
+    border-radius: 50px;
+
+    /* SMALL FIXED SIZE */
+    padding: 0.15rem 0.4rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+
+    /* Simple styling */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.1rem 0.05rem;
+
+    /* Smooth interactions */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+
+    /* Small shadow */
+    box-shadow: 0 1px 4px rgba(107, 142, 90, 0.15);
+}
+
+.modal-project-pill:hover {
+    background: linear-gradient(135deg,
+        #5A7A49 0%,
+        #6B8E5A 25%,
+        #7A9B6B 60%,
+        #8BAD7C 100%);
+    border-color: #5A7A49;
+    transform: translateY(-1px) scale(1.05);
+    box-shadow: 0 2px 6px rgba(90, 122, 73, 0.2);
 }
 
 /* Skill project pills inherit unified design */
@@ -1330,7 +1594,7 @@ body {
 }
 
 .institution {
-    color: #a0522d;
+    color: #8b4513;
     font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     font-weight: 500;
     margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
@@ -1353,6 +1617,33 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+/* Skills Instruction Styling */
+.skills-instruction {
+    color: var(--muted-color);
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    font-style: italic;
+    text-align: center;
+    margin: clamp(0.5rem, 1.5vw, 1rem) 0 clamp(1rem, 2.5vw, 1.5rem) 0;
+    padding: clamp(0.8rem, 2vw, 1.2rem);
+    background: rgba(156, 175, 136, 0.08);
+    border: 1px solid rgba(45, 80, 22, 0.2);
+    border-radius: clamp(8px, 1vw, 12px);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.skills-instruction::before {
+    content: '';
+    margin-right: 0;
+    font-style: normal;
+}
+
+.skills-instruction:hover {
+    background: rgba(156, 175, 136, 0.12);
+    border-color: rgba(45, 80, 22, 0.3);
+    transform: translateY(-1px);
 }
 
 /* ========================================
@@ -1387,18 +1678,7 @@ body {
         padding: clamp(1rem, 3vh, 2rem);
     }
 
-    /* DESKTOP: Bigger pills for better visibility */
-    .smart-pill {
-        height: clamp(1.4rem, 3.4cqw, 2.6rem);
-        font-size: clamp(0.65rem, 2.1cqw, 1rem);
-        padding: 0 clamp(0.8rem, 2.4cqw, 1.6rem);
-        margin: clamp(0.08rem, 0.3cqw, 0.18rem);
-    }
-
-    .smart-pill.primary {
-        height: clamp(1.5rem, 3.6cqw, 2.8rem);
-        font-size: clamp(0.7rem, 2.2cqw, 1.1rem);
-    }
+    /* DESKTOP: Pills use unified system - no overrides needed */
 
     /* DESKTOP: Bigger titles */
     .skill-category-title {
@@ -1422,24 +1702,24 @@ body {
 /* NO BREAKPOINTS - PROPORTIONAL SCALING ONLY */
 /* Everything scales down proportionally as screen gets smaller */
 
-/* APPLE WATCH STYLE Card Layout */
+/* SIMPLE SMART SQUARE - TITLE + PILL CONTAINER */
 .skill-category {
     width: 100%;
-    aspect-ratio: 0.9 !important; /* Optimized for maximum content */
+    aspect-ratio: 0.9 !important;
 
-    /* RESPONSIVE padding - bigger on desktop */
-    padding: clamp(0.4rem, 1.8cqw, 1.2rem);
+    /* Simple padding */
+    padding: clamp(0.4rem, 1.5cqw, 1rem);
 
-    /* Card layout - SPACE EFFICIENT */
+    /* SIMPLE LAYOUT: Title at top, pill container below */
     display: flex;
     flex-direction: column;
-    gap: clamp(0.15rem, 0.8cqw, 0.5rem);
+    gap: clamp(0.2rem, 0.8cqw, 0.4rem);
 
-    /* Enable container queries within each card */
+    /* Enable container queries */
     container-type: inline-size;
+    container-name: skill-card;
 
-    /* APPLE WATCH PRINCIPLES */
-    justify-content: space-between;
+    /* Simple layout */
     align-items: center;
 }
 
@@ -1454,16 +1734,16 @@ body {
 
 /* ELIMINATED ALL BREAKPOINTS - CONTAINER QUERY SCALING ONLY */
 
-/* Container-Aware Title Scaling */
+/* SIMPLE TITLE */
 .skill-category-title {
     color: var(--primary-color);
-    font-size: clamp(0.8rem, 3.2cqw, 1.3rem); /* BIGGER on desktop */
+    font-size: clamp(0.8rem, 3cqw, 1.2rem);
     font-weight: 700;
     text-align: center;
     line-height: 1.2;
     margin: 0;
     position: relative;
-    padding-bottom: clamp(0.2rem, 1cqw, 0.6rem);
+    padding-bottom: clamp(0.2rem, 0.8cqw, 0.4rem);
     flex-shrink: 0;
 }
 
@@ -1479,43 +1759,84 @@ body {
     border-radius: 1px;
 }
 
-/* SMART PILL ZONE - SINGLE UNIFIED GROUP */
+/* SIMPLE SMART PILL CONTAINER - ALWAYS PERFECTLY CENTERED */
 .smart-pill-zone {
+    /* PERFECT CENTERING */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     align-content: center;
+
+    /* TAKES REMAINING SPACE AFTER TITLE */
     width: 100%;
-    height: 100%;
     flex: 1;
-    padding: clamp(0.15rem, 0.8cqw, 0.3rem);
 
-    /* EDGE DETECTION FOR ENTIRE ZONE */
-    container-type: inline-size;
-    overflow: hidden;
+    /* SMART PADDING - AWARE OF ALL 4 EDGES */
+    padding: clamp(0.3rem, 1.5cqw, 0.8rem);
 
-    /* SMART SPACING BETWEEN ALL PILLS */
-    gap: clamp(0.1rem, 0.4cqw, 0.2rem);
+    /* 4-EDGE DETECTION */
+    container-type: size;
+    container-name: pill-container;
 
-    /* CIRCULAR FLOW OPTIMIZATION */
-    border-radius: clamp(0.5rem, 2cqw, 1rem);
+    /* SMART SPACING */
+    gap: clamp(0.15rem, 1cqw, 0.4rem);
+
+    /* CONTAINED WITHIN SQUARE */
+    box-sizing: border-box;
+    position: relative;
+
+    /* ALWAYS CENTERED */
+    min-height: 0;
 }
+
+/* SIMPLE SMART OVERFLOW DETECTION - REAL-TIME EDGE AWARENESS */
+
+/* SMALL CONTAINER - Pills auto-shrink when space is tight */
+@container pill-container (max-width: 120px) {
+    .smart-pill {
+        padding: clamp(0.15rem, 1.5cqw, 0.3rem) clamp(0.3rem, 3cqw, 0.6rem) !important;
+        font-size: clamp(0.4rem, 2.5cqw, 0.65rem) !important;
+        margin: clamp(0.08rem, 0.8cqw, 0.15rem) !important;
+    }
+}
+
+/* VERY SMALL CONTAINER - Pills get more compact */
+@container pill-container (max-width: 100px) {
+    .smart-pill {
+        padding: clamp(0.1rem, 1.2cqw, 0.25rem) clamp(0.2rem, 2.4cqw, 0.5rem) !important;
+        font-size: clamp(0.35rem, 2.2cqw, 0.55rem) !important;
+        margin: clamp(0.05rem, 0.6cqw, 0.12rem) !important;
+    }
+}
+
+/* SHORT CONTAINER - Pills shrink vertically when height is limited */
+@container pill-container (max-height: 80px) {
+    .smart-pill {
+        padding: clamp(0.08rem, 1cqw, 0.2rem) clamp(0.15rem, 2cqw, 0.4rem) !important;
+        font-size: clamp(0.3rem, 2cqw, 0.5rem) !important;
+        margin: clamp(0.04rem, 0.5cqw, 0.1rem) !important;
+        line-height: 1.1 !important;
+    }
+}
+
+/* VERY SHORT CONTAINER - Micro pills for extreme height constraints */
+@container pill-container (max-height: 60px) {
+    .smart-pill {
+        padding: clamp(0.05rem, 0.8cqw, 0.15rem) clamp(0.1rem, 1.6cqw, 0.3rem) !important;
+        font-size: clamp(0.25rem, 1.5cqw, 0.4rem) !important;
+        margin: clamp(0.02rem, 0.3cqw, 0.08rem) !important;
+        line-height: 1 !important;
+    }
+}
+
+/* NO CONTAINER OVERRIDES - PILLS HANDLE THEIR OWN SIZING */
 
 /* OBSOLETE - REMOVED PRIMARY CONTAINER */
 
 /* OBSOLETE - REMOVED SECONDARY CONTAINER */
 
-/* Smart pills inherit unified design */
-.smart-pill {
-    /* Override specific properties for skills grid */
-    height: clamp(1.2rem, 3.2cqw, 2.4rem);
-    margin: clamp(0.05rem, 0.25cqw, 0.15rem);
-    flex-shrink: 1;
-    flex-grow: 0;
-    min-width: fit-content;
-    max-width: 100%;
-}
+/* Smart pills inherit unified design - no overrides */
 
 /* NO BREAKPOINTS - CONTAINER SCALING ONLY */
 
@@ -1526,14 +1847,13 @@ body {
     box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2);
 }
 
-/* Primary pills - enhanced version of unified design */
+/* Primary pills - use unified design with military green */
 .smart-pill.primary {
     background: linear-gradient(135deg,
-        var(--accent-color) 0%,
-        var(--primary-color) 100%);
+        #5A7A49 0%,
+        #6B8E5A 100%);
     font-weight: 700;
-    height: clamp(1.3rem, 3.4cqw, 2.5rem);
-    font-size: clamp(0.6rem, 2.1cqw, 1rem);
+    /* Size inherits from unified system */
 }
 
 .skill-tag.primary:hover {
@@ -1608,20 +1928,85 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
-    gap: clamp(1rem, 3vw, 2rem);
+    flex-wrap: wrap;
+    gap: clamp(0.8rem, 2.5vw, 2rem);
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
-    padding: 0.5rem;
+    padding: clamp(1rem, 3vw, 2rem);
+
+    /* Container queries for real-time responsiveness */
+    container-type: inline-size;
+
+    /* Auto-detect screen edges and wrap pills when needed */
+    overflow: visible;
+
+    /* Real-time edge detection behavior */
+    min-height: auto;
+    align-content: center;
 }
 
-/* Language Items - Using Unified System */
+/* Language Items - Using Unified Card System */
 .language-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(0.8rem, 1.5vw, 1.2rem);
+    /* Full width usage on desktop, responsive on mobile */
+    flex: 1 1 auto;
+    min-width: fit-content;
+    max-width: 100%;
+    margin: 0.3rem;
+
+    /* Apply unified card styling */
+    padding: clamp(1rem, 2vw, 1.5rem);
+
+    /* Rich darker beige tones for beautiful contrast */
+    background: linear-gradient(135deg,
+        rgba(231, 220, 199, 0.95) 0%,
+        rgba(236, 223, 199, 0.98) 50%,
+        rgba(235, 225, 205, 0.95) 100%);
+
+    border: 1px solid rgba(45, 80, 22, 0.3);
+    border-radius: clamp(12px, 1.5vw, 20px);
+
+    /* Professional shadows */
+    box-shadow:
+        0 8px 32px rgba(45, 80, 22, 0.06),
+        0 4px 16px rgba(45, 80, 22, 0.04);
+
+    /* Smooth interactions */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Unified hover effects */
+.language-item:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 16px 48px rgba(45, 80, 22, 0.12),
+        0 8px 24px rgba(45, 80, 22, 0.08);
+    border-color: rgba(45, 80, 22, 0.2);
+}
+
+/* Accent bar */
+.language-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+        var(--primary-color) 0%,
+        var(--accent-color) 50%,
+        var(--primary-color) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-top-left-radius: clamp(12px, 1.5vw, 20px);
+    border-top-right-radius: clamp(12px, 1.5vw, 20px);
+}
+
+.language-item:hover::before {
+    transform: scaleX(1);
 }
 
 .language-info {
@@ -1714,10 +2099,13 @@ body {
     /* UNIFIED PILLS - NO BREAKPOINT OVERRIDES */
 
     .languages-grid {
-        flex-wrap: nowrap;
-        gap: 1rem;
+        flex-wrap: wrap;
+        gap: clamp(0.5rem, 2vw, 1rem);
         justify-content: center;
+        padding: clamp(0.8rem, 2vw, 1.5rem);
     }
+
+    /* Mobile: Language cards remain consistent with unified design */
 
     /* REMOVED HARDCODED BACKGROUND CARD SIZING */
 

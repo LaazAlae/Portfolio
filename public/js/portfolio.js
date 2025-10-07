@@ -450,7 +450,7 @@ class PortfolioApp {
 
         project.skills.forEach(skillName => {
             const skill = document.createElement('span');
-            skill.className = 'modal-skill';
+            skill.className = 'modal-skill-pill';
             skill.textContent = skillName;
             skillsContainer.appendChild(skill);
         });
@@ -521,7 +521,7 @@ class PortfolioApp {
 
     highlightTechnologies(text, projectSkills = []) {
         // First convert **text** to highlighted technology spans
-        let result = text.replace(/\*\*(.*?)\*\*/g, '<span class="tech-highlight">$1</span>');
+        let result = text.replace(/\*\*(.*?)\*\*/g, '<span class="description-pill">$1</span>');
 
         // If we have project skills, also highlight them contextually when mentioned
         if (projectSkills && projectSkills.length > 0) {
@@ -530,7 +530,7 @@ class PortfolioApp {
 
             sortedSkills.forEach(skill => {
                 // Skip if skill is too generic or already manually highlighted
-                if (result.includes(`<span class="tech-highlight">${skill}</span>`)) {
+                if (result.includes(`<span class="description-pill">${skill}</span>`)) {
                     return;
                 }
 
@@ -538,13 +538,13 @@ class PortfolioApp {
                 const escapedSkill = skill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const regex = new RegExp(`\\b(${escapedSkill})\\b`, 'gi');
 
-                // Only replace if not already inside a tech-highlight span
+                // Only replace if not already inside a description-pill span
                 result = result.replace(regex, (match, p1, offset) => {
-                    // Check if this match is already inside a tech-highlight span
+                    // Check if this match is already inside a description-pill span
                     const beforeMatch = result.substring(0, offset);
 
-                    // Count unclosed tech-highlight spans before this position
-                    const openSpans = (beforeMatch.match(/<span class="tech-highlight">/g) || []).length;
+                    // Count unclosed description-pill spans before this position
+                    const openSpans = (beforeMatch.match(/<span class="description-pill">/g) || []).length;
                     const closedSpans = (beforeMatch.match(/<\/span>/g) || []).length;
 
                     // If we're inside a span, don't highlight
@@ -552,7 +552,7 @@ class PortfolioApp {
                         return match;
                     }
 
-                    return `<span class="tech-highlight">${p1}</span>`;
+                    return `<span class="description-pill">${p1}</span>`;
                 });
             });
         }
@@ -626,11 +626,11 @@ class PortfolioApp {
             });
         });
 
-        // Add click listeners for individual skill tags
-        document.querySelectorAll('.skill-tag.clickable').forEach(skillTag => {
-            skillTag.addEventListener('click', (e) => {
+        // Add click listeners for individual skill pills
+        document.querySelectorAll('.smart-pill.clickable').forEach(skillPill => {
+            skillPill.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const skillName = skillTag.dataset.skill;
+                const skillName = skillPill.dataset.skill;
                 this.openSkillModal(skillName, 'skill');
             });
         });
@@ -775,14 +775,14 @@ class PortfolioApp {
         if (project.skills && project.skills.length > 0) {
             project.skills.slice(0, 6).forEach(skillName => {
                 const skillPill = document.createElement('span');
-                skillPill.className = 'skill-project-pill';
+                skillPill.className = 'modal-project-pill';
                 skillPill.textContent = skillName;
                 skillsContainer.appendChild(skillPill);
             });
 
             if (project.skills.length > 6) {
                 const morePill = document.createElement('span');
-                morePill.className = 'skill-project-pill more-skills';
+                morePill.className = 'modal-project-pill more-skills';
                 morePill.textContent = `+${project.skills.length - 6} more`;
                 skillsContainer.appendChild(morePill);
             }
