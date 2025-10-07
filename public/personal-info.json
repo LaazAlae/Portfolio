@@ -26,12 +26,12 @@
       "period": "Summer 2024, June 2025 – Present",
       "location": "White Plains, NY",
       "responsibilities": [
-        "Engineered company-wide automation solutions using Python (Flask), JavaScript, HTML, and Excel VBA to streamline credit card and check payment processing workflows, reducing manual data entry and improving operational accuracy",
-        "Developed the AlaeAutomates platform featuring intelligent PDF tools, including a statement processor for automatic classification of 1000+ page documents and an invoice separator that splits files by detected invoice numbers",
-        "Built end-to-end payment automation systems that handle data extraction, form completion, and posting, ensuring data consistency and eliminating repetitive manual work across departments",
-        "Contributed to IT team initiatives by designing and deploying a company-wide SharePoint site to enhance collaboration, document accessibility, and internal communication",
-        "Created an interactive employee training website prototype with quiz-based modules to streamline onboarding and enhance learning retention",
-        "Automated complex Excel-based document workflows, converting multi-day manual processes into automated operations completed within seconds"
+        "Develop automation and software systems within the IT department using Python (Flask), JavaScript, HTML, and Excel VBA to streamline credit card and check payment workflows, reducing manual input and improving data accuracy.",
+        "Built the AlaeAutomates platform featuring intelligent PDF automation tools, including a statement processor that classifies 1,000+ page documents and an invoice separator that splits files by detected invoice numbers.",
+        "Created end-to-end payment automation systems that handle data extraction, form completion, and posting, ensuring consistency and eliminating repetitive manual work across departments.",
+        "Led IT initiatives to design and deploy a company-wide SharePoint platform that enhances collaboration, information accessibility, and digital workflow integration.",
+        "Developed an interactive training website prototype with quiz-based modules to streamline onboarding and improve knowledge retention.",
+        "Automated complex Excel-based document workflows, transforming multi-day manual processes into fully automated tasks completed in seconds."
       ]
     }
   ],
