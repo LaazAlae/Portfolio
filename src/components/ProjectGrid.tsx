@@ -31,7 +31,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
       smoothSpeed.set(targetSpeed);
   }, [targetSpeed, smoothSpeed]);
 
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_, delta) => {
     if (!contentWidth) return;
 
     const moveBy = smoothSpeed.get() * (delta / 16);

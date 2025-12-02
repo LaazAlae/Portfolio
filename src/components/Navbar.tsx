@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, User, Code2, Briefcase, Folder } from 'lucide-react';
+import { Github, Linkedin, User, Code2, Briefcase, Folder } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface NavbarProps {
