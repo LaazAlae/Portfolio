@@ -16,6 +16,14 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const container = scrollContainerRef?.current || window;
@@ -36,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
         rootMargin: "-40% 0px -60% 0px"
     });
 
-    handleScroll(); // Initial check
+    handleScroll();
     
     container.addEventListener('scroll', handleScroll);
     document.querySelectorAll('section[id]').forEach((section) => {
@@ -70,52 +78,42 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
     { name: 'Skills', href: '#skills', icon: Code2 },
   ];
 
+  const targetWidth = isMobile ? "95%" : "800px";
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <motion.nav
-        layout
         initial={false}
-        animate={isScrolled ? "scrolled" : "top"}
-        variants={{
-            top: { 
-                borderRadius: "0px",
-                width: "100%",
-                maxWidth: "100%", // Full width
-                marginTop: "0px",
-                padding: "1rem 2rem",
-                backgroundColor: "rgba(255, 255, 255, 0)", 
-                backdropFilter: "blur(0px)",
-                boxShadow: "none"
-            },
-            scrolled: { 
-                borderRadius: "9999px",
-                width: "95%", // Mobile: almost full width but detached
-                maxWidth: "800px", // Desktop: Fixed max width for stability
-                marginTop: "1rem",
-                padding: "0.5rem 1.5rem", 
-                backgroundColor: "rgba(255, 255, 255, 0.02)",
-                backdropFilter: "blur(20px) saturate(180%)",
-                boxShadow: "inset 0px 1px 0px 0px rgba(255,255,255,0.4), inset 0px -1px 0px 0px rgba(255,255,255,0.1), 0px 8px 32px -4px rgba(0,0,0,0.1)"
-            }
+        animate={{
+            borderRadius: isScrolled ? "50px" : "0px",
+            marginTop: isScrolled ? "1rem" : "0px",
+            width: isScrolled ? targetWidth : "100%",
+            padding: "0.75rem 2rem",
+            backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.02)" : "rgba(255, 255, 255, 0)",
+            backdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "blur(0px)",
+            boxShadow: isScrolled ? "inset 0px 1px 0px 0px rgba(255,255,255,0.4), inset 0px -1px 0px 0px rgba(255,255,255,0.1), 0px 8px 32px -4px rgba(0,0,0,0.1)" : "none"
         }}
-        transition={{ 
-            type: "spring", 
-            stiffness: 120, 
-            damping: 20, 
-            mass: 1 
+        transition={{
+            borderRadius: { 
+                duration: 0.2, 
+                ease: "linear",
+                delay: isScrolled ? 0 : 0.4 
+            },
+            width: { 
+                duration: 0.6, 
+                ease: [0.32, 0.72, 0, 1],
+                delay: isScrolled ? 0.1 : 0 
+            },
+            marginTop: { duration: 0.6, ease: "easeInOut" },
+            default: { duration: 0.4, ease: "easeInOut" }
         }}
         className="pointer-events-auto relative flex items-center justify-between overflow-hidden whitespace-nowrap"
       >
-        {/* Logo - Fixed width container to prevent jump */}
-        <motion.div 
-          layout="position"
-          className="font-bold text-lg tracking-tight text-primary/90 mix-blend-hard-light shrink-0 w-[140px]"
-        >
+        <motion.div className="font-bold text-lg tracking-tight text-primary/90 mix-blend-hard-light shrink-0 w-[140px]">
           {data.name.split(' ')[0]}<span className="text-accent">.</span>
         </motion.div>
 
-        {/* Navigation Links - Center of attention */}
-        <motion.div layout="position" className="flex items-center justify-center gap-1 shrink-0">
+        <motion.div className="flex items-center justify-center gap-1 shrink-0">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -128,7 +126,6 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
                     : "text-primary/60 hover:text-primary"
               )}
             >
-              {/* Icon visible only on mobile to save space */}
               <link.icon size={16} className="md:hidden" />
               <span className="relative z-10 hidden md:block">{link.name}</span>
               
@@ -143,11 +140,7 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
           ))}
         </motion.div>
 
-        {/* Social Icons - Fixed width container aligned right */}
-        <motion.div 
-            layout="position"
-            className="flex items-center justify-end gap-1 shrink-0 w-[140px]"
-        >
+        <motion.div className="flex items-center justify-end gap-1 shrink-0 w-[140px]">
            <a href={`https://${data.github}`} target="_blank" rel="noreferrer" className="p-2 text-primary/60 hover:text-primary hover:bg-white/20 rounded-full transition-colors" aria-label="GitHub">
              <Github size={18} />
            </a>
