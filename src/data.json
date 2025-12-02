@@ -1,0 +1,158 @@
+{
+  "personal": {
+    "name": "Alae Laaziri",
+    "title": "Software & Automation Engineer",
+    "location": "New York, NY",
+    "email": "alaelaaziri555@gmail.com",
+    "website": "alaeportfolio.com",
+    "github": "github.com/LaazAlae",
+    "linkedin": "linkedin.com/in/alaelaaziri",
+    "phone": "646-251-8065",
+    "status": "Authorized to work in the U.S. through 2028 (renewable) · No sponsorship required"
+  },
+  "about": {
+    "description": "Incoming Graduate Student at Johns Hopkins University (MS in Cybersecurity) and a precision-focused Software Engineer. I specialize in building high-assurance distributed systems, automating complex enterprise workflows, and crafting secure digital infrastructure. My work bridges the gap between theoretical security models and production-grade software solutions.",
+    "stats": [
+      { "label": "Cybersecurity", "value": "JHU '26" },
+      { "label": "Projects Shipped", "value": "12+" },
+      { "label": "Full Stack", "value": "Expert" }
+    ]
+  },
+  "skills": {
+    "Core Programming": ["Python", "JavaScript", "Go", "Java", "C", "SQL", "HTML/CSS"],
+    "Web Frameworks": ["React", "Express.js", "Flask", "Node.js", "Socket.IO", "Tailwind CSS"],
+    "Infrastructure": ["Docker", "Nginx", "MongoDB", "PostgreSQL", "Git", "Railway", "Digital Ocean"],
+    "Security & Systems": ["OAuth", "JWT", "AES-256", "Distributed Systems", "Consensus Algorithms"]
+  },
+  "experience": [
+    {
+      "company": "United Corporate Services Inc.",
+      "title": "Software & Automation Engineer",
+      "period": "June 2024 – Present",
+      "location": "White Plains, NY",
+      "description": [
+        "Architected the AlaeAutomates platform, reducing manual document processing time by 99% through intelligent PDF parsing and fuzzy matching algorithms.",
+        "Engineered secure automated payment workflows enabling seamless reconciliation between credit card processors and check systems.",
+        "Designed a company-wide SharePoint architecture to modernize digital collaboration and secure document retention.",
+        "Developed custom Excel automation tools with complex heuristic matching for financial data reconciliation."
+      ]
+    }
+  ],
+  "education": {
+    "primary": {
+        "institution": "Johns Hopkins University",
+        "degree": "Master of Science in Cybersecurity",
+        "period": "Starting Jan 2025",
+        "details": "Whiting School of Engineering",
+        "highlight": true
+    },
+    "secondary": {
+        "institution": "University at Buffalo – SUNY",
+        "degree": "Bachelor of Science in Computer Science",
+        "period": "Aug 2021 – May 2025",
+        "details": "Dean's List: Fall 2021, Spring 2025",
+        "coursework": ["Machine Learning", "Distributed Systems", "Software Security", "Applied HCI", "Algorithms"]
+    }
+  },
+  "projects": [
+    {
+      "id": "friends-go-together",
+      "title": "FriendsGoTogether",
+      "shortDescription": "Production-grade real-time rideshare platform for university students.",
+      "longDescription": "A production-deployed, full-stack rideshare platform engineered to connect university students. Features **real-time WebSocket communication**, geographic search with **19,000+ cities**, and **enterprise-level security**.",
+      "technologies": ["Python", "Flask", "MongoDB", "Socket.IO", "Docker", "Nginx"],
+      "links": {
+        "demo": "https://friendsgotogether.com",
+        "github": "https://github.com/LaazAlae/ShiftSpace"
+      }
+    },
+    {
+      "id": "alae-automates",
+      "title": "AlaeAutomates Platform",
+      "shortDescription": "Enterprise business automation suite for financial document processing.",
+      "longDescription": "Comprehensive business automation platform featuring separated **Flask API** and **Express.js frontend**. Handles intelligent **PDF parsing**, invoice organization, and automated **Excel reconciliation**.",
+      "technologies": ["Flask", "Express.js", "SQLite", "Railway", "Python"],
+      "links": {
+        "demo": "https://alaeautomates.up.railway.app/",
+        "github": "https://github.com/LaazAlae/AlaeAutomates2.0"
+      }
+    },
+    {
+      "id": "distributed-systems",
+      "title": "Distributed Systems Protocol Suite",
+      "shortDescription": "Advanced implementation of MapReduce, Raft Consensus, and Snapshot algorithms.",
+      "longDescription": "Complete implementation of fundamental distributed computing algorithms in **Go**. Includes fault-tolerant **MapReduce**, **Raft leader election/log replication**, and **Chandy-Lamport** distributed snapshots.",
+      "technologies": ["Go", "RPC", "Distributed Algorithms", "Concurrency"],
+      "links": {
+        "demo": "",
+        "github": ""
+      }
+    },
+    {
+      "id": "expense-tracker",
+      "title": "Enterprise Expense Tracker",
+      "shortDescription": "Real-time financial management with government-grade security.",
+      "longDescription": "Secure expense tracking platform featuring **AES-256 encryption**, real-time **WebSocket updates**, and comprehensive **audit logging**. Built for enterprise financial oversight.",
+      "technologies": ["Node.js", "Express", "Socket.IO", "React", "PostgreSQL"],
+      "links": {
+        "demo": "https://expensetracking.up.railway.app/",
+        "github": "https://github.com/LaazAlae/expenseTracker"
+      }
+    },
+    {
+      "id": "smart-laundry",
+      "title": "Smart Laundry System",
+      "shortDescription": "IoT-enabled laundry management PWA with NFC integration.",
+      "longDescription": "Dual-platform solution addressing dormitory resource scheduling. Features **real-time machine status tracking**, automated notifications, and **Web NFC API** integration for instant interaction.",
+      "technologies": ["Node.js", "MongoDB", "Firebase", "Web NFC API"],
+      "links": {
+        "demo": "https://modernlaundry.onrender.com/",
+        "github": "https://github.com/LaazAlae/modernlaundry"
+      }
+    },
+    {
+      "id": "doc-automation",
+      "title": "Enterprise Document Automation Suite",
+      "shortDescription": "Secure desktop automation tool for specialized shipping workflows.",
+      "longDescription": "Cross-platform desktop application automating complex shipping documentation. Features intelligent **Secure Shipping Container** management, dynamic form generation, and **Verified Entity ID** validation.",
+      "technologies": ["Python", "Kivy", "PyInstaller", "Document Automation"],
+      "links": {
+        "demo": "",
+        "github": "https://github.com/LaazAlae/doc-filler"
+      }
+    },
+    {
+      "id": "fabulous-social",
+      "title": "Fabulous Nature Social",
+      "shortDescription": "Agile-developed React social platform for photography enthusiasts.",
+      "longDescription": "Comprehensive social media platform built with **React 18**. Features complex **state management**, real-time interactions, and a nature-focused design system.",
+      "technologies": ["React", "TypeScript", "Material-UI", "Socket.IO"],
+      "links": {
+        "demo": "https://webdev.cse.buffalo.edu/hci/teams/fabulous/welcome",
+        "github": "https://github.com/CSE370HCI/fabulous"
+      }
+    },
+    {
+      "id": "custom-server",
+      "title": "Custom Web Server Foundation",
+      "shortDescription": "Zero-framework HTTP/WebSocket server built from scratch.",
+      "longDescription": "Pure **Python** implementation of **HTTP** and **WebSocket protocols**. Demonstrates deep understanding of network programming, socket handling, and **RFC compliance** without external frameworks.",
+      "technologies": ["Python", "TCP/IP", "WebSockets", "HTTP Protocol"],
+      "links": {
+        "demo": "",
+        "github": ""
+      }
+    },
+    {
+      "id": "budget-db",
+      "title": "Federal Budget Analysis DB",
+      "shortDescription": "Enterprise-grade PostgreSQL system for government transparency.",
+      "longDescription": "Advanced relational database solution analyzing 5 years of U.S. Treasury data. Features complex **9-table schema**, **ACID compliance**, and sophisticated **PL/pgSQL triggers** for fraud prevention.",
+      "technologies": ["PostgreSQL", "SQL", "Database Design", "Data Analysis"],
+      "links": {
+        "demo": "",
+        "github": ""
+      }
+    }
+  ]
+}
