@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface RichTextRendererProps {
     text: string;
     highlights?: string[];
