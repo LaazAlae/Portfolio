@@ -7,29 +7,10 @@ import ProjectGrid from './components/ProjectGrid';
 import Experience from './components/Experience';
 import Footer from './components/Footer';
 import Modal from './components/Modal';
+import { Section } from './components/Section';
+import { RichTextRenderer } from './components/RichTextRenderer';
 import portfolioData from './data.json';
 import { Github, ExternalLink, Folder } from 'lucide-react';
-
-// Helper to parse text and replace **bold** with pill components
-const RichTextRenderer = ({ text }: { text: string }) => {
-    if (!text) return null;
-    const parts = text.split(/(\*\*.*?\*\*)/g);
-    return (
-        <span>
-            {parts.map((part, i) => {
-                if (part.startsWith('**') && part.endsWith('**')) {
-                    const content = part.slice(2, -2);
-                    return (
-                        <span key={i} className="inline-block px-2 py-0.5 mx-1 text-xs font-medium bg-primary/10 text-primary rounded border border-primary/20 translate-y-[-1px]">
-                            {content}
-                        </span>
-                    );
-                }
-                return part;
-            })}
-        </span>
-    );
-};
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,31 +36,6 @@ function App() {
         p.technologies.some((t: string) => t.toLowerCase().trim() === normalizedSkill)
     );
   };
-
-  // Advanced Section Layout System
-  const Section = ({ id, children, className, bgImage = '/images/placeholder.jpg', title }: { id: string, children: React.ReactNode, className?: string, bgImage?: string, title?: string }) => (
-    <section 
-        id={id} 
-        className={`min-h-screen snap-start flex flex-col relative ${className || ''}`}
-    >
-        <div className="absolute inset-0 -z-10 bg-cover bg-center opacity-5 pointer-events-none" style={{ backgroundImage: `url(${bgImage})` }} />
-        
-        {/* Content Wrapper */}
-        <div className="flex-1 flex flex-col w-full relative">
-            {/* Title Zone - Fixed at Top */}
-            {title && (
-                <div className="absolute top-[12vh] left-0 right-0 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto z-20 pointer-events-none">
-                    {/* Title rendering is handled by components usually, but this reserves the slot */}
-                </div>
-            )}
-
-            {/* Main Content Zone - Balanced Padding for Header Safety + Vertical Centering */}
-            <div className={`flex-1 flex flex-col justify-center w-full px-4 md:px-6 lg:px-8 max-w-7xl mx-auto relative z-10 pt-28 pb-32 md:py-24 ${title ? 'pt-[15vh]' : ''}`}>
-                {children}
-            </div>
-        </div>
-    </section>
-  );
 
   if (isLoading) {
     return <div className="bg-background min-h-screen"></div>;

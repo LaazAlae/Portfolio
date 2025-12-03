@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, User, Code2, Briefcase, Folder } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -17,6 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isMobile, setIsMobile] = useState(false);
+  const isNavigating = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -34,6 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
     };
     
     const observer = new IntersectionObserver((entries) => {
+        if (isNavigating.current) return;
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 setActiveSection(entry.target.id);
@@ -61,13 +63,23 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
       e.preventDefault();
       const targetId = href.replace('#', '');
       const element = document.getElementById(targetId);
+      
+      isNavigating.current = true;
+      setActiveSection(targetId);
+
       if (element && scrollContainerRef?.current) {
           const container = scrollContainerRef.current;
           const topPos = element.offsetTop;
           container.scrollTo({ top: topPos, behavior: 'smooth' });
-          setActiveSection(targetId);
+          
+          setTimeout(() => {
+              isNavigating.current = false;
+          }, 1000);
       } else if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => {
+              isNavigating.current = false;
+          }, 1000);
       }
   };
 
@@ -115,7 +127,7 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
       >
         {/* Left: Logo - Uses flex-1 to push center to middle */}
         <motion.div className="flex-1 basis-0 flex justify-start min-w-0">
-          <img src="/logo.png" alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
+          <img src="/logo.png" alt="Logo" className="h-8 md:h-10 w-auto max-w-full object-contain" />
         </motion.div>
 
         {/* Center: Nav Links - Fixed/Shrinkable */}

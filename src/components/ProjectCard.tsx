@@ -104,12 +104,12 @@ const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
         
         <div className="flex flex-wrap gap-1.5 mt-auto pt-2 border-t border-primary/5">
             {project.technologies.slice(0, 3).map(tech => (
-                <span key={tech} className="text-[10px] font-medium text-primary/80 bg-primary/5 px-2 py-0.5 rounded">
+                <span key={tech} className="text-[11px] font-medium text-primary/80 bg-primary/5 px-2 py-0.5 rounded whitespace-nowrap">
                     {tech}
                 </span>
             ))}
             {project.technologies.length > 3 && (
-                <span className="text-[10px] font-medium text-muted px-2 py-0.5">
+                <span className="text-[11px] font-medium text-muted px-2 py-0.5">
                     +{project.technologies.length - 3}
                 </span>
             )}
