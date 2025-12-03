@@ -21,7 +21,7 @@ const Skills: React.FC<SkillsProps> = ({ skills, onSkillClick }) => {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {Object.entries(skills).map(([category, skillList], idx) => (
+        {Object.entries(skills).map(([category, skillList]) => (
           <motion.div
             key={category}
             initial={{ opacity: 0, y: 20 }}
