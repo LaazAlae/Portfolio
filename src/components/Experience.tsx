@@ -29,10 +29,10 @@ const Experience: React.FC<ExperienceProps> = ({ experience }) => {
         {experience.map((job, idx) => (
           <motion.div 
             key={idx}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.3 }}
             className="relative"
           >
             <span className="absolute -left-[41px] md:-left-[57px] top-2 h-5 w-5 rounded-full border-4 border-background bg-primary" />

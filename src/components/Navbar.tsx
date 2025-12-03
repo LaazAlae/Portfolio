@@ -103,6 +103,19 @@ const Navbar: FC<NavbarProps> = ({ data, scrollContainerRef }) => {
     return targetScale;
   };
 
+  // Exact Liquid Glass Style Definition
+  const glassStyle = {
+    backgroundColor: "rgba(255, 255, 255, 0.02)",
+    backdropFilter: "blur(20px) saturate(180%)",
+    boxShadow: "inset 0px 1px 0px 0px rgba(255,255,255,0.4), inset 0px -1px 0px 0px rgba(255,255,255,0.1), 0px 8px 32px -4px rgba(0,0,0,0.1)"
+  };
+
+  const transparentStyle = {
+    backgroundColor: "rgba(255, 255, 255, 0)",
+    backdropFilter: "blur(0px)",
+    boxShadow: "none"
+  };
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <motion.nav
@@ -111,27 +124,34 @@ const Navbar: FC<NavbarProps> = ({ data, scrollContainerRef }) => {
             borderRadius: isScrolled ? "50px" : "0px",
             marginTop: isScrolled ? "1rem" : "0px",
             scale: getTargetScale(),
-            backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.02)" : "rgba(255, 255, 255, 0)",
-            backdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "blur(0px)",
-            boxShadow: isScrolled ? "inset 0px 1px 0px 0px rgba(255,255,255,0.4), inset 0px -1px 0px 0px rgba(255,255,255,0.1), 0px 8px 32px -4px rgba(0,0,0,0.1)" : "none"
+            ...(isScrolled ? glassStyle : transparentStyle)
         }}
-        transition={{
-            duration: 0.6,
-            ease: [0.32, 0.72, 0, 1]
-        }}
-        style={{
-            width: '100vw',
-            transformOrigin: 'center center'
-        }}
+        transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+        style={{ width: '100vw', transformOrigin: 'center center' }}
         className="pointer-events-auto relative flex items-center justify-between px-4 md:px-8 py-3 overflow-hidden whitespace-nowrap"
       >
-        {/* Left: Logo - Uses flex-1 to push center to middle */}
+        {/* Left: Desktop Logo / Mobile GitHub */}
         <motion.div className="flex-1 basis-0 flex justify-start min-w-0">
-          <img src="/logo.png" alt="Logo" className="h-8 md:h-10 w-auto max-w-full object-contain" />
+            {/* Desktop: Logo */}
+            <img src="/logo.png" alt="Logo" className="hidden md:block h-10 w-auto object-contain" />
+            
+            {/* Mobile: GitHub (Left Side) */}
+            <a href={`https://${data.github}`} target="_blank" rel="noreferrer" className="md:hidden p-2 text-primary/60 hover:text-primary hover:bg-white/20 rounded-full transition-colors" aria-label="GitHub">
+                <Github size={20} />
+            </a>
         </motion.div>
 
-        {/* Center: Nav Links - Fixed/Shrinkable */}
-        <motion.div className="shrink-0 flex items-center justify-center gap-1 bg-white/50 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none rounded-full px-2 md:px-0 py-1 md:py-0 border border-white/20 md:border-none shadow-sm md:shadow-none">
+        {/* Center: Nav Links */}
+        <motion.div 
+            className="shrink-0 flex items-center justify-center gap-1"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ 
+                opacity: isScrolled ? 1 : 0,
+                pointerEvents: isScrolled ? "auto" : "none",
+                y: isScrolled ? 0 : -10
+            }}
+            transition={{ duration: 0.4 }}
+        >
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -158,13 +178,16 @@ const Navbar: FC<NavbarProps> = ({ data, scrollContainerRef }) => {
           ))}
         </motion.div>
 
-        {/* Right: Socials - Mirrors Left to maintain center balance */}
+        {/* Right: Desktop Socials / Mobile LinkedIn */}
         <motion.div className="flex-1 basis-0 flex justify-end items-center gap-1 min-w-0">
-           <a href={`https://${data.github}`} target="_blank" rel="noreferrer" className="p-2 text-primary/60 hover:text-primary hover:bg-white/20 rounded-full transition-colors" aria-label="GitHub">
+           {/* Desktop: GitHub (Hidden on Mobile, shown on Left instead) */}
+           <a href={`https://${data.github}`} target="_blank" rel="noreferrer" className="hidden md:block p-2 text-primary/60 hover:text-primary hover:bg-white/20 rounded-full transition-colors" aria-label="GitHub">
              <Github size={18} />
            </a>
+           
+           {/* LinkedIn (Always Right) */}
            <a href={`https://${data.linkedin}`} target="_blank" rel="noreferrer" className="p-2 text-primary/60 hover:text-primary hover:bg-white/20 rounded-full transition-colors" aria-label="LinkedIn">
-             <Linkedin size={18} />
+             <Linkedin size={isMobile ? 20 : 18} />
            </a>
         </motion.div>
       </motion.nav>
