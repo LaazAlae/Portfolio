@@ -7,9 +7,10 @@ import { cn } from '../lib/utils';
 interface ProjectGridProps {
   projects: any[];
   onProjectClick: (project: any) => void;
+  isPaused?: boolean;
 }
 
-const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) => {
+const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick, isPaused = false }) => {
   // Tripling projects for seamless loop
   const seamlessProjects = [...projects, ...projects, ...projects];
   
@@ -35,7 +36,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
   }, [targetSpeed, smoothSpeed]);
 
   useAnimationFrame((_, delta) => {
-    if (!contentWidth) return;
+    if (!contentWidth || isPaused) return;
 
     const moveBy = smoothSpeed.get() * (delta / 16);
     let currentX = baseX.get() + moveBy;

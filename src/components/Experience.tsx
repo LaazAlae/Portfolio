@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase } from 'lucide-react';
+import { RichTextRenderer } from './RichTextRenderer';
 
 interface ExperienceProps {
   experience: Array<{
@@ -50,7 +51,7 @@ const Experience: React.FC<ExperienceProps> = ({ experience }) => {
             <ul className="space-y-2">
               {job.description.map((point, i) => (
                 <li key={i} className="text-muted leading-relaxed pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2.5 before:w-1.5 before:h-1.5 before:bg-accent/40 before:rounded-full">
-                  {point}
+                  <RichTextRenderer text={point} />
                 </li>
               ))}
             </ul>

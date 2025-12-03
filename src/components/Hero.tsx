@@ -11,8 +11,6 @@ interface HeroProps {
 }
 
 const Carousel = () => {
-  // If no images provided, we use the placeholder.
-  // User can populate this array with paths like ["/images/me1.jpg", "/images/me2.jpg"]
   const images: string[] = ["/images/placeholder.jpg"]; 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -28,9 +26,6 @@ const Carousel = () => {
   const prev = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    // REDUCED SIZE: max-w-[260px] on mobile to save vertical space
-    // SHAPE: Aspect Square + Rounded Full = Perfect Circle
-    // MASK: Radial gradient for smooth fade edges
     <div className="relative w-4/5 max-w-[260px] md:max-w-md lg:max-w-lg aspect-square mx-auto lg:mr-0 rounded-full overflow-hidden" 
          style={{ 
              maskImage: 'radial-gradient(circle, black 40%, transparent 70%)', 
@@ -48,7 +43,6 @@ const Carousel = () => {
             className="w-full h-full object-cover"
             alt="Profile"
             onError={(e) => {
-                // Fallback if the placeholder itself is missing (rare)
                 e.currentTarget.style.display = 'none';
                 e.currentTarget.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
             }}
@@ -76,7 +70,8 @@ const Carousel = () => {
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
-    <section className="min-h-[60vh] grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center relative">
+    <section className="min-h-[calc(100vh-100px)] flex flex-col justify-center relative">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center flex-grow">
       
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -96,10 +91,39 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
             </motion.div>
             
             <motion.h1 
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-primary leading-[0.95] sm:leading-[0.9]"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95] sm:leading-[0.9] bg-clip-text text-transparent"
+                style={{
+                    // Large gradient field: Mostly green corners, with a wandering Red/Brown core in the middle
+                    backgroundImage: 'radial-gradient(circle at 50% 50%, #8B4513 0%, #5c1c1c 15%, #1e4d2b 50%, #1e4d2b 100%)',
+                    backgroundSize: '200% 200%', // Double size to allow wandering
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent'
+                }}
+                initial={{ opacity: 0, y: 20, backgroundPosition: "50% 50%" }}
+                animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    // Wander through the corners and center in a non-linear path
+                    backgroundPosition: [
+                        "0% 0%",   // Top Left
+                        "100% 0%", // Top Right
+                        "100% 100%", // Bottom Right
+                        "0% 100%",   // Bottom Left
+                        "50% 50%",   // Center
+                        "0% 0%"      // Loop back
+                    ]
+                }}
+                transition={{ 
+                    opacity: { delay: 0.2, duration: 0.8, ease: "easeOut" },
+                    y: { delay: 0.2, duration: 0.8, ease: "easeOut" },
+                    backgroundPosition: {
+                        duration: 20, // Very slow drift (20s)
+                        repeat: Infinity,
+                        ease: "easeInOut", // Smooth floating
+                        repeatType: "mirror" // Ping pong effect for randomness
+                    }
+                }}
             >
             {data.name}
             </motion.h1>
@@ -136,17 +160,19 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="order-1 lg:order-2 w-full h-full flex justify-end"
+        className="order-1 lg:order-2 w-full h-full flex justify-end items-center"
       >
           <Carousel />
       </motion.div>
+      </div>
 
+      {/* Arrow Down - Visible on ALL screens, pinned to bottom */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted/30 hidden md:block"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-muted/30 z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
-        <ArrowDown size={24} />
+        <ArrowDown size={32} />
       </motion.div>
     </section>
   );

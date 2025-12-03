@@ -79,6 +79,7 @@ function App() {
           <ProjectGrid 
             projects={portfolioData.projects} 
             onProjectClick={(project) => setSelectedProject(project)}
+            isPaused={!!selectedProject || !!selectedSkill}
           />
         </Section>
 
@@ -98,11 +99,11 @@ function App() {
       <Modal 
         isOpen={!!selectedProject} 
         onClose={() => setSelectedProject(null)}
-        title={selectedProject?.title}
       >
         {selectedProject && (
-            <div className="space-y-6">
-                <div className="aspect-video w-full bg-secondary/10 rounded-xl overflow-hidden border border-primary/10 relative">
+            <div>
+                {/* Hero Image Section */}
+                <div className="relative w-full h-64 md:h-96 bg-secondary/10 group">
                     <img 
                         src={modalImageError ? "/images/placeholder.jpg" : `/images/${selectedProject.id}.png`} 
                         onError={(e) => {
@@ -113,42 +114,57 @@ function App() {
                                 e.currentTarget.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
                             }
                         }}
-                        className="w-full h-full object-cover" 
+                        className="w-full h-full object-cover transition-transform duration-700" 
                         alt={selectedProject.title} 
                     />
                     <div className="fallback-icon hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/10 absolute inset-0">
-                        <Folder className="w-16 h-16 text-primary/20" />
+                        <Folder className="w-20 h-20 text-primary/20" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
+                    
+                    {/* Floating Title on Image (Desktop) / Below (Mobile) */}
+                    <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 pt-32 bg-gradient-to-t from-background to-transparent">
+                        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">{selectedProject.title}</h2>
+                        <p className="text-lg text-muted/90 line-clamp-2 max-w-2xl">{selectedProject.shortDescription}</p>
                     </div>
                 </div>
-                
-                <div className="flex gap-3">
-                    {selectedProject.links.github && (
-                         <a href={selectedProject.links.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium text-sm">
-                             <Github size={16} /> View Code
-                         </a>
-                    )}
-                    {selectedProject.links.demo && (
-                         <a href={selectedProject.links.demo} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-card border border-primary/20 text-primary rounded-lg hover:bg-primary/5 transition-colors font-medium text-sm">
-                             <ExternalLink size={16} /> Live Demo
-                         </a>
-                    )}
-                </div>
 
-                <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary border-l-4 border-accent pl-3">Project Overview</h4>
-                    <p className="text-muted leading-relaxed text-base">
-                        <RichTextRenderer text={selectedProject.longDescription} />
-                    </p>
-                </div>
+                <div className="bg-background p-6 md:p-8 space-y-8">
+                    {/* Action Buttons & Links */}
+                    <div className="flex flex-wrap gap-4">
+                        {selectedProject.links.demo && (
+                             <a href={selectedProject.links.demo} target="_blank" rel="noreferrer" className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 font-semibold hover:-translate-y-0.5">
+                                 <ExternalLink size={18} /> Live Demo
+                             </a>
+                        )}
+                        {selectedProject.links.github && (
+                             <a href={selectedProject.links.github} target="_blank" rel="noreferrer" className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-card border border-primary/10 text-primary rounded-xl hover:bg-primary/5 transition-all font-semibold hover:-translate-y-0.5">
+                                 <Github size={18} /> Source Code
+                             </a>
+                        )}
+                    </div>
 
-                <div className="space-y-3">
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-accent">Technical Arsenal</h4>
-                    <div className="flex flex-wrap gap-2">
-                        {selectedProject.technologies.map((tech: string) => (
-                            <span key={tech} className="px-3 py-1 text-sm bg-primary/5 text-primary font-medium rounded-full border border-primary/10">
-                                {tech}
-                            </span>
-                        ))}
+                    {/* Tech Stack */}
+                    <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-muted uppercase tracking-wider">Technologies</h4>
+                        <div className="flex flex-wrap gap-2">
+                            {selectedProject.technologies.map((tech: string) => (
+                                <span key={tech} className="px-3 py-1 bg-secondary/50 text-secondary-foreground rounded-full text-sm font-medium border border-secondary/20">
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Description */}
+                    <div className="space-y-4">
+                        <h4 className="text-xl font-bold text-primary">Project Overview</h4>
+                        <div className="text-muted leading-relaxed text-base md:text-lg">
+                            <RichTextRenderer 
+                                text={selectedProject.longDescription} 
+                                highlights={selectedProject.technologies} 
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,32 +175,36 @@ function App() {
       <Modal
         isOpen={!!selectedSkill}
         onClose={() => setSelectedSkill(null)}
-        title={`Projects using ${selectedSkill}`}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {selectedSkill && getProjectsBySkill(selectedSkill).map(project => (
-                <div 
-                    key={project.id}
-                    onClick={() => {
-                        setSelectedSkill(null);
-                        setTimeout(() => setSelectedProject(project), 150); // Smooth transition
-                    }}
-                    className="group p-4 rounded-xl border border-primary/10 hover:border-primary/30 hover:bg-primary/5 cursor-pointer transition-all flex flex-col gap-2"
-                >
-                    <h4 className="font-bold text-primary group-hover:text-accent">{project.title}</h4>
-                    <p className="text-sm text-muted line-clamp-2">{project.shortDescription}</p>
-                    <div className="flex gap-2 mt-2">
-                        <span className="text-xs font-mono bg-background px-2 py-0.5 rounded border border-primary/10 text-primary">
-                            {selectedSkill}
-                        </span>
+        <div className="bg-background min-h-full">
+            <div className="p-6 border-b border-primary/10 bg-primary/5">
+                <h3 className="text-2xl font-bold text-primary">Projects using <span className="text-accent">{selectedSkill}</span></h3>
+            </div>
+            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {selectedSkill && getProjectsBySkill(selectedSkill).map(project => (
+                    <div 
+                        key={project.id}
+                        onClick={() => {
+                            setSelectedSkill(null);
+                            setTimeout(() => setSelectedProject(project), 150); // Smooth transition
+                        }}
+                        className="group p-4 rounded-xl border border-primary/10 hover:border-primary/30 hover:bg-primary/5 cursor-pointer transition-all flex flex-col gap-2"
+                    >
+                        <h4 className="font-bold text-primary group-hover:text-accent text-lg">{project.title}</h4>
+                        <p className="text-sm text-muted line-clamp-2">{project.shortDescription}</p>
+                        <div className="flex gap-2 mt-2">
+                            <span className="text-xs font-mono bg-background px-2 py-0.5 rounded border border-primary/10 text-primary">
+                                {selectedSkill}
+                            </span>
+                        </div>
                     </div>
-                </div>
-            ))}
-            {selectedSkill && getProjectsBySkill(selectedSkill).length === 0 && (
-                <div className="col-span-2 text-center py-12 text-muted">
-                    No specific featured projects tagged with this skill yet.
-                </div>
-            )}
+                ))}
+                {selectedSkill && getProjectsBySkill(selectedSkill).length === 0 && (
+                    <div className="col-span-2 text-center py-12 text-muted">
+                        No specific featured projects tagged with this skill yet.
+                    </div>
+                )}
+            </div>
         </div>
       </Modal>
     </div>

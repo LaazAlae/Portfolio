@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Cpu } from 'lucide-react';
+import { cn } from '../lib/utils';
 
 interface SkillsProps {
   skills: Record<string, string[]>;
@@ -26,21 +27,24 @@ const Skills: React.FC<SkillsProps> = ({ skills, onSkillClick }) => {
             key={category}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true }}
             transition={{ duration: 0.3 }}
-            className="bg-card rounded-2xl p-6 border border-primary/5 hover:border-primary/20 transition-colors"
+            className={cn(
+                "bg-card rounded-2xl border border-primary/5 hover:border-primary/20 transition-colors shadow-sm flex flex-col items-center text-center",
+                category === "Languages" ? "md:col-span-2 p-4" : "p-6"
+            )}
           >
             <h3 className="text-lg font-semibold text-primary mb-4 border-b border-primary/10 pb-2 inline-block">
               {category}
             </h3>
-            <div className="flex flex-wrap justify-start gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               {skillList.map((skill) => (
                 <button
                   key={skill}
                   onClick={() => onSkillClick(skill)}
-                  className="px-3 py-1.5 text-sm bg-background text-muted font-medium rounded-lg border border-primary/5 hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer active:scale-95"
+                  className="px-3 py-1.5 text-sm bg-background text-muted font-medium rounded-lg border border-primary/5 hover:bg-primary hover:text-white hover:border-primary transition-colors active:scale-95"
                 >
-                  {skill}
+                  {skill.replace(/ \(Native\/Fluent\)/g, '')}
                 </button>
               ))}
             </div>
