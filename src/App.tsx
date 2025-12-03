@@ -89,7 +89,7 @@ function App() {
     >
       <Navbar data={portfolioData.personal} scrollContainerRef={scrollContainerRef} />
       
-      <main>
+      <main className="pt-16 md:pt-0">
         {/* Hero - Full Centered */}
         <Section id="home" className="justify-center pt-0">
             <Hero data={portfolioData.personal} />

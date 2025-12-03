@@ -78,7 +78,18 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
     { name: 'Skills', href: '#skills', icon: Code2 },
   ];
 
-  const targetWidth = isMobile ? "95%" : "800px";
+  // Calculate the target scale based on desired final width vs current viewport
+  // Keep scale ratios above 0.65 to prevent subpixel rendering conflicts
+  const getTargetScale = () => {
+    if (!isScrolled) return 1;
+
+    // Use viewport-relative scaling that maintains reasonable ratios
+    // Mobile: 95% (scale ≈ 0.95)
+    // Desktop: 85% (scale ≈ 0.85) - safe threshold above 0.65, looks natural
+    const targetScale = isMobile ? 0.95 : 0.85;
+
+    return targetScale;
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
@@ -87,27 +98,20 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
         animate={{
             borderRadius: isScrolled ? "50px" : "0px",
             marginTop: isScrolled ? "1rem" : "0px",
-            width: isScrolled ? targetWidth : "100%",
-            padding: "0.75rem 2rem",
+            scale: getTargetScale(),
             backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.02)" : "rgba(255, 255, 255, 0)",
             backdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "blur(0px)",
             boxShadow: isScrolled ? "inset 0px 1px 0px 0px rgba(255,255,255,0.4), inset 0px -1px 0px 0px rgba(255,255,255,0.1), 0px 8px 32px -4px rgba(0,0,0,0.1)" : "none"
         }}
         transition={{
-            borderRadius: { 
-                duration: 0.2, 
-                ease: "linear",
-                delay: isScrolled ? 0 : 0.4 
-            },
-            width: { 
-                duration: 0.6, 
-                ease: [0.32, 0.72, 0, 1],
-                delay: isScrolled ? 0.1 : 0 
-            },
-            marginTop: { duration: 0.6, ease: "easeInOut" },
-            default: { duration: 0.4, ease: "easeInOut" }
+            duration: 0.6,
+            ease: [0.32, 0.72, 0, 1]
         }}
-        className="pointer-events-auto relative flex items-center justify-between overflow-hidden whitespace-nowrap"
+        style={{
+            width: '100vw',
+            transformOrigin: 'center center'
+        }}
+        className="pointer-events-auto relative flex items-center justify-between px-8 py-3 overflow-hidden whitespace-nowrap"
       >
         <motion.div className="font-bold text-lg tracking-tight text-primary/90 mix-blend-hard-light shrink-0 w-[140px]">
           {data.name.split(' ')[0]}<span className="text-accent">.</span>
