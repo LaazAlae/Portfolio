@@ -1,14 +1,14 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
 
 interface SectionProps {
     id: string;
-    children: React.ReactNode;
+    children: ReactNode;
     className?: string;
     bgImage?: string;
     title?: string;
 }
 
-export const Section: React.FC<SectionProps> = ({ id, children, className, bgImage = '/images/placeholder.jpg', title }) => (
+export const Section: FC<SectionProps> = ({ id, children, className, bgImage = '/images/placeholder.jpg', title }) => (
     <section 
         id={id} 
         className={`min-h-screen snap-start flex flex-col relative ${className || ''}`}

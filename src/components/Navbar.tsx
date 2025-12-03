@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, FC, RefObject, MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, User, Code2, Briefcase, Folder } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -10,10 +10,10 @@ interface NavbarProps {
     linkedin: string;
     email: string;
   };
-  scrollContainerRef?: React.RefObject<HTMLDivElement>;
+  scrollContainerRef?: RefObject<HTMLDivElement>;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
+const Navbar: FC<NavbarProps> = ({ data, scrollContainerRef }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isMobile, setIsMobile] = useState(false);
@@ -59,7 +59,7 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
     };
   }, [scrollContainerRef]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
       const targetId = href.replace('#', '');
       const element = document.getElementById(targetId);

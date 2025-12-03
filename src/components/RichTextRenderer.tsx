@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const RichTextRenderer = ({ text }: { text: string }) => {
     if (!text) return null;
     const parts = text.split(/(\*\*.*?\*\*)/g);
