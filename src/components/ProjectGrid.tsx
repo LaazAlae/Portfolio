@@ -18,11 +18,10 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
   
   // Physics Engine
   const baseX = useMotionValue(0);
-  const [targetSpeed, setTargetSpeed] = useState(-0.5); 
-  const smoothSpeed = useSpring(targetSpeed, { damping: 40, stiffness: 200, mass: 2 });
-
   const BOOST_SPEED = 3.5;
   const CRUISE_SPEED = 0.5; // Positive/Negative determines direction
+  const [targetSpeed, setTargetSpeed] = useState(-CRUISE_SPEED); 
+  const smoothSpeed = useSpring(targetSpeed, { damping: 40, stiffness: 200, mass: 2 });
 
   useEffect(() => {
     if (containerRef.current) {
@@ -51,11 +50,11 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
   });
 
   const toggleBoostLeft = () => {
-      setTargetSpeed(prev => prev === 3.5 ? -0.5 : 3.5);
+      setTargetSpeed(prev => prev === BOOST_SPEED ? -CRUISE_SPEED : BOOST_SPEED);
   };
 
   const toggleBoostRight = () => {
-      setTargetSpeed(prev => prev === -3.5 ? -0.5 : -3.5);
+      setTargetSpeed(prev => prev === -BOOST_SPEED ? -CRUISE_SPEED : -BOOST_SPEED);
   };
 
   return (
@@ -123,7 +122,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
                 className="h-full bg-primary"
                 style={{ 
                     width: "100%",
-                    opacity: useTransform(smoothSpeed, [-3.5, 0, 3.5], [1, 0.2, 1])
+                    opacity: useTransform(smoothSpeed, [-BOOST_SPEED, 0, BOOST_SPEED], [1, 0.2, 1])
                 }} 
               />
           </div>
