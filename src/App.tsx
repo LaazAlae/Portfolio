@@ -58,11 +58,14 @@ function App() {
 
   // Advanced Section Layout System
   const Section = ({ id, children, className, bgImage = '/images/placeholder.jpg', title }: { id: string, children: React.ReactNode, className?: string, bgImage?: string, title?: string }) => (
-    <section id={id} className={`min-h-[100dvh] h-[100dvh] snap-start snap-always flex flex-col relative overflow-hidden ${className || ''}`}>
+    <section 
+        id={id} 
+        className={`min-h-screen snap-start flex flex-col relative ${className || ''}`}
+    >
         <div className="absolute inset-0 -z-10 bg-cover bg-center opacity-5 pointer-events-none" style={{ backgroundImage: `url(${bgImage})` }} />
         
-        {/* Content Wrapper - Flex Grow to fill space minus header/title */}
-        <div className="flex-1 flex flex-col w-full h-full relative">
+        {/* Content Wrapper */}
+        <div className="flex-1 flex flex-col w-full relative">
             {/* Title Zone - Fixed at Top */}
             {title && (
                 <div className="absolute top-[12vh] left-0 right-0 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto z-20 pointer-events-none">
@@ -70,8 +73,8 @@ function App() {
                 </div>
             )}
 
-            {/* Main Content Zone - Centered in remaining space */}
-            <div className={`flex-1 flex flex-col justify-center w-full px-4 md:px-6 lg:px-8 max-w-7xl mx-auto relative z-10 ${title ? 'pt-[10vh]' : ''}`}>
+            {/* Main Content Zone - Balanced Padding for Header Safety + Vertical Centering */}
+            <div className={`flex-1 flex flex-col justify-center w-full px-4 md:px-6 lg:px-8 max-w-7xl mx-auto relative z-10 pt-28 pb-32 md:py-24 ${title ? 'pt-[15vh]' : ''}`}>
                 {children}
             </div>
         </div>
@@ -85,11 +88,11 @@ function App() {
   return (
     <div 
         ref={scrollContainerRef}
-        className="h-screen bg-background text-primary font-sans selection:bg-primary selection:text-white overflow-x-hidden overflow-y-scroll snap-y snap-mandatory scroll-smooth"
+        className="h-screen w-full bg-background text-primary font-sans selection:bg-primary selection:text-white overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth"
     >
       <Navbar data={portfolioData.personal} scrollContainerRef={scrollContainerRef} />
       
-      <main className="pt-16 md:pt-0">
+      <main>
         {/* Hero - Full Centered */}
         <Section id="home" className="justify-center pt-0">
             <Hero data={portfolioData.personal} />

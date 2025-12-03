@@ -28,12 +28,13 @@ const Carousel = () => {
   const prev = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    // REDUCED SIZE: max-w-sm / lg:max-w-lg
-    // MASK: Inset gradient forces transparency on all 4 outer edges
-    <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg aspect-[3/4] md:aspect-square lg:aspect-auto lg:h-[500px] mx-auto lg:mr-0 rounded-3xl overflow-hidden" 
+    // REDUCED SIZE: max-w-[260px] on mobile to save vertical space
+    // SHAPE: Aspect Square + Rounded Full = Perfect Circle
+    // MASK: Radial gradient for smooth fade edges
+    <div className="relative w-4/5 max-w-[260px] md:max-w-md lg:max-w-lg aspect-square mx-auto lg:mr-0 rounded-full overflow-hidden" 
          style={{ 
-             maskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)', 
-             WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)'
+             maskImage: 'radial-gradient(circle, black 40%, transparent 70%)', 
+             WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)'
          }}>
       <AnimatePresence mode="wait">
         {images.length > 0 ? (
@@ -75,7 +76,7 @@ const Carousel = () => {
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
-    <section className="min-h-[50vh] grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center relative">
+    <section className="min-h-[60vh] grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center relative">
       
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -103,8 +104,8 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
             {data.name}
             </motion.h1>
             
-            <motion.p 
-                className="text-xl md:text-2xl text-muted font-light max-w-lg leading-relaxed mx-auto lg:mx-0 text-balance"
+            <motion.p
+                className="text-lg md:text-2xl text-muted font-light max-w-lg leading-relaxed mx-auto lg:mx-0 text-balance"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
@@ -117,7 +118,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center lg:items-start gap-4 text-sm text-muted/80 justify-center lg:justify-start"
+            className="flex flex-col sm:flex-row items-center lg:items-start gap-4 text-xs md:text-sm text-muted/80 justify-center lg:justify-start"
         >
             <div className="flex items-center gap-3 px-5 py-2.5 bg-card/80 backdrop-blur-sm rounded-xl border border-primary/5 shadow-sm">
                 <span className="relative flex h-2.5 w-2.5 shrink-0">

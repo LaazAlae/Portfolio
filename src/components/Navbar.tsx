@@ -111,13 +111,15 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
             width: '100vw',
             transformOrigin: 'center center'
         }}
-        className="pointer-events-auto relative flex items-center justify-between px-8 py-3 overflow-hidden whitespace-nowrap"
+        className="pointer-events-auto relative flex items-center justify-between px-4 md:px-8 py-3 overflow-hidden whitespace-nowrap"
       >
-        <motion.div className="font-bold text-lg tracking-tight text-primary/90 mix-blend-hard-light shrink-0 w-[140px]">
-          {data.name.split(' ')[0]}<span className="text-accent">.</span>
+        {/* Left: Logo - Uses flex-1 to push center to middle */}
+        <motion.div className="flex-1 basis-0 flex justify-start min-w-0">
+          <img src="/logo.png" alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
         </motion.div>
 
-        <motion.div className="flex items-center justify-center gap-1 shrink-0">
+        {/* Center: Nav Links - Fixed/Shrinkable */}
+        <motion.div className="shrink-0 flex items-center justify-center gap-1 bg-white/50 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none rounded-full px-2 md:px-0 py-1 md:py-0 border border-white/20 md:border-none shadow-sm md:shadow-none">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -144,7 +146,8 @@ const Navbar: React.FC<NavbarProps> = ({ data, scrollContainerRef }) => {
           ))}
         </motion.div>
 
-        <motion.div className="flex items-center justify-end gap-1 shrink-0 w-[140px]">
+        {/* Right: Socials - Mirrors Left to maintain center balance */}
+        <motion.div className="flex-1 basis-0 flex justify-end items-center gap-1 min-w-0">
            <a href={`https://${data.github}`} target="_blank" rel="noreferrer" className="p-2 text-primary/60 hover:text-primary hover:bg-white/20 rounded-full transition-colors" aria-label="GitHub">
              <Github size={18} />
            </a>

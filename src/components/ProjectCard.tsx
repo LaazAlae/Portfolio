@@ -61,9 +61,9 @@ const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
       </div>
 
       {/* Content Area */}
-      <div className="p-6 flex flex-col flex-grow">
-        <div className="flex justify-between items-start mb-2">
-            <h3 className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
+      <div className="p-4 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-1">
+            <h3 className="text-lg font-bold text-primary group-hover:text-accent transition-colors">
                 {project.title}
             </h3>
             
@@ -80,7 +80,7 @@ const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
                     )}
                     title={project.links.github ? "View Code" : "Source Private"}
                 >
-                    <Github size={18} />
+                    <Github size={16} />
                 </button>
                 <button
                     onClick={(e) => handleLinkClick(e, project.links.demo)}
@@ -93,24 +93,24 @@ const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
                     )}
                     title={project.links.demo ? "Live Demo" : "Demo Unavailable"}
                 >
-                    <ExternalLink size={18} />
+                    <ExternalLink size={16} />
                 </button>
             </div>
         </div>
 
-        <p className="text-muted text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+        <p className="text-muted text-sm leading-relaxed mb-3 flex-grow line-clamp-2 md:line-clamp-3">
             {project.shortDescription}
         </p>
         
-        <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-primary/5">
-            {project.technologies.slice(0, 4).map(tech => (
-                <span key={tech} className="text-xs font-medium text-primary/80 bg-primary/5 px-2 py-1 rounded">
+        <div className="flex flex-wrap gap-1.5 mt-auto pt-2 border-t border-primary/5">
+            {project.technologies.slice(0, 3).map(tech => (
+                <span key={tech} className="text-[10px] font-medium text-primary/80 bg-primary/5 px-2 py-0.5 rounded">
                     {tech}
                 </span>
             ))}
-            {project.technologies.length > 4 && (
-                <span className="text-xs font-medium text-muted px-2 py-1">
-                    +{project.technologies.length - 4}
+            {project.technologies.length > 3 && (
+                <span className="text-[10px] font-medium text-muted px-2 py-0.5">
+                    +{project.technologies.length - 3}
                 </span>
             )}
         </div>

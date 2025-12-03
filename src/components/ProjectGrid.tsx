@@ -51,8 +51,8 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
   const handleCruise = () => setTargetSpeed(-0.5);
 
   return (
-    <div className="w-full py-20 relative">
-       <div className="max-w-7xl mx-auto px-4 mb-12 flex items-center justify-between relative z-10">
+    <div className="w-full py-2 md:py-10 relative">
+       <div className="max-w-7xl mx-auto px-4 mb-4 flex items-center justify-between relative z-10">
             <motion.div 
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -60,7 +60,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
                 className="flex items-center gap-3"
             >
                 <Rocket className="w-6 h-6 text-primary" />
-                <h2 className="text-3xl font-bold text-primary">Featured Work</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-primary">Featured Work</h2>
             </motion.div>
             
             <div className="hidden md:flex items-center gap-2 text-xs text-muted uppercase tracking-widest bg-secondary/5 px-4 py-2 rounded-full border border-primary/5">
@@ -73,14 +73,14 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
       {/* The Stream - Full Width Expansion */}
       <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden">
           <motion.div 
-            className="flex gap-6 md:gap-10 pl-[max(1rem,calc((100vw-80rem)/2))] items-stretch py-4"
+            className="flex gap-3 md:gap-6 pl-[max(1rem,calc((100vw-80rem)/2))] items-stretch py-4"
             ref={containerRef}
             style={{ x: baseX, width: "max-content" }}
           >
             {seamlessProjects.map((project, idx) => (
                 <div 
                     key={`${project.id}-${idx}`} 
-                    className="relative w-[300px] md:w-[380px] flex-shrink-0"
+                    className="relative w-[220px] md:w-[300px] flex-shrink-0"
                 >
                     <ProjectCard 
                         project={project} 
@@ -92,7 +92,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onProjectClick }) =
       </div>
 
       {/* Control Deck */}
-      <div className="max-w-md mx-auto mt-12 flex items-center justify-center gap-6 relative z-20">
+      <div className="max-w-md mx-auto mt-4 flex items-center justify-center gap-6 relative z-20">
           <button
             onMouseDown={handleBoostLeft}
             onMouseUp={handleCruise}
