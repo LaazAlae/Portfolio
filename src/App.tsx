@@ -43,8 +43,7 @@ function App() {
 
   return (
     <div 
-        ref={scrollContainerRef}
-        className="h-screen w-full bg-background text-primary font-sans selection:bg-primary selection:text-white overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth"
+        className="min-h-screen w-full bg-background text-primary font-sans selection:bg-primary selection:text-white overflow-x-hidden scroll-smooth"
     >
       {/* Mobile Landscape Warning Overlay */}
       <div className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center hidden landscape:flex md:landscape:hidden text-center p-6">

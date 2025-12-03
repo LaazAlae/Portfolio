@@ -1,5 +1,5 @@
-import React from 'react';
-import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { Github, Linkedin, Mail, ArrowUp, Check } from 'lucide-react';
 
 interface FooterProps {
   personal: {
@@ -11,11 +11,17 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ personal }) => {
+  const [emailCopied, setEmailCopied] = useState(false);
+
   const scrollToTop = () => {
-    const container = document.querySelector('.overflow-y-scroll');
-    if (container) {
-        container.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleEmailClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      navigator.clipboard.writeText(personal.email);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
   };
 
   const currentYear = new Date().getFullYear();
@@ -43,13 +49,27 @@ const Footer: React.FC<FooterProps> = ({ personal }) => {
              >
                <Linkedin size={20} />
              </a>
-             <a 
-                href={`mailto:${personal.email}`} 
-                className="p-3 text-muted hover:text-primary hover:bg-background rounded-full transition-all"
-                aria-label="Email"
+             <button 
+                onClick={handleEmailClick}
+                className="p-3 text-muted hover:text-primary hover:bg-background rounded-full transition-all relative group"
+                aria-label="Copy Email"
              >
-               <Mail size={20} />
-             </a>
+               {emailCopied ? <Check size={20} className="text-green-600" /> : <Mail size={20} />}
+               
+               {/* Tooltip */}
+               <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-primary text-white text-xs px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex flex-col items-center gap-0.5 shadow-lg z-10 min-w-max">
+                   {emailCopied ? (
+                       <span className="font-bold">Copied!</span>
+                   ) : (
+                       <>
+                           <span className="font-semibold">{personal.email}</span>
+                           <span className="text-[10px] opacity-80 font-light">Click to copy</span>
+                       </>
+                   )}
+                   {/* Triangle Arrow */}
+                   <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-primary"></span>
+               </span>
+             </button>
         </div>
 
         <div className="flex flex-col items-center gap-2 text-center">

@@ -11,7 +11,7 @@ interface SectionProps {
 export const Section: FC<SectionProps> = ({ id, children, className, bgImage = '/images/placeholder.jpg', title }) => (
     <section 
         id={id} 
-        className={`min-h-screen snap-start flex flex-col relative ${className || ''}`}
+        className={`min-h-screen flex flex-col relative ${className || ''}`}
     >
         <div className="absolute inset-0 -z-10 bg-cover bg-center opacity-5 pointer-events-none" style={{ backgroundImage: `url(${bgImage})` }} />
         
