@@ -102,10 +102,11 @@ function App() {
       >
         {selectedProject && (
             <div>
-                {/* Hero Image Section */}
-                <div className="relative w-full h-64 md:h-96 bg-secondary/10 group">
+                {/* Hero Image Section - Clean, no text overlay */}
+                <div className="relative w-full h-56 md:h-80 bg-secondary/10 group overflow-hidden">
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
                     <img 
-                        src={modalImageError ? "/images/placeholder.jpg" : `/images/${selectedProject.id}.png`} 
+                        src={modalImageError ? "/images/placeholder.jpg" : (selectedProject.id === 'budget-db' ? '/images/budget-db.jpg' : selectedProject.id === 'doc-automation' ? '/images/docfiller.png' : selectedProject.id === 'friends-go-together' ? '/images/friendsgotogether.png' : `/images/${selectedProject.id}.png`)}
                         onError={(e) => {
                             if (!modalImageError) {
                                 setModalImageError(true);
@@ -114,52 +115,50 @@ function App() {
                                 e.currentTarget.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
                             }
                         }}
-                        className="w-full h-full object-cover transition-transform duration-700" 
+                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" 
                         alt={selectedProject.title} 
                     />
                     <div className="fallback-icon hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/10 absolute inset-0">
                         <Folder className="w-20 h-20 text-primary/20" />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
-                    
-                    {/* Floating Title on Image (Desktop) / Below (Mobile) */}
-                    <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 pt-32 bg-gradient-to-t from-background to-transparent">
-                        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">{selectedProject.title}</h2>
-                        <p className="text-lg text-muted/90 line-clamp-2 max-w-2xl">{selectedProject.shortDescription}</p>
-                    </div>
                 </div>
 
-                <div className="bg-background p-6 md:p-8 space-y-8">
-                    {/* Action Buttons & Links */}
-                    <div className="flex flex-wrap gap-4">
+                <div className="bg-background p-5 md:p-8 space-y-5 md:space-y-6">
+                    {/* Header: Title & Short Desc */}
+                    <div>
+                        <h2 className="text-2xl md:text-4xl font-bold text-primary mb-2 md:mb-3">{selectedProject.title}</h2>
+                        <p className="text-base md:text-lg text-muted leading-relaxed">{selectedProject.shortDescription}</p>
+                    </div>
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2">
+                        {selectedProject.technologies.map((tech: string) => (
+                            <span key={tech} className="px-2.5 py-1 md:px-3 md:py-1 bg-primary/10 text-primary rounded-full text-xs md:text-sm font-medium border border-primary/20">
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col md:flex-row gap-3 py-1">
                         {selectedProject.links.demo && (
-                             <a href={selectedProject.links.demo} target="_blank" rel="noreferrer" className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 font-semibold hover:-translate-y-0.5">
+                             <a href={selectedProject.links.demo} target="_blank" rel="noreferrer" className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2.5 md:px-6 md:py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 font-semibold text-sm md:text-base hover:-translate-y-0.5">
                                  <ExternalLink size={18} /> Live Demo
                              </a>
                         )}
                         {selectedProject.links.github && (
-                             <a href={selectedProject.links.github} target="_blank" rel="noreferrer" className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-card border border-primary/10 text-primary rounded-xl hover:bg-primary/5 transition-all font-semibold hover:-translate-y-0.5">
+                             <a href={selectedProject.links.github} target="_blank" rel="noreferrer" className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2.5 md:px-6 md:py-3 bg-card border border-primary/10 text-primary rounded-xl hover:bg-primary/5 transition-all font-semibold text-sm md:text-base hover:-translate-y-0.5">
                                  <Github size={18} /> Source Code
                              </a>
                         )}
                     </div>
 
-                    {/* Tech Stack */}
-                    <div className="space-y-3">
-                        <h4 className="text-sm font-semibold text-muted uppercase tracking-wider">Technologies</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {selectedProject.technologies.map((tech: string) => (
-                                <span key={tech} className="px-3 py-1 bg-secondary/50 text-secondary-foreground rounded-full text-sm font-medium border border-secondary/20">
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
+                    <div className="h-px w-full bg-primary/10 my-2 md:my-4" />
 
                     {/* Description */}
-                    <div className="space-y-4">
-                        <h4 className="text-xl font-bold text-primary">Project Overview</h4>
-                        <div className="text-muted leading-relaxed text-base md:text-lg">
+                    <div className="space-y-3 md:space-y-4">
+                        <h4 className="text-lg md:text-xl font-bold text-primary">Deep Dive</h4>
+                        <div className="text-muted leading-relaxed text-sm md:text-base md:text-lg">
                             <RichTextRenderer 
                                 text={selectedProject.longDescription} 
                                 highlights={selectedProject.technologies} 

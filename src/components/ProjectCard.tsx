@@ -19,8 +19,8 @@ interface ProjectProps {
 
 const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
   const [imageError, setImageError] = useState(false);
-  // Start with specific image, fallback logic handles the switch
-  const imageUrl = `/images/${project.id}.png`; 
+  // Handle file extension & naming differences
+  const imageUrl = project.id === 'budget-db' ? '/images/budget-db.jpg' : project.id === 'doc-automation' ? '/images/docfiller.png' : project.id === 'friends-go-together' ? '/images/friendsgotogether.png' : `/images/${project.id}.png`;
 
   const handleLinkClick = (e: React.MouseEvent, url: string) => {
     e.stopPropagation(); // Prevent modal opening when clicking a link
@@ -39,6 +39,7 @@ const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
     >
       {/* Image Area */}
       <div className="aspect-video w-full bg-secondary/10 relative overflow-hidden border-b border-primary/5">
+        <div className="absolute inset-0 bg-primary/10 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500 z-10" />
         <img 
             src={imageError ? "/images/placeholder.jpg" : imageUrl}
             alt={project.title}
@@ -51,7 +52,7 @@ const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
                     e.currentTarget.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
                 }
             }}
-            className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500 filter brightness-[0.95] group-hover:brightness-100 grayscale-[10%] group-hover:grayscale-0"
         />
         {/* Fallback Icon (Hidden by default) */}
         <div className="fallback-icon hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/10 transition-colors absolute inset-0">

@@ -57,22 +57,11 @@
   ],
   "projects": [
     {
-      "id": "friends-go-together",
-      "title": "FriendsGoTogether",
-      "shortDescription": "Production-grade real-time rideshare platform for university students.",
-      "longDescription": "A production-deployed, high-availability rideshare platform engineered to securely connect university students. The application addresses critical transportation challenges by managing complex user sessions and optimizing routes across a validated database of **19,000+ cities**. It features a robust **Geographic Data Processing** engine with fuzzy matching algorithms for real-time autocomplete and state validation, ensuring data integrity for thousands of potential routes.\n\nThe backend architecture leverages **Python** and **Flask** for high-performance business logic, while data persistence is managed by **MongoDB** to handle flexible user profiles and travel metadata. Real-time bidirectional communication is orchestrated via **Socket.IO**, enabling instant chat and live ride status updates without page refreshes. The entire system is containerized using **Docker** and deployed behind an **Nginx** reverse proxy on **Digital Ocean** infrastructure, implementing SSL termination and advanced rate limiting for enterprise-grade security.",
-      "technologies": ["Python", "Flask", "MongoDB", "Socket.IO", "Docker", "Nginx", "Digital Ocean", "Geographic Data Processing", "OAuth"],
-      "links": {
-        "demo": "https://friendsgotogether.com",
-        "github": "https://github.com/LaazAlae/ShiftSpace"
-      }
-    },
-    {
       "id": "alae-automates",
-      "title": "AlaeAutomates Platform",
-      "shortDescription": "Enterprise business automation suite for financial document processing.",
-      "longDescription": "A comprehensive enterprise automation suite architected to eliminate manual data entry for high-volume financial workflows. The platform features a decoupled architecture with a heavy-duty **Flask** API for computational logic and a responsive **Express.js** frontend for user interaction. It integrates intelligent **PDF Parsing** algorithms (PyMuPDF) to extract unstructured data from invoices, which is then reconciled against financial records using **Python** scripting and custom heuristic matching. This automation reduced manual processing time by 99% for the client.\n\nThe system implements advanced session management with persistent file locking to support concurrent document processing. Data is securely stored in **SQLite** for lightweight, ACID-compliant persistence. The entire pipeline is deployed via **Railway** for continuous integration, featuring comprehensive security middleware including CSRF protection, rate limiting, and strict content security policies to protect sensitive financial data.",
-      "technologies": ["Flask", "Express.js", "SQLite", "Railway", "Python", "PDF Parsing", "REST API"],
+      "title": "AlaeAutomates",
+      "shortDescription": "Automated financial reconciliation suite reducing manual processing time by 99% (8 hours → 5 minutes).",
+      "longDescription": "Designed and deployed a mission-critical automation suite for United Corporate Services, directly addressing a bottleneck where staff spent entire workdays manually reconciling 1,000+ page financial batches. By automating PDF parsing and fuzzy logic matching, this tool transformed a manual 8-hour task into a 5-minute automated background process, effectively liberating ~20% of the department's weekly bandwidth for higher-value work.\n\n**Technical Architecture:**\nThe system is architected as a decoupled application with a heavy-duty **Flask** (Python) computational backend and a reactive **Express.js** frontend. It integrates **PyMuPDF** for high-fidelity data extraction from unstructured invoice PDFs, which are then processed through custom heuristic algorithms to match against bank records with 99.9% accuracy. The architecture implements strict **ACID compliance** via **SQLite** for transaction integrity and features file-locking mechanisms to safely handle concurrent batch processing in a multi-user environment.",
+      "technologies": ["Python", "Flask", "Express.js", "SQLite", "Heuristic Algorithms", "PDF Parsing", "Railway"],
       "links": {
         "demo": "https://alaeautomates.up.railway.app/",
         "github": "https://github.com/LaazAlae/AlaeAutomates2.0"
@@ -80,21 +69,32 @@
     },
     {
       "id": "distributed-systems",
-      "title": "Distributed Systems Protocol Suite",
-      "shortDescription": "Advanced implementation of MapReduce, Raft Consensus, and Snapshot algorithms.",
-      "longDescription": "A rigorous implementation of fundamental **Distributed Systems** concepts designed to demonstrate high-assurance reliability in unreliable network environments. Written entirely in **Go**, this suite includes a fault-tolerant **MapReduce** framework for parallel data processing, a complete **Raft** consensus implementation for leader election and log replication, and the Chandy-Lamport algorithm for consistent distributed snapshots. The project adheres to strict academic specifications (MIT 6.824) for correctness and partition tolerance.\n\nThe implementation extensively utilizes **RPC** (Remote Procedure Calls) and Go's native **Concurrency** primitives (goroutines and channels) to handle complex network partitions, node failures, and message reordering gracefully. It features a custom testing framework that simulates network delays and crashes to verify the system's ability to maintain consistency and availability under adverse conditions.",
-      "technologies": ["Go", "RPC", "Distributed Systems", "Concurrency", "Raft", "MapReduce", "Consensus Algorithms"],
+      "title": "DistributedSystems",
+      "shortDescription": "High-assurance implementation of Raft Consensus and MapReduce resilient to severe network partitions.",
+      "longDescription": "A production-grade implementation of core distributed systems protocols designed to guarantee data consistency in unreliable networks. This project serves as a rigorous proof-of-concept for building systems that can survive node crashes and message drops without data loss. It passes the strict MIT 6.824 correctness tests, verifying its ability to handle split-brain scenarios and leader failures autonomously.\n\n**Technical Architecture:**\nWritten entirely in **Go**, this suite features a custom **RPC** layer facilitating communication between concurrent goroutines. The **Raft** consensus module implements leader election, log replication, and persistence, using non-blocking channels to handle asynchronous heartbeats and commit indexes. The **MapReduce** framework leverages worker-coordinator architecture with fault-recovery logic—if a worker hangs or crashes, the coordinator reassigns tasks in real-time, ensuring job completion regardless of individual node health.",
+      "technologies": ["Go", "Distributed Systems", "Raft Consensus", "MapReduce", "RPC", "Concurrency", "Fault Tolerance"],
       "links": {
         "demo": "",
         "github": ""
       }
     },
     {
+      "id": "friends-go-together",
+      "title": "FriendsGoTogether",
+      "shortDescription": "Real-time logistics platform optimizing transportation for university students with geospatial routing.",
+      "longDescription": "A dedicated transportation network solving the 'empty seat' problem for university transit. The platform connects students with compatible travel plans, enhancing campus mobility and safety. It supports a validated database of over **19,000 cities**, enabling precise route matching and effectively functioning as a niche, high-trust version of Uber for the academic community.\n\n**Technical Architecture:**\nThe platform runs on a scalable **Dockerized** microservices architecture. The backend, built with **Flask**, utilizes **MongoDB** for flexible schema management of dynamic user profiles and trip metadata. A key technical feature is the **Geospatial Data Engine**, which performs fuzzy matching and coordinate validation to normalize user input against a massive global city dataset. Real-time updates are pushed via **Socket.IO**, creating a bi-directional event loop that syncs ride status instantly across clients without polling.",
+      "technologies": ["Python", "Flask", "MongoDB", "Socket.IO", "Docker", "Nginx", "Geospatial Indexing", "OAuth"],
+      "links": {
+        "demo": "https://friendsgotogether.com",
+        "github": "https://github.com/LaazAlae/ShiftSpace"
+      }
+    },
+    {
       "id": "expense-tracker",
-      "title": "Enterprise Expense Tracker",
-      "shortDescription": "Real-time financial management with government-grade security.",
-      "longDescription": "A secure, real-time financial oversight platform built for enterprise environments where data integrity is paramount. The backend leverages **Node.js** and **Express** to handle sensitive transaction data, which is encrypted at rest using **AES-256** standards. **PostgreSQL** is employed to enforce strict relational data integrity and ACID compliance. The system features a comprehensive audit trail and role-based access control to ensure accountability.\n\nThe frontend, built with **React**, receives instant updates via **Socket.IO**, allowing multiple stakeholders to view balance changes and audit logs in real-time without page reloads. The architecture includes **Security Engineering** best practices such as IP-based access tracking, account lockout protection, and secure session management, making it suitable for high-compliance financial environments.",
-      "technologies": ["Node.js", "Express", "Socket.IO", "React", "PostgreSQL", "AES-256", "Security Engineering"],
+      "title": "ExpenseTracker",
+      "shortDescription": "Enterprise-grade financial tracking system engineered for auditability and data security.",
+      "longDescription": "A financial oversight tool built to simulate banking-grade security standards. Unlike standard expense trackers, this system prioritizes the 'chain of custody' for every transaction, providing an immutable audit trail for administrators. It is designed to prevent fraud and unauthorized access in sensitive financial environments.\n\n**Technical Architecture:**\nSecurity is baked into the core using **Security Engineering** principles. Sensitive columns in the **PostgreSQL** database are encrypted at rest using **AES-256**. The application layer, powered by **Node.js**, implements strict **Role-Based Access Control (RBAC)** and IP-address logging for every session. Real-time fraud detection alerts are broadcasted to admin dashboards via **Socket.IO**, allowing for immediate reaction to suspicious account activity.",
+      "technologies": ["Node.js", "PostgreSQL", "AES-256 Encryption", "Socket.IO", "React", "Security Engineering", "RBAC"],
       "links": {
         "demo": "https://expensetracking.up.railway.app/",
         "github": "https://github.com/LaazAlae/expenseTracker"
@@ -102,10 +102,10 @@
     },
     {
       "id": "smart-laundry",
-      "title": "Smart Laundry System",
+      "title": "LaundryMinutes",
       "shortDescription": "IoT-enabled laundry management PWA with NFC integration.",
-      "longDescription": "An innovative **IoT** solution designed to modernize dormitory resource management. This Progressive Web App (**PWA**) integrates with the **Web NFC API** to allow users to tap their phones against machines for instant booking and status checks. The backend runs on **Node.js** and **MongoDB**, synchronizing machine availability in real-time across all connected clients using **Firebase**.\n\nThe system features an advanced notification engine that schedules alerts for cycle completion, reducing resource contention. It demonstrates a seamless bridge between physical hardware states and a responsive web interface, utilizing Service Workers for offline capabilities and optimal performance in low-connectivity environments.",
-      "technologies": ["Node.js", "MongoDB", "Firebase", "Web NFC API", "IoT", "PWA"],
+      "longDescription": "A modern IoT solution replacing antiquated coin-op laundry systems with digital, contactless interactions. This Progressive Web App (PWA) streamlines the scheduling of shared physical resources, reducing user friction and machine downtime through intelligent queue management and instant status visibility.\n\n**Technical Architecture:**\nThe system bridges the physical and digital worlds using the **Web NFC API**, allowing the web app to interact directly with hardware tags. The state of the physical machines is synchronized in soft real-time across all clients using **Firebase Realtime Database**. The backend architecture is designed for resilience, utilizing **Service Workers** to cache app shell assets, ensuring the control interface remains loadable even in university basements with poor network connectivity.",
+      "technologies": ["Node.js", "IoT", "Web NFC API", "Firebase", "PWA", "Service Workers"],
       "links": {
         "demo": "https://modernlaundry.onrender.com/",
         "github": "https://github.com/LaazAlae/modernlaundry"
@@ -113,10 +113,10 @@
     },
     {
       "id": "doc-automation",
-      "title": "Enterprise Document Automation Suite",
-      "shortDescription": "Secure desktop automation tool for specialized shipping workflows.",
-      "longDescription": "A specialized cross-platform **Desktop Application** engineered to automate complex shipping documentation workflows. Built with **Python** and the **Kivy** framework, the tool creates a secure environment for generating Verified Entity ID forms and managing Secure Shipping Containers. It features a custom template engine for **Document Automation** and allows for standalone deployment on Windows and macOS using **PyInstaller**.\n\nThe application includes built-in validation logic to prevent submission errors before they occur and utilizes a JSON-based configuration system for flexible management of diplomatic data structures. It replaces error-prone manual filling with a consistent, automated process that ensures compliance with international shipping regulations.",
-      "technologies": ["Python", "Kivy", "PyInstaller", "Document Automation", "Desktop Application"],
+      "title": "DocFiller",
+      "shortDescription": "Desktop automation tool enforcing strict compliance for complex shipping documentation.",
+      "longDescription": "A specialized desktop utility built to eliminate human error in high-stakes shipping workflows. In logistics, a single typo on a critical form can result in massive delays or fines. This tool enforces rigid validation constraints, ensuring that generated documentation is 100% compliant with standards before it ever hits the printer.\n\n**Technical Architecture:**\nBuilt as a standalone executable using **Python** and **Kivy**, this application runs locally to ensure data privacy. It features a custom **Templating Engine** that maps validated user input onto PDF/Docx forms with pixel-perfect precision. The logic layer implements a complex state machine to guide users through the dependency-heavy form filling process, preventing invalid combinations of data.",
+      "technologies": ["Python", "Kivy", "PyInstaller", "Desktop Automation", "Compliance Logic"],
       "links": {
         "demo": "",
         "github": "https://github.com/LaazAlae/doc-filler"
@@ -124,10 +124,10 @@
     },
     {
       "id": "fabulous-social",
-      "title": "Fabulous Nature Social",
-      "shortDescription": "Agile-developed React social platform for photography enthusiasts.",
-      "longDescription": "A comprehensive social media platform developed to connect nature photography enthusiasts. The project was built using **Agile Methodology** with rapid iteration cycles. The frontend is constructed with **React** 18 and **TypeScript** to ensure type safety and maintainability at scale. The UI utilizes the **Material-UI** design system for a polished, accessible, and responsive experience.\n\nFeatures include complex state management for user feeds, real-time notifications via **Socket.IO**, and optimized image rendering strategies. The platform implements secure user authentication with JWT, comprehensive tagging systems for ecological content, and interactive social features like threaded comments and reactions.",
-      "technologies": ["React", "TypeScript", "Material-UI", "Socket.IO", "Agile Methodology"],
+      "title": "Naturest",
+      "shortDescription": "Scalable social network engineered for high-concurrency user interactions and media sharing.",
+      "longDescription": "A robust social platform built to handle the complexity of many-to-many user relationships. The project focuses on the scalability of social interactions—feeds, likes, comments, and follows—ensuring a snappy user experience even as the complexity of the social graph grows. It demonstrates the ability to ship a feature-complete product using Agile sprints.\n\n**Technical Architecture:**\nThe frontend leverages **React 18** concurrency features and **TypeScript** for type-safe, maintainable component logic. State management is optimized to minimize re-renders during high-frequency updates (like live like-counts). The backend implements a RESTful API design with optimized SQL queries to efficiently traverse the social graph (e.g., 'fetching posts from users I follow'), avoiding the N+1 query problem common in social applications.",
+      "technologies": ["React", "TypeScript", "Material-UI", "Socket.IO", "SQL Optimization", "Agile"],
       "links": {
         "demo": "https://webdev.cse.buffalo.edu/hci/teams/fabulous/welcome",
         "github": "https://github.com/CSE370HCI/fabulous"
@@ -135,10 +135,10 @@
     },
     {
       "id": "custom-server",
-      "title": "Custom Web Server Foundation",
-      "shortDescription": "Zero-framework HTTP/WebSocket server built from scratch.",
-      "longDescription": "A foundational **Network Programming** project implementing a functional web server without the use of high-level external libraries. Written in pure **Python**, it handles raw **TCP/IP** socket connections to serve static content and process dynamic requests. The implementation strictly adheres to the **HTTP Protocol** (RFC 7230) specifications and includes a custom handshake mechanism for **WebSockets** (RFC 6455).\n\nThis project demonstrates deep, low-level understanding of web infrastructure, featuring manual parsing of HTTP headers, multipart form data processing, and binary frame manipulation for WebSocket communication. It proves the ability to build complex systems from first principles.",
-      "technologies": ["Python", "TCP/IP", "WebSockets", "HTTP Protocol", "Network Programming"],
+      "title": "NoframeworkApp",
+      "shortDescription": "Zero-dependency web server implemented from scratch using raw TCP/IP sockets.",
+      "longDescription": "An infrastructure-level project built to deconstruct the magic of modern web servers. By rejecting all external HTTP libraries, this server handles raw byte streams directly from the network card. It serves as a demonstration of deep networking knowledge, specifically handling the OSI Model's Transport and Application layers manually.\n\n**Technical Architecture:**\nWritten in **Python**, the server creates a raw **TCP Socket** bound to a port, listening for incoming packet streams. It implements a custom **HTTP Parser** that decodes headers, verbs (GET, POST), and payloads according to **RFC 7230**. It also includes a hand-written **WebSocket Handshake** mechanism (RFC 6455), manually computing the Sec-WebSocket-Accept hash to upgrade connections, proving a fundamental understanding of full-duplex communication protocols.",
+      "technologies": ["Python", "TCP/IP Sockets", "HTTP/1.1 Specification", "WebSockets", "Low-Level Networking"],
       "links": {
         "demo": "",
         "github": ""
@@ -146,10 +146,10 @@
     },
     {
       "id": "budget-db",
-      "title": "Federal Budget Analysis DB",
-      "shortDescription": "Enterprise-grade PostgreSQL system for government transparency.",
-      "longDescription": "An advanced relational database system designed to ingest and analyze over 5 years of complex U.S. Treasury data. The schema utilizes **PostgreSQL** to manage a normalized 9-table structure, ensuring data consistency and efficiency. The project features sophisticated **PL/pgSQL** triggers and stored procedures to automatically detect anomalies and potential fraud patterns during data ingestion.\n\nThe system implements **Database Design** best practices, achieving Boyce-Codd Normal Form (BCNF) to eliminate redundancy. Complex **SQL** queries and window functions were optimized to generate high-level financial reports, providing transparency into government spending by restructuring raw, messy datasets into a queryable format.",
-      "technologies": ["PostgreSQL", "SQL", "Database Design", "Data Analysis", "PL/pgSQL"],
+      "title": "FederalBudgetDB",
+      "shortDescription": "Normalized relational database engine for analyzing complex US Treasury datasets.",
+      "longDescription": "A data engineering project focused on transforming messy, real-world government datasets into a pristine, queryable analytical engine. The system ingests 5+ years of US Treasury data, cleaning and restructuring it to expose hidden trends in federal spending. It prioritizes data integrity and query performance over simple storage.\n\n**Technical Architecture:**\nThe schema is rigorously designed to **Boyce-Codd Normal Form (BCNF)**, eliminating data redundancy and update anomalies. The system utilizes **PostgreSQL** advanced features, including **Stored Procedures** and **Triggers**, to automatically validate data quality during the ingestion pipeline (ETL). Complex reporting is handled via optimized Window Functions and Common Table Expressions (CTEs), allowing for performant aggregation of millions of transaction rows.",
+      "technologies": ["PostgreSQL", "Database Normalization (BCNF)", "ETL Pipelines", "PL/pgSQL", "Data Warehousing"],
       "links": {
         "demo": "",
         "github": ""

@@ -26,17 +26,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0.1 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4 will-change-[opacity]"
           />
           <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.98, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="bg-zinc-950 w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl border border-primary/10 overflow-hidden flex flex-col pointer-events-auto relative"
+              exit={{ opacity: 0, scale: 0.98, y: 10 }}
+              transition={{ duration: 0.1, ease: "linear" }}
+              style={{ backfaceVisibility: 'hidden' }}
+              className="bg-zinc-950 w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl border border-primary/10 overflow-hidden flex flex-col pointer-events-auto relative will-change-transform transform-gpu"
             >
                {/* Floating Close Button */}
                <button 

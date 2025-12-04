@@ -11,36 +11,63 @@ interface HeroProps {
 }
 
 const Carousel = () => {
-  const images: string[] = ["/images/placeholder.jpg"]; 
+  const images: string[] = Array.from({ length: 8 }, (_, i) => `/images/profile/${i + 1}.jpg`);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 1,
+      zIndex: 1,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 1,
+    }),
+  };
 
   useEffect(() => {
     if (images.length <= 1) return;
     const timer = setInterval(() => {
+      setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 4000);
     return () => clearInterval(timer);
   }, [images.length]);
 
-  const next = () => setCurrentIndex((prev) => (prev + 1) % images.length);
-  const prev = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  const next = () => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+  const prev = () => {
+      setDirection(-1);
+      setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
-    <div className="relative w-4/5 max-w-[260px] md:max-w-md lg:max-w-lg aspect-square mx-auto lg:mr-0 rounded-full overflow-hidden" 
-         style={{ 
-             maskImage: 'radial-gradient(circle, black 40%, transparent 70%)', 
-             WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)'
-         }}>
-      <AnimatePresence mode="wait">
+    <div className="relative w-4/5 max-w-[260px] md:max-w-md lg:max-w-lg aspect-square mx-auto lg:mr-0 rounded-full overflow-hidden group cursor-pointer shadow-2xl border-4 border-primary/5">
+      <AnimatePresence initial={false} custom={direction}>
         {images.length > 0 ? (
           <motion.img
             key={currentIndex}
             src={images[currentIndex]}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.8 }} 
-            className="w-full h-full object-cover"
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 }
+            }}
+            className="absolute inset-0 w-full h-full object-cover"
             alt="Profile"
             onError={(e) => {
                 e.currentTarget.style.display = 'none';
@@ -59,9 +86,9 @@ const Carousel = () => {
 
       {images.length > 1 && (
         <>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <button onClick={(e) => { e.stopPropagation(); prev(); }} className="absolute left-8 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full text-primary opacity-0 group-hover:opacity-100 hover:bg-white transition-all transform hover:scale-110"><ChevronLeft size={24} /></button>
-            <button onClick={(e) => { e.stopPropagation(); next(); }} className="absolute right-8 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full text-primary opacity-0 group-hover:opacity-100 hover:bg-white transition-all transform hover:scale-110"><ChevronRight size={24} /></button>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none" />
+            <button onClick={(e) => { e.stopPropagation(); prev(); }} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full text-primary opacity-0 group-hover:opacity-100 hover:bg-white transition-all transform hover:scale-110 z-20 shadow-lg"><ChevronLeft size={24} /></button>
+            <button onClick={(e) => { e.stopPropagation(); next(); }} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full text-primary opacity-0 group-hover:opacity-100 hover:bg-white transition-all transform hover:scale-110 z-20 shadow-lg"><ChevronRight size={24} /></button>
         </>
       )}
     </div>
@@ -70,7 +97,7 @@ const Carousel = () => {
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
-    <section className="min-h-[calc(100vh-100px)] flex flex-col justify-center relative">
+    <section className="min-h-[calc(100vh-100px)] flex flex-col justify-center relative pb-24 pt-12 lg:py-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center flex-grow">
       
       <motion.div
