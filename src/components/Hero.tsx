@@ -14,6 +14,7 @@ const Carousel = () => {
   const images: string[] = Array.from({ length: 8 }, (_, i) => `/images/profile/${i + 1}.jpg`);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [imagesReady, setImagesReady] = useState(false);
 
   const variants = {
     enter: (direction: number) => ({
@@ -33,14 +34,34 @@ const Carousel = () => {
     }),
   };
 
+  // Preload all images before showing the carousel
   useEffect(() => {
-    if (images.length <= 1) return;
+    let cancelled = false;
+    const preload = async () => {
+      const promises = images.map(src => new Promise<void>((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
+        img.src = src;
+      }));
+      // Show carousel once the first image is ready
+      await promises[0];
+      if (!cancelled) setImagesReady(true);
+      // Continue loading the rest in background
+      await Promise.all(promises);
+    };
+    preload();
+    return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
+    if (!imagesReady || images.length <= 1) return;
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, [images.length]);
+  }, [imagesReady, images.length]);
 
   const next = () => {
       setDirection(1);
@@ -53,8 +74,8 @@ const Carousel = () => {
 
   return (
     <div className="relative w-4/5 max-w-[260px] md:max-w-md lg:max-w-lg aspect-square mx-auto lg:mr-0 rounded-full overflow-hidden group cursor-pointer shadow-2xl border-4 border-primary/5">
-      <AnimatePresence initial={false} custom={direction}>
-        {images.length > 0 ? (
+      {imagesReady ? (
+        <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={currentIndex}
             src={images[currentIndex]}
@@ -74,15 +95,15 @@ const Carousel = () => {
                 e.currentTarget.parentElement?.querySelector('.fallback-icon')?.classList.remove('hidden');
             }}
           />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/10">
-             <User className="w-40 h-40 text-primary/20" />
-          </div>
-        )}
-        <div className="fallback-icon hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/10 absolute inset-0">
-             <User className="w-40 h-40 text-primary/20" />
+        </AnimatePresence>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/10">
+           <User className="w-40 h-40 text-primary/20 animate-pulse" />
         </div>
-      </AnimatePresence>
+      )}
+      <div className="fallback-icon hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/10 absolute inset-0">
+           <User className="w-40 h-40 text-primary/20" />
+      </div>
 
       {images.length > 1 && (
         <>
@@ -114,7 +135,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/5 border border-secondary/10 text-accent text-xs font-bold uppercase tracking-widest"
             >
                 <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                Portfolio 2025
+                Portfolio 2026
             </motion.div>
             
             <motion.h1 

@@ -11,31 +11,34 @@
     "status": "Authorized to work in the U.S. through 2028 (renewable) · No sponsorship required"
   },
   "about": {
-    "description": "Recent CS Graduate and incoming Graduate Student at **Johns Hopkins University** (MS in Cybersecurity). I am a precision-focused Software Engineer specializing in building high-assurance **distributed systems**, automating complex enterprise workflows, and crafting **secure digital infrastructure**. My work bridges the gap between theoretical security models and production-grade software solutions.",
+    "description": "Graduate Student at **Johns Hopkins University** (MS in Cybersecurity) and Software Developer with production experience building **distributed systems**, automating complex enterprise workflows, and crafting **secure digital infrastructure**. My work bridges the gap between theoretical security models and production-grade software solutions.",
     "stats": [
-      { "label": "Cybersecurity", "value": "Incoming M.S." },
+      { "label": "Cybersecurity", "value": "M.S. in Progress" },
       { "label": "Projects Shipped", "value": "12+" },
       { "label": "Full Stack", "value": "Expert" }
     ]
   },
   "skills": {
-    "Core Programming": ["Python", "JavaScript", "Go", "Java", "C", "SQL", "HTML/CSS", "TypeScript"],
-    "Web Frameworks": ["React", "Express.js", "Flask", "Node.js", "Socket.IO", "Tailwind CSS", "Material-UI"],
-    "Infrastructure": ["Docker", "Nginx", "MongoDB", "PostgreSQL", "Git", "Railway", "Digital Ocean", "Firebase", "SQLite"],
+    "Core Programming": ["Python", "JavaScript", "Go", "Java", "C", "SQL", "PowerShell", "HTML/CSS", "TypeScript"],
+    "Web Frameworks": ["React", "Express.js", "Flask", "Node.js", "Sails.js", "Vue.js", "Socket.IO", "Tailwind CSS"],
+    "Infrastructure": ["Docker", "Nginx", "Linux", "Git", "CI/CD", "Azure", "SharePoint", "DigitalOcean", "Railway"],
+    "Databases": ["MongoDB", "PostgreSQL", "SQL Server", "Redis", "SQLite", "Firebase"],
     "Security & Systems": ["OAuth", "JWT", "AES-256", "Distributed Systems", "Consensus Algorithms", "Network Programming", "Security Engineering"],
     "Languages": ["English", "French", "Arabic"]
   },
   "experience": [
     {
       "company": "United Corporate Services Inc.",
-      "title": "Software & Automation Engineer",
-      "period": "June 2024 – Present",
+      "title": "Software Developer",
+      "period": "Summer 2024, June 2025 – Present",
       "location": "White Plains, NY",
       "description": [
-        "Architected the AlaeAutomates platform, reducing manual document processing time by 99% through intelligent **PDF parsing** and fuzzy matching algorithms.",
-        "Engineered secure automated payment workflows enabling seamless reconciliation between credit card processors and check systems.",
-        "Designed a company-wide **SharePoint** architecture to modernize digital collaboration and secure document retention.",
-        "Developed custom **Excel automation** tools with complex heuristic matching for financial data reconciliation."
+        "Reduced document processing time from 2 to 3 days to under 30 seconds by building an internal platform that parses **1000+ page financial PDFs** and auto-matches company names against existing records.",
+        "Eliminated manual data entry for payment processing by engineering **REST API** workflows that auto-populate credit card and check transactions; deployed via **CI/CD** on Railway with Flask and Express.js.",
+        "Leading company-wide **cloud migration**; built PowerShell scripts to audit department file shares and extract metadata, deployed customized **SharePoint** sites per team, and architecting **Azure Blob** cold storage for document archival.",
+        "Building an enterprise client management platform in **Agile sprints** with a cross-functional dev team; developing REST API endpoints for CRUD operations across multiple modules using **Sails.js**, **SQL Server**, and **Vue.js**.",
+        "Advising executive team on technical decisions and **security**; identified a credit card testing attack (9,000+ fraudulent transactions via compromised third-party processor) and led the **incident response**.",
+        "Built financial **reconciliation tools** using fuzzy matching algorithms to compare month-over-month records, reducing accountant review time through automated discrepancy detection."
       ]
     }
   ],
@@ -43,7 +46,7 @@
     {
         "institution": "Johns Hopkins University",
         "degree": "Master of Science in Cybersecurity",
-        "period": "Starting Jan 2026",
+        "period": "Jan 2026 – Aug 2027",
         "details": "Whiting School of Engineering",
         "highlight": true
     },
