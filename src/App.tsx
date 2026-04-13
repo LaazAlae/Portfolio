@@ -200,7 +200,7 @@ function App() {
                 ))}
                 {selectedSkill && getProjectsBySkill(selectedSkill).length === 0 && (
                     <div className="col-span-2 text-center py-12 text-muted">
-                        No specific featured projects tagged with this skill yet.
+                        Projects using this skill are private or in development.
                     </div>
                 )}
             </div>

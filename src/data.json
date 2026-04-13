@@ -21,8 +21,7 @@
   "skills": {
     "Core Programming": ["Python", "JavaScript", "Go", "Java", "C", "SQL", "PowerShell", "HTML/CSS", "TypeScript"],
     "Web Frameworks": ["React", "Express.js", "Flask", "Node.js", "Sails.js", "Vue.js", "Socket.IO", "Tailwind CSS"],
-    "Infrastructure": ["Docker", "Nginx", "Linux", "Git", "CI/CD", "Azure", "SharePoint", "DigitalOcean", "Railway"],
-    "Databases": ["MongoDB", "PostgreSQL", "SQL Server", "Redis", "SQLite", "Firebase"],
+    "Infrastructure & Data": ["Docker", "Nginx", "Linux", "Git", "CI/CD", "Azure", "SharePoint", "DigitalOcean", "Railway", "MongoDB", "PostgreSQL", "SQL Server", "Redis", "SQLite", "Firebase"],
     "Security & Systems": ["OAuth", "JWT", "AES-256", "Distributed Systems", "Consensus Algorithms", "Network Programming", "Security Engineering"],
     "Languages": ["English", "French", "Arabic"]
   },

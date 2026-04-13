@@ -39,13 +39,22 @@ const Skills: React.FC<SkillsProps> = ({ skills, onSkillClick }) => {
             </h3>
             <div className="flex flex-wrap justify-center gap-3">
               {skillList.map((skill) => (
-                <button
-                  key={skill}
-                  onClick={() => onSkillClick(skill)}
-                  className="px-3 py-1.5 text-sm bg-background text-muted font-medium rounded-lg border border-primary/5 hover:bg-primary hover:text-white hover:border-primary transition-colors active:scale-95"
-                >
-                  {skill.replace(/ \(Native\/Fluent\)/g, '')}
-                </button>
+                category === "Languages" ? (
+                  <span
+                    key={skill}
+                    className="px-3 py-1.5 text-sm bg-background text-muted font-medium rounded-lg border border-primary/5"
+                  >
+                    {skill}
+                  </span>
+                ) : (
+                  <button
+                    key={skill}
+                    onClick={() => onSkillClick(skill)}
+                    className="px-3 py-1.5 text-sm bg-background text-muted font-medium rounded-lg border border-primary/5 hover:bg-primary hover:text-white hover:border-primary transition-colors active:scale-95"
+                  >
+                    {skill}
+                  </button>
+                )
               ))}
             </div>
           </motion.div>

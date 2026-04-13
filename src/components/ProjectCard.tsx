@@ -62,13 +62,13 @@ const ProjectCard: React.FC<ProjectProps> = ({ project, onClick }) => {
 
       {/* Content Area */}
       <div className="p-4 flex flex-col flex-grow">
-        <div className="flex justify-between items-start mb-1">
-            <h3 className="text-lg font-bold text-primary group-hover:text-accent transition-colors">
+        <div className="flex justify-between items-start gap-2 mb-1">
+            <h3 className="text-lg font-bold text-primary group-hover:text-accent transition-colors min-w-0 break-words">
                 {project.title}
             </h3>
-            
+
             {/* Quick Links - Always Visible */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 shrink-0">
                 <button
                     onClick={(e) => handleLinkClick(e, project.links.github)}
                     disabled={!project.links.github}
